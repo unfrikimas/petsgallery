@@ -10,6 +10,17 @@ module.exports = {
         'primario': '#125e90',
         'primario-hover': '#10466e',
       },
+      borderWidth: {
+        DEFAULT: '1px',
+        '0': '0',
+        '2': '2px',
+        '3': '3px',
+        '4': '4px',
+        '6': '6px',
+        '8': '8px',
+        '12': '12px',
+        '16': '16px'
+      }
     },
   },
   variants: {
