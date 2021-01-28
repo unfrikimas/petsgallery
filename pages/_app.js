@@ -13,8 +13,8 @@ function MyApp({ Component, pageProps }) {
         <title>PetsGallery</title>
         <link rel="shortcut icon" href="/favicon.ico" />
         {/* <link rel="mask-icon" href="logo-brevi.svg" color="#5bbad5"/> */}
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.gstatic.com"/>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700;900&family=Leckerli+One&display=swap" rel="stylesheet"/>
       </Head>
       <Component {...pageProps} />
     </>
