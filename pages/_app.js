@@ -1,7 +1,13 @@
 import Head from 'next/head'
 import '../styles/globals.css'
+import ImageState from '../context/image/imageState'
+import firebase, { FirebaseContext } from '../firebase';
+import useAutenticacion from '../hooks/useAutenticacion';
 
 function MyApp({ Component, pageProps }) {
+
+  //hook de autenticion de usuario
+  const usuario = useAutenticacion();
   
   return (
     <>
@@ -16,7 +22,15 @@ function MyApp({ Component, pageProps }) {
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
         <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700;900&family=Leckerli+One&display=swap" rel="stylesheet"/>
       </Head>
-      <Component {...pageProps} />
+
+      <FirebaseContext.Provider
+        value={{ firebase, usuario }}
+      >
+        <ImageState>  
+          <Component {...pageProps} />
+        </ImageState>
+      </FirebaseContext.Provider>
+    
     </>
   )
 
