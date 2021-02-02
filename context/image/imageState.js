@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import imageContext from './imageContext';
 import imageReducer from './imageReducer';
 import {  
-    ACTUALIZAR_URL_IMAGEN,
+    ACTUALIZAR_ID_PUBLICO_IMAGEN,
 } from '../../types';
 
 const imageState = ({children}) => {
@@ -10,17 +10,17 @@ const imageState = ({children}) => {
     const initialState = {
         version: "",
         public_Id: "",
-        secureUrl: ""
+        secure_url: ""
     }
 
     const [ state, dispatch ] = useReducer(imageReducer, initialState); 
 
     //actualiza redes sociales
-    const guardarImagenContext = (datosImagen) => {
-        if(datosImagen) {
+    const guardarIdPublico = (idPublico) => {
+        if(idPublico) {
             dispatch({
-                type: ACTUALIZAR_URL_IMAGEN,
-                payload: datosImagen
+                type: ACTUALIZAR_ID_PUBLICO_IMAGEN,
+                payload: idPublico
             })
         }
     }
@@ -31,7 +31,7 @@ const imageState = ({children}) => {
                 version: state.version,
                 public_Id: state.public_Id,
                 secureUrl: state.secureUrl,
-                guardarImagenContext
+                guardarIdPublico
             }}
         >
             {children}

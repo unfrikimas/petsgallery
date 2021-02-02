@@ -1,30 +1,93 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 import HeaderUser from "../../components/layout/HeaderUser";
 import { Image, Transformation, CloudinaryContext } from "cloudinary-react";
+import { FirebaseContext } from '../../firebase'
+import imageContext from '../../context/image/imageContext'
 import IconFlechaAdelante from "../../components/icons/FlechaAdelante";
 import ContenedorImagen from "../../components/layout/ContenedorImagen";
 import Paginacion from "../../components/layout/Paginacion";
+import { subirACloudinary } from '../../utils/helper'
 
 const IMAGEN_PRUEBA = {
   uno: "petsgallery/uwdedmkdkz5jopwisha8.png",
 };
 
+
 const SubirImagen = () => {
-  return (
+    
+    const [publicId, setPublicId] = useState("")
+    const [ procesandoImagen, setProcesandoImagen ] = useState(false)
+
+    //context de firebase
+    const { firebase } = useContext(FirebaseContext)
+
+    const ImageContext = useContext(imageContext)
+    const { guardarIdPublico } = ImageContext
+
+    useEffect(() => {
+        if(publicId){
+          setProcesandoImagen(false);
+          guardarIdPublico(publicId)
+        }
+        // eslint-disable-next-line
+    }, [publicId]);
+    
+    //funcion para subir la imagen a Cloudinary
+    const subirPet = async e => {
+        setProcesandoImagen(true)
+        setPublicId("")
+        await subirACloudinary(e)
+            .then(idImagen => {
+                esperarImagen(idImagen)
+            })
+            .catch(error => console.log(error))
+    }
+
+    //REALTIME GET FUNCTION
+    const esperarImagen = async (assetId) => {
+        // console.log("assetid", assetId)
+        const ref = firebase.db.collection("mascotas");
+        await ref
+            .where('imagen_sin_background.asset_id', '==', assetId)
+            .onSnapshot((querySnapshot) => {
+                const pets = [];
+                querySnapshot.forEach((doc) => {
+                    pets.push(doc.data());
+                });
+                // setMascotas(pets[0]);
+                setPublicId(pets[0]?.imagen_sin_background.public_id)
+            });
+    }
+
+
+    return (
     <>
       <div className="max-w-lg mx-auto">
+
         <HeaderUser />
 
-        <ContenedorImagen imagen={IMAGEN_PRUEBA.uno} />
+        <ContenedorImagen 
+            imagen={publicId}
+        >
+            { procesandoImagen &&
+                <div className="h-full w-full flex items-center justify-center">
+                    <p className="px-4 py-2 bg-white border border-gray-800">Procesando imagen...</p>
+                </div>
+            }
+        </ContenedorImagen>
 
-        {/* <div className="h-full w-full flex items-center justify-center">
-                <p className="px-4 py-2 bg-white">Procesando imagen...</p>
-            </div> */}
-
-        <div className="w-80 h-16 mx-auto flex items-center justify-center mt-8">
-          <button className="w-full h-full bg-amarillo border-2 border-gray-800 rounded-2xl text-xl font-bold text-gray-800 sombra">
+        <div className="w-80 h-16 mx-auto mt-8">
+          <label
+            className="w-full h-full flex items-center justify-center bg-amarillo border-2 border-gray-800 rounded-2xl text-xl font-bold text-gray-800 sombra focus:outline-none cursor-pointer"
+          >
+            <input
+                className="hidden"
+                type="file" 
+                name="inputImagen"
+                onChange={e => subirPet(e)}
+            />
             Upload image
-          </button>
+          </label>
         </div>
 
         <Paginacion
@@ -33,7 +96,6 @@ const SubirImagen = () => {
           adelantar="true"
           rutaSiguiente="/"
         />
-        
       </div>
       <style jsx>
         {`

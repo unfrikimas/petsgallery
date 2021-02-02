@@ -356,10 +356,7 @@ export default function Home() {
             >
               <label className="z-40 absolute top-0 right-0 -mt-5 mr-2 cursor-pointer">
                 <MdPets className="h-10 w-10 text-red-500 bg-white p-1 rounded-md border border-red-300" />
-                {/* { cargando
-                  ? <span className="mt-2 text-gray-700">Subiendo foto...</span>
-                  : <span className="mt-2 text-gray-700">Sube una foto</span> 
-                } */}
+
                 <input
                   className="hidden"
                   type="file" 

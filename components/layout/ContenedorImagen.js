@@ -1,10 +1,10 @@
 import React from 'react';
 import {Image, Transformation, CloudinaryContext} from 'cloudinary-react'
 
-const ContenedorImagen = ({imagen}) => {
+const ContenedorImagen = ({imagen, children}) => {
     return (  
         <>
-        <div className="relative z-10 flex items-center justify-center mx-auto w-80 h-80 mt-4 border-2 border-gray-800 rounded-2xl sombra pt-2">
+        <div className="relative z-10 flex items-center justify-center mx-auto w-80 h-80 mt-4 border-2 border-gray-800 rounded-2xl sombra pt-2 overflow-hidden">
             <Image 
                 cloudName="petportrait" 
                 secure="true"
@@ -16,6 +16,7 @@ const ContenedorImagen = ({imagen}) => {
                 <Transformation effect="trim:10" />
                 <Transformation width="310" height="310" crop="fit" />
             </Image>
+            {children}
         </div>
 
         <style jsx>{`
