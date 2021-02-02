@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primario': '#125e90',
+        'amarillo': '#FFBD12',
         'primario-hover': '#10466e',
       },
       borderWidth: {

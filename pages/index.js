@@ -30,6 +30,10 @@ export const BACKS = {
   }
 }
 
+const IMAGEN_PRUEBA = {
+  uno: "https://res.cloudinary.com/petportrait/image/upload/v1612167129/petsgallery/uwdedmkdkz5jopwisha8.png"
+}
+
 export const DOGS = {
   uno: "https://res.cloudinary.com/petportrait/image/upload/v1611472119/petsgallery/matf6gbxivrkba806njo.png"
 }
@@ -78,7 +82,7 @@ export default function Home() {
   })
   const [ imagenMascota, setImagenMascota ] = useState({
     archivoMascota: "",
-    anchoImagenMascota: 1060
+    anchoImagenMascota: 1070
   })
   const [ nombreMascota, setNombreMascota ] = useState({
     fuente: "Kanit",
@@ -261,7 +265,7 @@ export default function Home() {
     // console.log(transformacionFrame)
 
     //transformacion de la imagen de la mascota
-    const transformacionMascota = `l_petsgallery:${archivoMascotaLimpio},h_${imagenMascota.anchoImagenMascota},e_vectorize`
+    const transformacionMascota = `l_petsgallery:${archivoMascotaLimpio},h_${imagenMascota.anchoImagenMascota},g_south,y_0,e_vectorize`
 
     //transformacion del texto
     const transformacionTexto = `l_text:${nombreMascota.fuente}_${nombreMascota.sizeFuente}_${nombreMascota.estiloFuente}_${nombreMascota.tieneBorde}:${nombre},bo_${nombreMascota.grosorBorde}px_solid_${nombreMascota.colorBorde},co_rgb:${nombreMascota.colorTexto},g_south,y_${nombreMascota.separacionTexto}`
@@ -375,7 +379,7 @@ export default function Home() {
 
               {/* Componente de cloudinary */}
               { publicId &&     
-                <div className="z-10 p-4">
+                <div className="z-10 pt-2">
                   <Image 
                     cloudName="petportrait" 
                     secure="true"
@@ -385,6 +389,7 @@ export default function Home() {
                     height="auto"
                   >
                     <Transformation effect="vectorize" />
+                    <Transformation effect="trim:10" />
                     <Transformation width="310" height="310" crop="fit" />
                   </Image>
                 </div>

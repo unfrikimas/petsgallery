@@ -11,7 +11,7 @@ const webHook = async (req, res) => {
                     version: req.body.version,
                     public_id: req.body.public_id
                 },
-                creado: req.body.timestamp ? req.body.timestamp : ""
+                creado: req.body.timestamp ? req.body.timestamp : Date.now()
             }
             
             try {                
@@ -25,10 +25,7 @@ const webHook = async (req, res) => {
             console.log("desde servidor", req.body)
             return res.status(200).json({msg: "ok"});
         }
-
-
     }
-
 }
  
 export default webHook;
