@@ -1,14 +1,17 @@
 import React from 'react';
-import {Image, Transformation, CloudinaryContext} from 'cloudinary-react'
+import {Image, Transformation} from 'cloudinary-react'
 
-const ContenedorImagen = ({imagen, children}) => {
+const ContenedorImagen = ({background="", imagen, children}) => {
     return (  
         <>
-        <div className="relative z-10 flex items-center justify-center mx-auto w-80 h-80 mt-4 border-2 border-gray-800 rounded-2xl sombra pt-2 overflow-hidden">
+        <div 
+            className="z-10 flex items-center justify-center mx-auto w-80 h-80 mt-4 border-2 border-gray-800 rounded-2xl sombra pt-2 overflow-hidden bg-cover"
+            style={ { backgroundImage: `url(${background})` } }
+        >
             <Image 
                 cloudName="petportrait" 
                 secure="true"
-                publicId={imagen}
+                publicId={imagen && imagen}
                 dpr="auto"
                 width="auto"
             >

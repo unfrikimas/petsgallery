@@ -1,29 +1,23 @@
-import React, { useState, useContext, useEffect } from "react";
-import HeaderUser from "../../components/layout/HeaderUser";
-import { Image, Transformation, CloudinaryContext } from "cloudinary-react";
+import React, { useState, useContext, useEffect } from "react"
+import useLocalStorage from '../../hooks/useLocalStorage'
+import HeaderUser from "../../components/layout/HeaderUser"
 import { FirebaseContext } from '../../firebase'
 import imageContext from '../../context/image/imageContext'
-import IconFlechaAdelante from "../../components/icons/FlechaAdelante";
-import ContenedorImagen from "../../components/layout/ContenedorImagen";
-import Paginacion from "../../components/layout/Paginacion";
+import ContenedorImagen from "../../components/layout/ContenedorImagen"
+import Paginacion from "../../components/layout/Paginacion"
 import { subirACloudinary } from '../../utils/helper'
 
-const IMAGEN_PRUEBA = {
-  uno: "petsgallery/uwdedmkdkz5jopwisha8.png",
-};
-
-
 const SubirImagen = () => {
-    
-    const [publicId, setPublicId] = useState("")
-    const [ procesandoImagen, setProcesandoImagen ] = useState(false)
+  
+  //context de firebase
+  const { firebase } = useContext(FirebaseContext)
+  
+  const ImageContext = useContext(imageContext)
+  const {public_Id, guardarIdPublico} = ImageContext
 
-    //context de firebase
-    const { firebase } = useContext(FirebaseContext)
-
-    const ImageContext = useContext(imageContext)
-    const { guardarIdPublico } = ImageContext
-
+  const [publicId, setPublicId] = useState(public_Id)
+  const [procesandoImagen, setProcesandoImagen] = useState(false)
+  
     useEffect(() => {
         if(publicId){
           setProcesandoImagen(false);
@@ -64,10 +58,12 @@ const SubirImagen = () => {
     <>
       <div className="max-w-lg mx-auto">
 
-        <HeaderUser />
+        <HeaderUser 
+          titulo={"New Art"}
+        />
 
         <ContenedorImagen 
-            imagen={publicId}
+            imagen={publicId && publicId}
         >
             { procesandoImagen &&
                 <div className="h-full w-full flex items-center justify-center">
@@ -91,10 +87,10 @@ const SubirImagen = () => {
         </div>
 
         <Paginacion
-          retroceder="false"
-          rutaAnterior="/"
-          adelantar="true"
-          rutaSiguiente="/"
+          retroceder={"false"}
+          rutaAnterior={"/"}
+          adelantar={"true"}
+          rutaSiguiente={"/createart/background"}
         />
       </div>
       <style jsx>

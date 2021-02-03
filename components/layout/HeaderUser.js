@@ -13,7 +13,7 @@ import IconUserItem from '../icons/useritem';
 //   cursor: pointer;
 // `;
 
-const HeaderUser = () => {
+const HeaderUser = ({titulo}) => {
 
     //Estado para el dropdown
     const [ menuDropDown, setMenuDropDown ] = useState(false)
@@ -36,7 +36,7 @@ const HeaderUser = () => {
               <h2 className="text-gray-800 font-bold text-xl">P</h2>
             </Link>
 
-            <p className="font-bold text-xl text-gray-800">New Art</p>
+            <p className="font-bold text-xl text-gray-800">{titulo}</p>
             
             <div className="text-gray-500">
               <div className="relative inline-block text-left">

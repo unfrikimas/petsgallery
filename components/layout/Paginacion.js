@@ -1,6 +1,7 @@
-import React from 'react';
+import React from 'react'
 import Link from 'next/link'
 import IconFlechaAdelante from '../icons/FlechaAdelante'
+import IconFlechaAtras from '../icons/FlechaAtras'
 
 const Paginacion = ({retroceder, rutaAnterior, adelantar, rutaSiguiente}) => {
     return (  
@@ -10,7 +11,7 @@ const Paginacion = ({retroceder, rutaAnterior, adelantar, rutaSiguiente}) => {
                 { retroceder === "true" &&
                     <Link href={rutaAnterior}>
                         <a className="flex items-center justify-center w-12 h-12 bg-white rounded-full border-2 border-gray-800 sombra">
-                            <IconFlechaAdelante />
+                            <IconFlechaAtras />
                         </a>
                     </Link>
                 }

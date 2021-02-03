@@ -3,14 +3,15 @@ import imageContext from './imageContext';
 import imageReducer from './imageReducer';
 import {  
     ACTUALIZAR_ID_PUBLICO_IMAGEN,
+    ACTUALIZAR_RUTA_BACKGROUND
 } from '../../types';
 
 const imageState = ({children}) => {
 
     const initialState = {
-        version: "",
         public_Id: "",
-        secure_url: ""
+        secureUrl: "",
+        rutaBackground: ""
     }
 
     const [ state, dispatch ] = useReducer(imageReducer, initialState); 
@@ -25,13 +26,24 @@ const imageState = ({children}) => {
         }
     }
 
+    //asignar el background al context
+    const asignarBackground = (objetoBackground) => {
+        if(objetoBackground) {
+            dispatch({
+                type: ACTUALIZAR_RUTA_BACKGROUND,
+                payload: objetoBackground
+            })
+        }
+    }    
+
     return (
         <imageContext.Provider
             value={{
-                version: state.version,
                 public_Id: state.public_Id,
                 secureUrl: state.secureUrl,
-                guardarIdPublico
+                rutaBackground: state.rutaBackground,
+                guardarIdPublico,
+                asignarBackground
             }}
         >
             {children}
