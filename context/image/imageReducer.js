@@ -1,7 +1,8 @@
 import React from 'react';
 import {  
     ACTUALIZAR_ID_PUBLICO_IMAGEN,
-    ACTUALIZAR_RUTA_BACKGROUND
+    ACTUALIZAR_RUTA_BACKGROUND,
+    ACTUALIZAR_FRAME
 } from '../../types';
 
 const imageReducer = (state, action) => {
@@ -15,6 +16,14 @@ const imageReducer = (state, action) => {
             return {
                 ...state,
                 rutaBackground: action.payload
+            }
+        case ACTUALIZAR_FRAME:
+            return {
+                ...state,
+                tieneFrame: {
+                    ...state.tieneFrame,
+                    colorFrame: action.payload
+                }
             }
         default:
             return state

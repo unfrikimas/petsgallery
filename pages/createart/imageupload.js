@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react"
-import useLocalStorage from '../../hooks/useLocalStorage'
 import HeaderUser from "../../components/layout/HeaderUser"
 import { FirebaseContext } from '../../firebase'
 import imageContext from '../../context/image/imageContext'
@@ -9,20 +8,25 @@ import { subirACloudinary } from '../../utils/helper'
 
 const SubirImagen = () => {
   
-  //context de firebase
-  const { firebase } = useContext(FirebaseContext)
-  
-  const ImageContext = useContext(imageContext)
-  const {public_Id, guardarIdPublico} = ImageContext
+    //context de firebase
+    const { firebase } = useContext(FirebaseContext)
+    
+    const ImageContext = useContext(imageContext)
+    const {public_Id, guardarIdPublico} = ImageContext
 
-  const [publicId, setPublicId] = useState(public_Id)
-  const [procesandoImagen, setProcesandoImagen] = useState(false)
-  
+    const [publicId, setPublicId] = useState(public_Id)
+    const [procesandoImagen, setProcesandoImagen] = useState(false)
+    
     useEffect(() => {
-        if(publicId){
-          setProcesandoImagen(false);
-          guardarIdPublico(publicId)
-        }
+      const idInicial = JSON.parse(window.localStorage.getItem('publicId'))
+      setPublicId(idInicial)
+    }, [])
+    
+    useEffect(() => {
+      setProcesandoImagen(false);
+      guardarIdPublico(publicId)
+      const unsubscribe = window.localStorage.setItem('publicId', JSON.stringify(publicId))
+      return unsubscribe
         // eslint-disable-next-line
     }, [publicId]);
     
@@ -63,7 +67,8 @@ const SubirImagen = () => {
         />
 
         <ContenedorImagen 
-            imagen={publicId && publicId}
+            imagen={publicId || public_Id}
+            colorFrame={"none"}
         >
             { procesandoImagen &&
                 <div className="h-full w-full flex items-center justify-center">

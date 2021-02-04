@@ -3,7 +3,8 @@ import imageContext from './imageContext';
 import imageReducer from './imageReducer';
 import {  
     ACTUALIZAR_ID_PUBLICO_IMAGEN,
-    ACTUALIZAR_RUTA_BACKGROUND
+    ACTUALIZAR_RUTA_BACKGROUND,
+    ACTUALIZAR_FRAME
 } from '../../types';
 
 const imageState = ({children}) => {
@@ -11,7 +12,12 @@ const imageState = ({children}) => {
     const initialState = {
         public_Id: "",
         secureUrl: "",
-        rutaBackground: ""
+        rutaBackground: "",
+        tieneFrame: {
+            anchoFrame: 810,
+            gruesoBordeFrame: 40,
+            colorFrame: ""
+        }
     }
 
     const [ state, dispatch ] = useReducer(imageReducer, initialState); 
@@ -34,6 +40,16 @@ const imageState = ({children}) => {
                 payload: objetoBackground
             })
         }
+    }
+
+    //asignar los datos del frame al context
+    const asignarFrame = (colorFrame) => {
+        if(colorFrame) {
+            dispatch({
+                type: ACTUALIZAR_FRAME,
+                payload: colorFrame
+            })
+        }
     }    
 
     return (
@@ -42,8 +58,10 @@ const imageState = ({children}) => {
                 public_Id: state.public_Id,
                 secureUrl: state.secureUrl,
                 rutaBackground: state.rutaBackground,
+                tieneFrame: state.tieneFrame,
                 guardarIdPublico,
-                asignarBackground
+                asignarBackground,
+                asignarFrame
             }}
         >
             {children}
