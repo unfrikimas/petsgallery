@@ -40,7 +40,6 @@ const ElegirFrame = () => {
     },[frame])
 
     const handleFrame = (e) => {
-        console.log(e)
         asignarFrame(e.target.value)
         setFrame({
             ...frame,

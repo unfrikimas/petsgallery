@@ -67,15 +67,9 @@ const SubirImagen = () => {
         />
 
         <ContenedorImagen 
-            imagen={publicId || public_Id}
+            imagen={publicId}
             colorFrame={"none"}
-        >
-            { procesandoImagen &&
-                <div className="h-full w-full flex items-center justify-center">
-                    <p className="px-4 py-2 bg-white border border-gray-800">Procesando imagen...</p>
-                </div>
-            }
-        </ContenedorImagen>
+        />
 
         <div className="w-80 h-16 mx-auto mt-8">
           <label
