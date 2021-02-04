@@ -15,24 +15,27 @@ const SubirImagen = () => {
     const {public_Id, guardarIdPublico} = ImageContext
 
     const [publicId, setPublicId] = useState(public_Id)
-    const [procesandoImagen, setProcesandoImagen] = useState(false)
+    const [mostrarCargandoImagen, setMostrarCargadoImagen] = useState(false)
     
     useEffect(() => {
       const idInicial = JSON.parse(window.localStorage.getItem('publicId'))
-      setPublicId(idInicial)
+      if(idInicial){
+        setPublicId(idInicial)
+      }
     }, [])
     
     useEffect(() => {
-      setProcesandoImagen(false);
-      guardarIdPublico(publicId)
-      const unsubscribe = window.localStorage.setItem('publicId', JSON.stringify(publicId))
-      return unsubscribe
+      if(publicId) {
+        setMostrarCargadoImagen(false);
+        guardarIdPublico(publicId)
+        window.localStorage.setItem('publicId', JSON.stringify(publicId))
+      }
         // eslint-disable-next-line
     }, [publicId]);
     
     //funcion para subir la imagen a Cloudinary
     const subirPet = async e => {
-        setProcesandoImagen(true)
+        setMostrarCargadoImagen(true)
         setPublicId("")
         await subirACloudinary(e)
             .then(idImagen => {
@@ -67,8 +70,10 @@ const SubirImagen = () => {
         />
 
         <ContenedorImagen 
-            imagen={publicId}
+            background={""}
             colorFrame={"none"}
+            imagen={publicId}
+            mostrarCargandoImagen={mostrarCargandoImagen}
         />
 
         <div className="w-80 h-16 mx-auto mt-8">

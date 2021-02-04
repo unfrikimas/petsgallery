@@ -22,19 +22,26 @@ const ElegirBackground = () => {
 
     useEffect(() => {
       const backgroundInicial = JSON.parse(window.localStorage.getItem('urlBackground'))
-      setUrlBackground(backgroundInicial)
-      asignarBackground(backgroundInicial)
+      if(backgroundInicial){
+        setUrlBackground(backgroundInicial)
+        asignarBackground(backgroundInicial)
+      }
       const idInicial = JSON.parse(window.localStorage.getItem('publicId'))
-      setPublicId(idInicial)
-      guardarIdPublico(idInicial)
+      if(idInicial){
+        setPublicId(idInicial)
+        guardarIdPublico(idInicial)
+      }
       const frameInicial = JSON.parse(window.localStorage.getItem('frame'))
-      setFrame(frameInicial)
-      asignarFrame(frameInicial.colorFrame)
+      if(frameInicial){
+        setFrame(frameInicial)
+        asignarFrame(frameInicial.colorFrame)
+      }
     }, [])
 
     useEffect(() => {
-      const unsubscribe = window.localStorage.setItem('urlBackground', JSON.stringify(urlBackground))
-      return unsubscribe
+      if(urlBackground){
+        window.localStorage.setItem('urlBackground', JSON.stringify(urlBackground))
+      }
     },[urlBackground])
 
     const handleBack = (e) => {
@@ -51,11 +58,10 @@ const ElegirBackground = () => {
         />
 
         <ContenedorImagen 
-            background={urlBackground?.urlLocal || rutaBackground?.urlLocal}
+            background={urlBackground.urlLocal ? urlBackground.urlLocal : ""}
             imagen={publicId}
-            colorFrame={frame.colorFrame || tieneFrame.colorFrame}
-        >
-        </ContenedorImagen>
+            colorFrame={frame.colorFrame ? frame.colorFrame : "none"}
+        />
 
         <ContenedorFondos 
             handleBack={e => handleBack(e)}
