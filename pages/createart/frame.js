@@ -69,7 +69,7 @@ const ElegirFrame = () => {
 
         <ContenedorFrames 
             handleFrame={e => handleFrame(e)}
-            colorFrame={frame.colorFrame || tieneFrame.colorFrame}
+            colorFrame={frame.colorFrame ? frame.colorFrame : "none"}
         />
 
         <Paginacion
