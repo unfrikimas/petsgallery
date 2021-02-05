@@ -8,15 +8,15 @@ const ContenedorImagen = ({background, colorFrame, imagen, mostrarCargandoImagen
             className="z-0 relative flex items-center justify-center mx-auto w-80 h-80 mt-4 border-2 border-gray-800 rounded-2xl sombra pt-2 overflow-hidden bg-cover"
             style={ { backgroundImage: `url(${background})` } }
         >
-            { console.log(colorFrame) }
-            {/* { colorFrame !== "none" && colorFrame !== "white" && colorFrame !== "black" && (
-                <div 
-                    className={`z-1 absolute w-60 h-60 bg-transparent border-12 border-${colorFrame}-600`}>
-                </div>
-            )} */}
+
             { colorFrame === "white" && (
                 <div 
                     className="z-1 absolute w-60 h-60 bg-transparent border-12 border-white">
+                </div>
+            )}
+            { colorFrame === "black" && (
+                <div 
+                className="z-1 absolute w-60 h-60 bg-transparent border-12 border-black">
                 </div>
             )}
             { colorFrame === "red" && (
@@ -24,9 +24,34 @@ const ContenedorImagen = ({background, colorFrame, imagen, mostrarCargandoImagen
                     className="z-1 absolute w-60 h-60 bg-transparent border-12 border-red-600">
                 </div>
             )}
-            { colorFrame === "black" && (
+            { colorFrame === "pink" && (
                 <div 
-                    className="z-1 absolute w-60 h-60 bg-transparent border-12 border-black">
+                    className="z-1 absolute w-60 h-60 bg-transparent border-12 border-pink-600">
+                </div>
+            )}
+            { colorFrame === "yellow" && (
+                <div 
+                    className="z-1 absolute w-60 h-60 bg-transparent border-12 border-yellow-500">
+                </div>
+            )}
+            { colorFrame === "blue" && (
+                <div 
+                    className="z-1 absolute w-60 h-60 bg-transparent border-12 border-blue-600">
+                </div>
+            )}
+            { colorFrame === "indigo" && (
+                <div 
+                    className="z-1 absolute w-60 h-60 bg-transparent border-12 border-indigo-600">
+                </div>
+            )}
+            { colorFrame === "purple" && (
+                <div 
+                    className="z-1 absolute w-60 h-60 bg-transparent border-12 border-purple-600">
+                </div>
+            )}
+            { colorFrame === "green" && (
+                <div 
+                    className="z-1 absolute w-60 h-60 bg-transparent border-12 border-green-600">
                 </div>
             )}
 
