@@ -8,15 +8,20 @@ const ContenedorImagen = ({background, colorFrame, imagen, mostrarCargandoImagen
             className="z-0 relative flex items-center justify-center mx-auto w-80 h-80 mt-4 border-2 border-gray-800 rounded-2xl sombra pt-2 overflow-hidden bg-cover"
             style={ { backgroundImage: `url(${background})` } }
         >
-            
-            { colorFrame !== "none" && colorFrame !== "white" && colorFrame !== "black" && (
+            { console.log(colorFrame) }
+            {/* { colorFrame !== "none" && colorFrame !== "white" && colorFrame !== "black" && (
                 <div 
                     className={`z-1 absolute w-60 h-60 bg-transparent border-12 border-${colorFrame}-600`}>
                 </div>
-            )}
+            )} */}
             { colorFrame === "white" && (
                 <div 
                     className="z-1 absolute w-60 h-60 bg-transparent border-12 border-white">
+                </div>
+            )}
+            { colorFrame === "red" && (
+                <div 
+                    className="z-1 absolute w-60 h-60 bg-transparent border-12 border-red-600">
                 </div>
             )}
             { colorFrame === "black" && (
