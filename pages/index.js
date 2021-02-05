@@ -366,7 +366,7 @@ export default function Home() {
               </label>
 
               { tieneFrame && frame.colorFrame === "white" && (
-                <div className="z-0 absolute w-4/5 h-4/5 bg-transparent border-12 border-white">
+                <div className="z-0 absolute w-4/5 h-4/5 bg-transparent border-12 border-red-500">
                 </div>
               )}
               { frame.colorFrame === "black" && (
