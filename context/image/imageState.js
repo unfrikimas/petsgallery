@@ -22,14 +22,14 @@ const imageState = ({children}) => {
             colorFrame: ""
         },
         nombreMascota: {
-            fuente: "",
+            fuente: "Kanit",
             sizeFuente: "",
             estiloFuente: "",
             tieneBorde: "",
             textoMascota: "",
             grosorBorde: "",
             colorBorde: "",
-            colorTexto: "",
+            colorTexto: "black",
             separacionTexto: ""
         }
     }

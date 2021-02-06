@@ -81,13 +81,14 @@ const ContenedorImagen = (props) => {
                 </div>
             }
 
-            { nombreMascota && nombreMascota.fuente === "Kanit" &&
+            { nombreMascota.textoMascota && nombreMascota.fuente === "Kanit" &&
                 <p 
                   className={`z-20 absolute leading-12 font-extrabold bottom-6 text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-500"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_kanit ${nombreMascota.textoMascota.length <= 5 & isUpperCase(nombreMascota.textoMascota) ? "text-7xl" : nombreMascota.textoMascota.length < 7 && isUpperCase(nombreMascota.textoMascota) ? "text-6xl" : nombreMascota.textoMascota.length <= 7 ? "text-7xl" : "text-6xl"}`}>
                     {nombreMascota.textoMascota}
                 </p>
             }
-            { nombreMascota && nombreMascota.fuente === "Leckerli%20One" &&
+
+            { nombreMascota.textoMascota && nombreMascota.fuente === "Leckerli%20One" &&
                 <p 
                   className={`z-20 absolute leading-12 bottom-7 tracking-wider text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-500"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_leckerli ${nombreMascota.textoMascota.length <= 5 & isUpperCase(nombreMascota.textoMascota) ? "text-7xl" : nombreMascota.textoMascota.length <= 7 ? "text-7xl" : "text-6xl"}`}>
                     {nombreMascota.textoMascota}

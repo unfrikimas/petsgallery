@@ -43,14 +43,13 @@ const AgregarTexto = () => {
         asignarNombreMascota(textoInicial.textoMascota)
         asignarFuente(textoInicial.fuente)
         asignarColorFuente(textoInicial.colorTexto)
-      }
+      } 
     }, [])
 
     useEffect(() => {
-        // if(texto.textoMascota) {
-            const unsubscribe = window.localStorage.setItem('petsgallery-texto', JSON.stringify(texto))
-            return unsubscribe
-        // }
+        if(texto) {
+            window.localStorage.setItem('petsgallery-texto', JSON.stringify(texto))
+        }
     },[texto])
 
     const handleTexto = e => {
@@ -97,8 +96,8 @@ const AgregarTexto = () => {
             handleFuente={handleFuente}
             handleColorFuente={handleColorFuente}
             nombreMascota={texto.textoMascota ? texto.textoMascota : ""}
-            fuente={texto.fuente ? texto.fuente : ""}
-            colorFuente={texto.colorTexto ? texto.colorTexto : ""}
+            fuente={texto.fuente ? texto.fuente : "Kanit"}
+            colorFuente={texto.colorTexto ? texto.colorTexto : "black"}
         />
 
         <Paginacion
