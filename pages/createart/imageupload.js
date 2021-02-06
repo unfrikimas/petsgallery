@@ -74,6 +74,7 @@ const SubirImagen = () => {
             colorFrame={"none"}
             imagen={publicId}
             mostrarCargandoImagen={mostrarCargandoImagen}
+            nombreMascota={""}
         />
 
         <div className="w-80 h-16 mx-auto mt-8">

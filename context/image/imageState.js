@@ -4,7 +4,10 @@ import imageReducer from './imageReducer';
 import {  
     ACTUALIZAR_ID_PUBLICO_IMAGEN,
     ACTUALIZAR_RUTA_BACKGROUND,
-    ACTUALIZAR_FRAME
+    ACTUALIZAR_FRAME,
+    ACTUALIZAR_NOMBRE_MASCOTA,
+    ACTUALIZAR_FUENTE,
+    ACTUALIZAR_COLOR_FUENTE
 } from '../../types';
 
 const imageState = ({children}) => {
@@ -17,6 +20,17 @@ const imageState = ({children}) => {
             anchoFrame: 810,
             gruesoBordeFrame: 40,
             colorFrame: ""
+        },
+        nombreMascota: {
+            fuente: "",
+            sizeFuente: "",
+            estiloFuente: "",
+            tieneBorde: "",
+            textoMascota: "",
+            grosorBorde: "",
+            colorBorde: "",
+            colorTexto: "",
+            separacionTexto: ""
         }
     }
 
@@ -52,6 +66,36 @@ const imageState = ({children}) => {
         }
     }    
 
+    //asignar nombre de mascota al context
+    const asignarNombreMascota = (nombre) => {
+        if(nombre) {
+            dispatch({
+                type: ACTUALIZAR_NOMBRE_MASCOTA,
+                payload: nombre
+            })
+        }
+    }    
+
+    //asignar tipo de fuente al context
+    const asignarFuente = (fuente) => {
+        if(fuente) {
+            dispatch({
+                type: ACTUALIZAR_FUENTE,
+                payload: fuente
+            })
+        }
+    }    
+
+    //asignar tipo de fuente al context
+    const asignarColorFuente = (colorFuente) => {
+        if(colorFuente) {
+            dispatch({
+                type: ACTUALIZAR_COLOR_FUENTE,
+                payload: colorFuente
+            })
+        }
+    }    
+
     return (
         <imageContext.Provider
             value={{
@@ -59,9 +103,13 @@ const imageState = ({children}) => {
                 secureUrl: state.secureUrl,
                 rutaBackground: state.rutaBackground,
                 tieneFrame: state.tieneFrame,
+                nombreMascota: state.nombreMascota,
                 guardarIdPublico,
                 asignarBackground,
-                asignarFrame
+                asignarFrame,
+                asignarNombreMascota,
+                asignarFuente,
+                asignarColorFuente
             }}
         >
             {children}

@@ -9,17 +9,17 @@ const ElegirFrame = () => {
 
     //context de la imagen
     const ImageContext = useContext(imageContext)
-    const { public_Id, rutaBackground, tieneFrame, guardarIdPublico, asignarBackground, asignarFrame } = ImageContext
+    const { public_Id, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarBackground, asignarFrame, asignarNombreMascota } = ImageContext
 
     //states
     const [publicId, setPublicId] = useState(public_Id)
     const [urlBackground, setUrlBackground] = useState(rutaBackground)
-
     const [ frame, setFrame ] = useState({
         anchoFrame: 810,
         gruesoBordeFrame: 40,
-        colorFrame: ""
+        colorFrame: tieneFrame.colorFrame
     })
+    const [ texto, setTexto ] = useState(nombreMascota)
 
     useEffect(() => {
       const backgroundInicial = JSON.parse(window.localStorage.getItem('urlBackground'))
@@ -36,6 +36,11 @@ const ElegirFrame = () => {
       if (frameInicial) {
         setFrame(frameInicial)
         asignarFrame(frameInicial.colorFrame)
+      }
+      const textoInicial = JSON.parse(window.localStorage.getItem('petsgallery-texto'))
+      if (textoInicial) {
+        setTexto(textoInicial)
+        asignarNombreMascota(textoInicial.textoMascota)
       }
     }, [])
 
@@ -65,6 +70,7 @@ const ElegirFrame = () => {
             background={urlBackground.urlLocal ? urlBackground.urlLocal : ""}
             imagen={publicId}
             colorFrame={frame.colorFrame ? frame.colorFrame : "none"}
+            nombreMascota={texto ? texto : ""}
         />
 
         <ContenedorFrames 

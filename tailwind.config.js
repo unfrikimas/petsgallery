@@ -20,6 +20,9 @@ module.exports = {
         '8': '8px',
         '12': '12px',
         '16': '16px'
+      },
+      lineHeight: {
+        '12': '3rem'
       }
     },
   },
