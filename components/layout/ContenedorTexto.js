@@ -56,16 +56,6 @@ const ContenedorTexto = (props) => {
                 .sombra {
                     box-shadow: 0px 4px 0px #18191f;
                 }
-                .ninguno {
-                    color: red;
-                }
-                .fuente-kanit {
-                    font-family: 'Kanit', serif;
-                }
-                .fuente-leckerli {
-                    font-family: 'Leckerli One', serif;
-                    font-weight: black;
-                }
                 `}
             </style>
 

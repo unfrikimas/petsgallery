@@ -76,9 +76,9 @@ const ElegirBackground = () => {
         />
 
         <Paginacion
-          retroceder={"true"}
+          retroceder={true}
           rutaAnterior={"/createart/imageupload"}
-          adelantar={"true"}
+          adelantar={true}
           rutaSiguiente={"/createart/frame"}
         />
       </div>

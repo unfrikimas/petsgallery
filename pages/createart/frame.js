@@ -15,7 +15,7 @@ const ElegirFrame = () => {
     const [publicId, setPublicId] = useState(public_Id)
     const [urlBackground, setUrlBackground] = useState(rutaBackground)
     const [ frame, setFrame ] = useState({
-        anchoFrame: 810,
+        anchoFrame: 710,
         gruesoBordeFrame: 40,
         colorFrame: tieneFrame.colorFrame
     })
@@ -79,9 +79,9 @@ const ElegirFrame = () => {
         />
 
         <Paginacion
-          retroceder={"true"}
+          retroceder={true}
           rutaAnterior={"/createart/background"}
-          adelantar={"true"}
+          adelantar={true}
           rutaSiguiente={"/createart/text"}
         />
       </div>

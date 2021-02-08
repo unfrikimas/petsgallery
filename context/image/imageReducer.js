@@ -5,7 +5,8 @@ import {
     ACTUALIZAR_FRAME,
     ACTUALIZAR_NOMBRE_MASCOTA,
     ACTUALIZAR_FUENTE,
-    ACTUALIZAR_COLOR_FUENTE
+    ACTUALIZAR_COLOR_FUENTE,
+    ACTUALIZAR_COLOR_BORDE_FUENTE
 } from '../../types';
 
 const imageReducer = (state, action) => {
@@ -50,6 +51,14 @@ const imageReducer = (state, action) => {
                 nombreMascota: {
                     ...state.nombreMascota,
                     colorTexto: action.payload
+                }
+            }
+        case ACTUALIZAR_COLOR_BORDE_FUENTE:
+            return {
+                ...state,
+                nombreMascota: {
+                    ...state.nombreMascota,
+                    colorBorde: action.payload
                 }
             }
         default:

@@ -7,7 +7,8 @@ import {
     ACTUALIZAR_FRAME,
     ACTUALIZAR_NOMBRE_MASCOTA,
     ACTUALIZAR_FUENTE,
-    ACTUALIZAR_COLOR_FUENTE
+    ACTUALIZAR_COLOR_FUENTE,
+    ACTUALIZAR_COLOR_BORDE_FUENTE
 } from '../../types';
 
 const imageState = ({children}) => {
@@ -17,20 +18,20 @@ const imageState = ({children}) => {
         secureUrl: "",
         rutaBackground: "",
         tieneFrame: {
-            anchoFrame: 810,
+            anchoFrame: 730,
             gruesoBordeFrame: 40,
             colorFrame: ""
         },
         nombreMascota: {
             fuente: "Kanit",
-            sizeFuente: "",
-            estiloFuente: "",
-            tieneBorde: "",
+            sizeFuente: "300",
+            estiloFuente: "bold",
+            tieneBorde: "stroke",
             textoMascota: "",
-            grosorBorde: "",
-            colorBorde: "",
+            grosorBorde: "30",
+            colorBorde: "white",
             colorTexto: "black",
-            separacionTexto: ""
+            separacionTexto: "80"
         }
     }
 
@@ -74,7 +75,7 @@ const imageState = ({children}) => {
                 payload: nombre
             })
         }
-    }    
+    }      
 
     //asignar tipo de fuente al context
     const asignarFuente = (fuente) => {
@@ -96,6 +97,16 @@ const imageState = ({children}) => {
         }
     }    
 
+    //asignar color del borde del texto al context
+    const asignarColorBordeFuente = (colorBorde) => {
+        if(colorBorde) {
+            dispatch({
+                type: ACTUALIZAR_COLOR_BORDE_FUENTE,
+                payload: colorBorde
+            })
+        }
+    }  
+
     return (
         <imageContext.Provider
             value={{
@@ -109,7 +120,8 @@ const imageState = ({children}) => {
                 asignarFrame,
                 asignarNombreMascota,
                 asignarFuente,
-                asignarColorFuente
+                asignarColorFuente,
+                asignarColorBordeFuente
             }}
         >
             {children}

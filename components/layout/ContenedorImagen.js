@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, Transformation} from 'cloudinary-react'
+import { calculoFuenteCotenedorImagen } from '../../utils/helper'
 
 const ContenedorImagen = (props) => {
 
@@ -83,7 +84,7 @@ const ContenedorImagen = (props) => {
 
             { nombreMascota.textoMascota && nombreMascota.fuente === "Kanit" &&
                 <p 
-                  className={`z-20 absolute leading-12 font-extrabold bottom-6 text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-500"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_kanit ${nombreMascota.textoMascota.length <= 5 & isUpperCase(nombreMascota.textoMascota) ? "text-7xl" : nombreMascota.textoMascota.length < 7 && isUpperCase(nombreMascota.textoMascota) ? "text-6xl" : nombreMascota.textoMascota.length <= 7 ? "text-7xl" : "text-6xl"}`}>
+                  className={`z-20 absolute leading-12 font-extrabold bottom-6 text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-500"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_kanit ${calculoFuenteCotenedorImagen(nombreMascota.textoMascota, nombreMascota.fuente)}`}>
                     {nombreMascota.textoMascota}
                 </p>
             }
@@ -103,7 +104,6 @@ const ContenedorImagen = (props) => {
             }
             .fuente_kanit {
                 font-family: 'Kanit', serif;
-                -webkit-text-stroke: 4px white;
             }
             .fuente_leckerli {
                 font-family: 'Leckerli One', serif;
@@ -111,7 +111,13 @@ const ContenedorImagen = (props) => {
                 -webkit-text-stroke: 3px white;
             }
             .borde-negro {
-                -webkit-text-stroke: 3px black;
+                -webkit-text-stroke: 4px black;
+            }
+            .borde-minimo {
+                -webkit-text-stroke: 2px white;
+            }
+            .borde-maximo {
+                -webkit-text-stroke: 3px white;
             }
         `}
         </style>

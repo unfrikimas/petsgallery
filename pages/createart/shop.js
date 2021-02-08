@@ -1,15 +1,14 @@
 import React, { useState, useContext, useEffect } from "react"
 import HeaderUser from "../../components/layout/HeaderUser"
 import imageContext from '../../context/image/imageContext'
-import ContenedorImagen from "../../components/layout/ContenedorImagen"
-import ContenedorTexto from '../../components/layout/ContenedorTexto'
 import Paginacion from "../../components/layout/Paginacion"
+import ContenedorProductos from "../../components/layout/ContenedorProductos"
 
-const AgregarTexto = () => {
+const Shop = () => {
 
     //context de la imagen
     const ImageContext = useContext(imageContext)
-    const { public_Id, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarBackground, asignarFrame, asignarNombreMascota, asignarFuente, asignarColorFuente, asignarColorBordeFuente } = ImageContext
+    const { public_Id, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarBackground, asignarFrame, asignarNombreMascota, asignarFuente, asignarColorFuente } = ImageContext
 
     //states
     const [publicId, setPublicId] = useState(public_Id)
@@ -46,81 +45,38 @@ const AgregarTexto = () => {
       } 
     }, [])
 
-    useEffect(() => {
-        if(texto) {
-            window.localStorage.setItem('petsgallery-texto', JSON.stringify(texto))
-        }
-    },[texto])
-
-    const handleTexto = e => {
-        asignarNombreMascota(e.target.value)
-        setTexto({
-            ...texto,
-            textoMascota: e.target.value
-        })
-    }
-
-    const handleFuente = e => {
-        asignarFuente(e.target.value)
-        setTexto({
-            ...texto,
-            fuente: e.target.value
-        })
-    }
-
-    const handleColorFuente = e => {
-      if(e.target.value === "white") {
-        asignarColorFuente(e.target.value)
-        asignarColorBordeFuente("black")
-        setTexto({
-          ...texto,
-          colorTexto: e.target.value,
-          colorBorde: "black"
-        })
-      } else {
-        asignarColorFuente(e.target.value)
-        asignarColorBordeFuente("white")
-        setTexto({
-          ...texto,
-          colorTexto: e.target.value,
-          colorBorde: "white"
-        })
-      }
-    }
-
     return (
     <>
       <div className="max-w-lg mx-auto">
 
         <HeaderUser 
-            titulo={"Pet Name"}
+            titulo={"Premium products"}
         />
 
-        <ContenedorImagen 
+        <ContenedorProductos
             background={urlBackground.urlLocal ? urlBackground.urlLocal : ""}
             imagen={publicId}
             colorFrame={frame.colorFrame ? frame.colorFrame : "none"}
             nombreMascota={texto ? texto : ""}
         />
 
-        <ContenedorTexto 
-            handleTexto={handleTexto}
-            handleFuente={handleFuente}
-            handleColorFuente={handleColorFuente}
-            nombreMascota={texto.textoMascota ? texto.textoMascota : ""}
-            fuente={texto.fuente ? texto.fuente : "Kanit"}
-            colorFuente={texto.colorTexto ? texto.colorTexto : "black"}
-        />
-
         <Paginacion
           retroceder={true}
-          rutaAnterior={"/createart/frame"}
-          adelantar={true}
-          rutaSiguiente={"/createart/download"}
+          rutaAnterior={"/createart/download"}
+          adelantar={false}
+          rutaSiguiente={""}
+          tienda={false}
         />
+
+        <style jsx>{`
+            .sombra {
+                box-shadow: 0px 4px 0px #18191F;
+            }
+        `}
+        </style>
       </div>
     </>
   );
 };
 
-export default AgregarTexto;
+export default Shop;

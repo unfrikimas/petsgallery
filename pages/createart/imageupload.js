@@ -92,9 +92,9 @@ const SubirImagen = () => {
         </div>
 
         <Paginacion
-          retroceder={"false"}
+          retroceder={false}
           rutaAnterior={"/"}
-          adelantar={"true"}
+          adelantar={true}
           rutaSiguiente={"/createart/background"}
         />
       </div>

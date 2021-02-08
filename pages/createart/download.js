@@ -2,14 +2,14 @@ import React, { useState, useContext, useEffect } from "react"
 import HeaderUser from "../../components/layout/HeaderUser"
 import imageContext from '../../context/image/imageContext'
 import ContenedorImagen from "../../components/layout/ContenedorImagen"
-import ContenedorTexto from '../../components/layout/ContenedorTexto'
 import Paginacion from "../../components/layout/Paginacion"
+import { descargarArte } from '../../utils/helper'
 
-const AgregarTexto = () => {
+const Download = () => {
 
     //context de la imagen
     const ImageContext = useContext(imageContext)
-    const { public_Id, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarBackground, asignarFrame, asignarNombreMascota, asignarFuente, asignarColorFuente, asignarColorBordeFuente } = ImageContext
+    const { public_Id, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarBackground, asignarFrame, asignarNombreMascota, asignarFuente, asignarColorFuente } = ImageContext
 
     //states
     const [publicId, setPublicId] = useState(public_Id)
@@ -46,48 +46,6 @@ const AgregarTexto = () => {
       } 
     }, [])
 
-    useEffect(() => {
-        if(texto) {
-            window.localStorage.setItem('petsgallery-texto', JSON.stringify(texto))
-        }
-    },[texto])
-
-    const handleTexto = e => {
-        asignarNombreMascota(e.target.value)
-        setTexto({
-            ...texto,
-            textoMascota: e.target.value
-        })
-    }
-
-    const handleFuente = e => {
-        asignarFuente(e.target.value)
-        setTexto({
-            ...texto,
-            fuente: e.target.value
-        })
-    }
-
-    const handleColorFuente = e => {
-      if(e.target.value === "white") {
-        asignarColorFuente(e.target.value)
-        asignarColorBordeFuente("black")
-        setTexto({
-          ...texto,
-          colorTexto: e.target.value,
-          colorBorde: "black"
-        })
-      } else {
-        asignarColorFuente(e.target.value)
-        asignarColorBordeFuente("white")
-        setTexto({
-          ...texto,
-          colorTexto: e.target.value,
-          colorBorde: "white"
-        })
-      }
-    }
-
     return (
     <>
       <div className="max-w-lg mx-auto">
@@ -103,24 +61,32 @@ const AgregarTexto = () => {
             nombreMascota={texto ? texto : ""}
         />
 
-        <ContenedorTexto 
-            handleTexto={handleTexto}
-            handleFuente={handleFuente}
-            handleColorFuente={handleColorFuente}
-            nombreMascota={texto.textoMascota ? texto.textoMascota : ""}
-            fuente={texto.fuente ? texto.fuente : "Kanit"}
-            colorFuente={texto.colorTexto ? texto.colorTexto : "black"}
-        />
+        <div className="w-80 mt-8 flex items-center justify-center mx-auto">
+          <button
+              className="px-4 py-3 bg-amarillo border-2 border-gray-800 rounded-2xl text-xl font-bold text-gray-800 sombra focus:outline-none tracking-tight"
+              onClick={() => descargarArte(publicId, urlBackground, frame, texto)}
+          >
+              Free download
+          </button>
+        </div>
 
         <Paginacion
           retroceder={true}
-          rutaAnterior={"/createart/frame"}
-          adelantar={true}
-          rutaSiguiente={"/createart/download"}
+          rutaAnterior={"/createart/text"}
+          adelantar={false}
+          rutaSiguiente={""}
+          tienda={true}
         />
+
+        <style jsx>{`
+            .sombra {
+                box-shadow: 0px 4px 0px #18191F;
+            }
+        `}
+        </style>
       </div>
     </>
   );
 };
 
-export default AgregarTexto;
+export default Download;
