@@ -2,7 +2,7 @@ import axios from 'axios'
 import firebase from '../firebase/firebase'
 
 export const colores = [
-  {nombre: "white", valor: "ffffff"},
+  {"nombre": "white", "valor": "ffffff"},
   {nombre: "black", valor: "000000"},
   {nombre: "red", valor: "dc2626"},
   {nombre: "pink", valor: "db2777"},
@@ -116,12 +116,22 @@ export const descargarArte = (publicId, urlBackground, frame, texto) => {
 //funcion para obtener el hex del color
 export const valorColor = (colorInput) => {
   let valor
-  colores.map(color => {
-    if(color.nombre === colorInput) {
-      valor = color.valor
-    }
-  })
-  return valor
+  console.log(colorInput)
+  if(colorInput==="white") return valor="ffffff"
+  if(colorInput==="black") return valor="000000"
+  if(colorInput==="red") return valor="dc2626"
+  if(colorInput==="pink") return valor="db2777"
+  if(colorInput==="yellow") return valor="fbbf24"
+  if(colorInput==="blue") return valor="2563eb"
+  if(colorInput==="indigo") return valor="4f46e5"
+  if(colorInput==="purple") return valor="7c3aed"
+  if(colorInput==="green") return valor="10b981"
+  // colores.map(color => {
+  //   if(color.nombre === colorInput) {
+  //     valor = color.valor
+  //   }
+  // })
+  // return valor
 }
 
 export const calculoFuente = (texto, fuente) => {
@@ -252,6 +262,5 @@ export const calculoFuenteCotenedorImagen = (texto, fuente) => {
       size = "text-5xl" 
     }
   }
-  console.log(texto.length, size)
   return size
 }

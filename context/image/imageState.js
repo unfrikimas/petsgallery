@@ -18,9 +18,9 @@ const imageState = ({children}) => {
         secureUrl: "",
         rutaBackground: "",
         tieneFrame: {
-            anchoFrame: 730,
-            gruesoBordeFrame: 40,
-            colorFrame: ""
+            anchoFrame: "730",
+            gruesoBordeFrame: "40",
+            colorFrame: "none"
         },
         nombreMascota: {
             fuente: "Kanit",

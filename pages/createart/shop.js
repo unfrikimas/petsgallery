@@ -13,11 +13,7 @@ const Shop = () => {
     //states
     const [publicId, setPublicId] = useState(public_Id)
     const [urlBackground, setUrlBackground] = useState(rutaBackground)
-    const [frame, setFrame] = useState({
-        anchoFrame: 810,
-        gruesoBordeFrame: 40,
-        colorFrame: tieneFrame.colorFrame
-    })
+    const [frame, setFrame] = useState(tieneFrame)
     const [texto, setTexto] = useState(nombreMascota)
 
     useEffect(() => {
