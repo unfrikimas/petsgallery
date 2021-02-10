@@ -54,7 +54,7 @@ const AgregarTexto = () => {
     },[texto])
 
     const handleTexto = e => {
-      if(e.target.value.length === 12) {
+      if(e.target.value.length >= 12) {
         setAlertaLimiteTexto(true)
       } else {
         setAlertaLimiteTexto(false)

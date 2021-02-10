@@ -354,9 +354,7 @@ export const isUpperCase = (str) => {
 
 
 export const calculoFuenteCotenedorImagen = (texto, fuente) => {
-
   let size
-  
   if(fuente === "Kanit") {
     if(texto.length <=5  && isUpperCase(texto)) return size="text-7xl borde-maximo bottom-5" 
     if(texto.length === 6 && isUpperCase(texto)) return size="text-6xl borde-maximo bottom-5" 
