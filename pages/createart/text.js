@@ -20,6 +20,7 @@ const AgregarTexto = () => {
         colorFrame: tieneFrame.colorFrame
     })
     const [texto, setTexto] = useState(nombreMascota)
+    const [alertaLimiteTexto, setAlertaLimiteTexto] = useState(false)
 
     useEffect(() => {
       const backgroundInicial = JSON.parse(window.localStorage.getItem('urlBackground'))
@@ -53,11 +54,18 @@ const AgregarTexto = () => {
     },[texto])
 
     const handleTexto = e => {
-        asignarNombreMascota(e.target.value)
-        setTexto({
-            ...texto,
-            textoMascota: e.target.value
-        })
+      console.log(e.target.value.length)
+      if(e.target.value.length === 12) {
+        console.log("paso")
+        setAlertaLimiteTexto(true)
+      } else {
+        setAlertaLimiteTexto(false)
+      }
+      asignarNombreMascota(e.target.value)
+      setTexto({
+          ...texto,
+          textoMascota: e.target.value
+      })
     }
 
     const handleFuente = e => {
@@ -102,6 +110,10 @@ const AgregarTexto = () => {
             colorFrame={frame.colorFrame ? frame.colorFrame : "none"}
             nombreMascota={texto ? texto : ""}
         />
+
+        {alertaLimiteTexto &&
+          <p className="text-red-600 text-lg font-bold text-center pt-3 -mb-3">12 character limit reached</p>
+        }
 
         <ContenedorTexto 
             handleTexto={handleTexto}

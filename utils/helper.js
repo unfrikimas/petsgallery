@@ -2,7 +2,7 @@ import axios from 'axios'
 import firebase from '../firebase/firebase'
 
 export const colores = [
-  {"nombre": "white", "valor": "ffffff"},
+  {nombre: "white", valor: "ffffff"},
   {nombre: "black", valor: "000000"},
   {nombre: "red", valor: "dc2626"},
   {nombre: "pink", valor: "db2777"},
@@ -79,7 +79,7 @@ export const descargarArte = (publicId, urlBackground, frame, texto) => {
   const transformacionMascota = `l_petsgallery:${nombreMascotaLimpio},h_${"1070"},g_south,y_0,e_vectorize`
 
   //transformacion del texto
-  const transformacionTexto = `l_text:${texto.fuente}_${calculoFuente(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)},g_south,y_${texto.separacionTexto}`
+  const transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)},g_south,y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente)}`
 
   const transformaciones = transformacionFrame+"/"+transformacionMascota+"/"+transformacionTexto
 
@@ -116,7 +116,6 @@ export const descargarArte = (publicId, urlBackground, frame, texto) => {
 //funcion para obtener el hex del color
 export const valorColor = (colorInput) => {
   let valor
-  console.log(colorInput)
   if(colorInput==="white") return valor="ffffff"
   if(colorInput==="black") return valor="000000"
   if(colorInput==="red") return valor="dc2626"
@@ -126,39 +125,166 @@ export const valorColor = (colorInput) => {
   if(colorInput==="indigo") return valor="4f46e5"
   if(colorInput==="purple") return valor="7c3aed"
   if(colorInput==="green") return valor="10b981"
-  // colores.map(color => {
-  //   if(color.nombre === colorInput) {
-  //     valor = color.valor
-  //   }
-  // })
-  // return valor
 }
 
-export const calculoFuente = (texto, fuente) => {
+export const calculoFuenteCloud = (texto, fuente) => {
   let size
   if(fuente === "Kanit") {
-    if(texto.length <= 5){
-      size = "300"
-    }
-    if(texto.length === 6 || texto.length === 7){
-      size = "250"
-    }
-    if(texto.length >= 8) {
-      size = "200"
+    if(texto.length <= 4  && isUpperCase(texto)) return size="300" 
+    if(texto.length === 5  && isUpperCase(texto)) return size="250" 
+    if(texto.length === 6  && isUpperCase(texto)) return size="210" 
+    if(texto.length === 7  && isUpperCase(texto)) return size="190" 
+    if(texto.length === 8  && isUpperCase(texto)) return size="170" 
+    if(texto.length === 9  && isUpperCase(texto)) return size="150" 
+    if(texto.length === 10  && isUpperCase(texto)) return size="140" 
+    if(texto.length >= 10  && isUpperCase(texto)) return size="120" 
+
+    if(texto.length <= 4  && !isUpperCase(texto)) return size="300" 
+    if(texto.length === 5  && !isUpperCase(texto)) return size="280" 
+    if(texto.length === 6  && !isUpperCase(texto)) return size="240" 
+    if(texto.length === 7  && !isUpperCase(texto)) return size="210" 
+    if(texto.length === 8  && !isUpperCase(texto)) return size="180" 
+    if(texto.length === 9  && !isUpperCase(texto)) return size="160" 
+    if(texto.length === 10  && !isUpperCase(texto)) return size="140" 
+    if(texto.length >= 10  && !isUpperCase(texto)) return size="120" 
+  }
+
+  if(fuente === "Suez%20One") {
+  
+    if(texto.length <= 3  && isUpperCase(texto)) return size="280" 
+    if(texto.length === 4  && isUpperCase(texto)) return size="250" 
+    if(texto.length === 5  && isUpperCase(texto)) return size="220" 
+    if(texto.length === 6  && isUpperCase(texto)) return size="180" 
+    if(texto.length === 7  && isUpperCase(texto)) return size="170" 
+    if(texto.length === 8  && isUpperCase(texto)) return size="150" 
+    if(texto.length === 9  && isUpperCase(texto)) return size="130" 
+    if(texto.length === 10  && isUpperCase(texto)) return size="120" 
+    if(texto.length >= 10  && isUpperCase(texto)) return size="100" 
+
+    if(texto.length <= 4  && !isUpperCase(texto)) return size="280" 
+    if(texto.length === 5  && !isUpperCase(texto)) return size="260" 
+    if(texto.length === 6  && !isUpperCase(texto)) return size="220" 
+    if(texto.length === 7  && !isUpperCase(texto)) return size="190" 
+    if(texto.length === 8  && !isUpperCase(texto)) return size="170" 
+    if(texto.length === 9  && !isUpperCase(texto)) return size="150" 
+    if(texto.length === 10  && !isUpperCase(texto)) return size="130" 
+    if(texto.length >= 10  && !isUpperCase(texto)) return size="110" 
+
+  }
+
+}
+
+export const calculoDistanciaTextoCloud = (texto, fuente) => {
+  let distancia
+  if(fuente === "Kanit") {
+    if(texto.length <= 4  && isUpperCase(texto)) return distancia="70" 
+    if(texto.length === 5  && isUpperCase(texto)) return distancia="70" 
+    if(texto.length === 6  && isUpperCase(texto)) return distancia="80" 
+    if(texto.length === 7  && isUpperCase(texto)) return distancia="85" 
+    if(texto.length === 8  && isUpperCase(texto)) return distancia="90" 
+    if(texto.length === 9  && isUpperCase(texto)) return distancia="90" 
+    if(texto.length === 10  && isUpperCase(texto)) return distancia="100" 
+    if(texto.length >= 10  && isUpperCase(texto)) return distancia="110" 
+
+    if(!isUpperCase(texto)) {
+      if(texto.length <= 4) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="50"
+        } else return distancia="70"
+      }
+      if(texto.length === 5) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="50"
+        } else return distancia="80"
+      }
+      if(texto.length === 6) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="50"
+        } else return distancia="90"
+      }
+      if(texto.length === 7) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="60"
+        } else return distancia="90"
+      }
+      if(texto.length === 8) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="60"
+        } else return distancia="90"
+      }
+      if(texto.length === 9) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="70"
+        } else return distancia="90"
+      }
+      if(texto.length === 10) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="70"
+        } else return distancia="100"
+      }
+      if(texto.length >= 11) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="70"
+        } else return distancia="100"
+      }
     }
   }
-  if(fuente === "Leckerli%20One") {
-    if(texto.length <= 5){
-      size = "300"
-    }
-    if(texto.length === 6 || texto.length === 7){
-      size = "250"
-    }
-    if(texto.length >= 8) {
-      size = "200"
+
+  if(fuente === "Suez%20One") {
+
+    if(texto.length <= 4  && isUpperCase(texto)) return distancia="90" 
+    if(texto.length === 5  && isUpperCase(texto)) return distancia="90" 
+    if(texto.length === 6  && isUpperCase(texto)) return distancia="90" 
+    if(texto.length === 7  && isUpperCase(texto)) return distancia="90" 
+    if(texto.length === 8  && isUpperCase(texto)) return distancia="90" 
+    if(texto.length === 9  && isUpperCase(texto)) return distancia="100" 
+    if(texto.length === 10  && isUpperCase(texto)) return distancia="100" 
+    if(texto.length >= 10  && isUpperCase(texto)) return distancia="110" 
+
+    if(!isUpperCase(texto)) {
+      if(texto.length <= 4) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="50"
+        } else return distancia="90"
+      }
+      if(texto.length === 5) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="50"
+        } else return distancia="90"
+      }
+      if(texto.length === 6) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="60"
+        } else return distancia="90"
+      }
+      if(texto.length === 7) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="60"
+        } else return distancia="90"
+      }
+      if(texto.length === 8) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="60"
+        } else return distancia="90"
+      }
+      if(texto.length === 9) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="70"
+        } else return distancia="90"
+      }
+      if(texto.length === 10) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="70"
+        } else return distancia="90"
+      }
+      if(texto.length >= 11) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          console.log(">=11", texto)
+          return distancia="70"
+        } else return distancia="100"
+      }
     }
   }
-  return size
 }
 
 export const reemplazarEspacios = (texto) => {
@@ -166,15 +292,49 @@ export const reemplazarEspacios = (texto) => {
   return textoSinEspacios
 }
 
-export const calculoBordeFuente = (fuente) => {
+export const calculoBordeFuente = (texto, fuente) => {
   let borde
   if(fuente === "Kanit") {
-    borde = "30"
+    if(texto.length <= 4 && isUpperCase(texto)) return borde="30"
+    if(texto.length === 5 && isUpperCase(texto)) return borde="30"
+    if(texto.length === 6 && isUpperCase(texto)) return borde="30"
+    if(texto.length === 7 && isUpperCase(texto)) return borde="30"
+    if(texto.length === 8 && isUpperCase(texto)) return borde="30"
+    if(texto.length === 9 && isUpperCase(texto)) return borde="20"
+    if(texto.length === 10 && isUpperCase(texto)) return borde="20"
+    if(texto.length >= 11 && isUpperCase(texto)) return borde="15"
+
+    if(texto.length <= 4 && !isUpperCase(texto)) return borde="30"
+    if(texto.length === 5 && !isUpperCase(texto)) return borde="30"
+    if(texto.length === 6 && !isUpperCase(texto)) return borde="30"
+    if(texto.length === 7 && !isUpperCase(texto)) return borde="25"
+    if(texto.length === 8 && !isUpperCase(texto)) return borde="20"
+    if(texto.length === 9 && !isUpperCase(texto)) return borde="20"
+    if(texto.length === 10 && !isUpperCase(texto)) return borde="20"
+    if(texto.length >= 11 && !isUpperCase(texto)) return borde="15"
   }
-  if(fuente === "Leckerli%20One") {
-    borde = "15"
+
+  if(fuente === "Suez%20One") {
+    if(texto.length <= 3 && isUpperCase(texto)) return borde="25"
+    if(texto.length === 4 && isUpperCase(texto)) return borde="20"
+    if(texto.length === 5 && isUpperCase(texto)) return borde="20"
+    if(texto.length === 6 && isUpperCase(texto)) return borde="20"
+    if(texto.length === 7 && isUpperCase(texto)) return borde="15"
+    if(texto.length === 8 && isUpperCase(texto)) return borde="15"
+    if(texto.length === 9 && isUpperCase(texto)) return borde="15"
+    if(texto.length === 10 && isUpperCase(texto)) return borde="15"
+    if(texto.length >= 11 && isUpperCase(texto)) return borde="15"
+
+    if(texto.length <= 4 && !isUpperCase(texto)) return borde="25"
+    if(texto.length === 5 && !isUpperCase(texto)) return borde="20"
+    if(texto.length === 6 && !isUpperCase(texto)) return borde="20"
+    if(texto.length === 7 && !isUpperCase(texto)) return borde="20"
+    if(texto.length === 8 && !isUpperCase(texto)) return borde="20"
+    if(texto.length === 9 && !isUpperCase(texto)) return borde="20"
+    if(texto.length === 10 && !isUpperCase(texto)) return borde="15"
+    if(texto.length >= 11 && !isUpperCase(texto)) return borde="15"
   }
-  return borde
+
 }
 
 export const calculoPesoFuente = (fuente) => {
@@ -182,7 +342,7 @@ export const calculoPesoFuente = (fuente) => {
   if(fuente === "Kanit") {
     peso = "bold"
   }
-  if(fuente === "Leckerli%20One") {
+  if(fuente === "Suez%20One") {
     peso = "thin"
   }
   return peso
@@ -196,71 +356,80 @@ export const isUpperCase = (str) => {
 export const calculoFuenteCotenedorImagen = (texto, fuente) => {
 
   let size
+  
   if(fuente === "Kanit") {
-    if(texto.length <= 6 && isUpperCase(texto)) {
-      size = "text-7xl borde-maximo" 
-    }
-    if(texto.length === 7 && isUpperCase(texto)) {
-      size = "text-6xl borde-maximo"
-    }
-    if(texto.length === 8 && isUpperCase(texto)) {
-      size = "text-5xl borde-maximo"
-    }
-    if(texto.length === 9 && isUpperCase(texto)) {
-      size = "text-5xl borde-maximo"
-    }
-    if(texto.length >= 10 && isUpperCase(texto)) {
-      size = "text-4xl borde-minimo"
-    }
-    if(texto.length <= 6 && !isUpperCase(texto)) {
-      size = "text-7xl borde-maximo" 
-    }
-    if(texto.length === 7 && !isUpperCase(texto)) {
-      size = "text-6xl borde-maximo" 
-    }
-    if(texto.length === 8 && !isUpperCase(texto)) {
-      size = "text-6xl borde-maximo" 
-    }
-    if(texto.length === 9 && !isUpperCase(texto)){
-      size = "text-5xl borde-maximo" 
-    }
-    if(texto.length === 10 && !isUpperCase(texto)) {
-      size = "text-5xl borde-minimo" 
-    }
-    if(texto.length >= 11 && !isUpperCase(texto)) {
-      size = "text-4xl borde-minimo" 
-    }
-  } else {
-    if(texto.length <= 5 && isUpperCase(texto)) {
-      size = "text-7xl" 
-    }
-    if(texto.length === 6 && isUpperCase(texto)) {
-      size = "text-6xl"
-    }
-    if(texto.length === 7 && isUpperCase(texto)) {
-      size = "text-6xl"
-    }
-    if(texto.length === 8 && isUpperCase(texto)) {
-      size = "text-5xl"
-    }
-    if(texto.length === 9 && isUpperCase(texto)) {
-      size = "text-5xl"
-    }
-    if(texto.length >= 10 && isUpperCase(texto)) {
-      size = "text-4xl"
-    }
-    if(texto.length <= 7) {
-      size = "text-7xl" 
-    }
-    if(texto.length === 8) {
-      size = "text-6xl" 
-    }
-    if(texto.length === 9) {
-      size = "text-6xl" 
-    }
-    if(texto.length >= 10) {
-      size = "text-5xl" 
-    }
+    if(texto.length <=5  && isUpperCase(texto)) return size="text-7xl borde-maximo bottom-6" 
+    if(texto.length === 6 && isUpperCase(texto)) return size="text-6xl borde-maximo bottom-6" 
+    if(texto.length === 7 && isUpperCase(texto)) return size="text-5xl borde-maximo bottom-5"
+    if(texto.length === 8 && isUpperCase(texto)) return size="text-5xl borde-maximo bottom-5"
+    if(texto.length === 9 && isUpperCase(texto)) return size="text-4xl borde-maximo bottom-4"
+    if(texto.length >= 10 && isUpperCase(texto)) return size="text-4xl borde-minimo bottom-4"
+
+    if(texto.length <= 6 && !isUpperCase(texto)) return size="text-7xl borde-maximo bottom-5" 
+    if(texto.length === 7 && !isUpperCase(texto)) return size="text-6xl borde-maximo bottom-5"
+    if(texto.length === 8 && !isUpperCase(texto)) return size="text-5xl borde-maximo bottom-5" 
+    if(texto.length === 9 && !isUpperCase(texto)) return size="text-5xl borde-maximo bottom-5" 
+    if(texto.length === 10 && !isUpperCase(texto)) return size="text-4xl borde-minimo bottom-5" 
+    if(texto.length >= 11 && !isUpperCase(texto)) return size="text-4xl borde-minimo bottom-5" 
+  } 
+  
+  if (fuente === "Suez%20One") {
+
+    if(texto.length <= 4 && isUpperCase(texto)) return size="text-7xl borde-maximo bottom-4" 
+    if(texto.length === 5 && isUpperCase(texto)) return size="text-6xl borde-maximo bottom-5" 
+    if(texto.length === 6 && isUpperCase(texto)) return size="text-6xl borde-maximo bottom-5"
+    if(texto.length === 7 && isUpperCase(texto)) return size="text-5xl borde-maximo bottom-5"
+    if(texto.length === 8 && isUpperCase(texto)) return size="text-5xl borde-minimo bottom-5"
+    if(texto.length === 9 && isUpperCase(texto)) return size="text-4xl borde-minimo bottom-5"
+    if(texto.length === 10 && isUpperCase(texto)) return size="text-4xl borde-minimo bottom-5"
+    if(texto.length >= 11 && isUpperCase(texto)) return size="text-3xl borde-minimo bottom-5"
+
+    if(texto.length <= 5 && !isUpperCase(texto)) return size="text-7xl borde-maximo bottom-4" 
+    if(texto.length === 6 && !isUpperCase(texto)) return size="text-6xl borde-maximo bottom-4" 
+    if(texto.length === 7 && !isUpperCase(texto)) return size="text-6xl borde-maximo bottom-5" 
+    if(texto.length === 8 && !isUpperCase(texto)) return size="text-5xl borde-minimo bottom-5"
+    if(texto.length === 9 && !isUpperCase(texto)) return size="text-5xl borde-minimo bottom-5" 
+    if(texto.length === 10 && !isUpperCase(texto)) return size="text-4xl borde-minimo bottom-5" 
+    if(texto.length >= 11 && !isUpperCase(texto)) return size="text-4xl borde-minimo bottom-5" 
   }
-  return size
+
+}
+
+export const calculoFuenteCotenedorProductos = (texto, fuente) => {
+
+  let size
+
+  if(fuente === "Kanit") {
+    if(texto.length <= 5 && isUpperCase(texto)) return size="text-lg borde-maximo" 
+    if(texto.length === 6 && isUpperCase(texto)) return size="text-base borde-maximo" 
+    if(texto.length === 7 && isUpperCase(texto)) return size="text-sm borde-maximo"
+    if(texto.length === 8 && isUpperCase(texto)) return size="text-xs borde-maximo bottom-1"
+    if(texto.length === 9 && isUpperCase(texto)) return size="text-xs borde-maximo"
+    if(texto.length >= 10 && isUpperCase(texto)) return size="text-xs borde-minimo"
+
+    if(texto.length <= 6 && !isUpperCase(texto)) return size="text-xl borde-maximo" 
+    if(texto.length === 7 && !isUpperCase(texto)) return size="text-base borde-maximo"
+    if(texto.length === 8 && !isUpperCase(texto)) return size="text-base borde-maximo" 
+    if(texto.length === 9 && !isUpperCase(texto)) return size="text-sm borde-maximo" 
+    if(texto.length === 10 && !isUpperCase(texto)) return size="text-xs borde-minimo bottom-1" 
+    if(texto.length >= 11 && !isUpperCase(texto)) return size="text-xs borde-minimo bottom-1" 
+  } 
+  
+  if (fuente === "Suez%20One") {
+    if(texto.length <= 5 && isUpperCase(texto)) return size="text-xl borde-maximo" 
+    if(texto.length === 6 && isUpperCase(texto)) return size="text-base borde-maximo"
+    if(texto.length === 7 && isUpperCase(texto)) return size="text-sm borde-maximo"
+    if(texto.length === 8 && isUpperCase(texto)) return size="text-xs borde-maximo bottom-1"
+    if(texto.length === 9 && isUpperCase(texto)) return size="text-xs borde-minimo bottom-1"
+    if(texto.length === 10 && isUpperCase(texto)) return size="text-xs borde-minimo bottom-1"
+    if(texto.length >= 11 && isUpperCase(texto)) return size="text-xs borde-minimo bottom-1"
+
+    if(texto.length <= 6 && !isUpperCase(texto)) return size="text-xl borde-maximo" 
+    if(texto.length === 7 && !isUpperCase(texto)) return size="text-base borde-maximo" 
+    if(texto.length === 8 && !isUpperCase(texto)) return size="text-base borde-maximo"
+    if(texto.length === 9 && !isUpperCase(texto)) return size="text-xs borde-minimo bottom-1" 
+    if(texto.length === 10 && !isUpperCase(texto)) return size="text-xs borde-minimo bottom-1" 
+    if(texto.length >= 11 && !isUpperCase(texto)) return size="text-xs borde-minimo bottom-1" 
+  }
+
 }

@@ -6,10 +6,6 @@ const ContenedorImagen = (props) => {
 
     const {background, colorFrame, imagen, mostrarCargandoImagen=false, nombreMascota} = props
 
-    function isUpperCase(str) {
-        return str == str.toUpperCase() && str != str.toLowerCase();
-    }
-
     return (  
         <>
         <div 
@@ -84,14 +80,14 @@ const ContenedorImagen = (props) => {
 
             { nombreMascota.textoMascota && nombreMascota.fuente === "Kanit" &&
                 <p 
-                  className={`z-20 absolute leading-12 font-extrabold bottom-6 text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-500"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_kanit ${calculoFuenteCotenedorImagen(nombreMascota.textoMascota, nombreMascota.fuente)}`}>
+                  className={`z-20 absolute leading-2 font-extrabold text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-500"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_kanit ${calculoFuenteCotenedorImagen(nombreMascota.textoMascota, nombreMascota.fuente)}`}>
                     {nombreMascota.textoMascota}
                 </p>
             }
 
-            { nombreMascota.textoMascota && nombreMascota.fuente === "Leckerli%20One" &&
+            { nombreMascota.textoMascota && nombreMascota.fuente === "Suez%20One" &&
                 <p 
-                  className={`z-20 absolute leading-12 bottom-7 tracking-wider text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-500"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_leckerli ${nombreMascota.textoMascota.length <= 5 & isUpperCase(nombreMascota.textoMascota) ? "text-7xl" : nombreMascota.textoMascota.length <= 7 ? "text-7xl" : "text-6xl"}`}>
+                  className={`z-20 absolute leading-2 tracking-wider text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-500"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_Suez ${calculoFuenteCotenedorImagen(nombreMascota.textoMascota, nombreMascota.fuente)}`}>
                     {nombreMascota.textoMascota}
                 </p>
             }
@@ -105,16 +101,15 @@ const ContenedorImagen = (props) => {
             .fuente_kanit {
                 font-family: 'Kanit', serif;
             }
-            .fuente_leckerli {
-                font-family: 'Leckerli One', serif;
+            .fuente_Suez {
+                font-family: 'Suez One', serif;
                 font-weight: black;
-                -webkit-text-stroke: 3px white;
             }
             .borde-negro {
                 -webkit-text-stroke: 4px black;
             }
             .borde-minimo {
-                -webkit-text-stroke: 2px white;
+                -webkit-text-stroke: 1px white;
             }
             .borde-maximo {
                 -webkit-text-stroke: 3px white;

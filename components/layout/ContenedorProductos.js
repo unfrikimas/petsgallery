@@ -1,13 +1,10 @@
 import React from 'react';
 import {Image, Transformation} from 'cloudinary-react'
+import {calculoFuenteCotenedorProductos} from '../../utils/helper'
 
 const ContenedorProductos = (props) => {
 
     const {background, colorFrame, imagen, nombreMascota} = props
-
-    function isUpperCase(str) {
-        return str == str.toUpperCase() && str != str.toLowerCase();
-    }
 
     return (  
         <>
@@ -82,14 +79,14 @@ const ContenedorProductos = (props) => {
 
                 { nombreMascota.textoMascota && nombreMascota.fuente === "Kanit" &&
                     <p 
-                    className={`z-20 absolute bottom-0 leading-2 font-extrabold text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-500"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_kanit ${nombreMascota.textoMascota.length <= 5 & isUpperCase(nombreMascota.textoMascota) ? "text-xl" : nombreMascota.textoMascota.length < 7 && isUpperCase(nombreMascota.textoMascota) ? "text-lg" : nombreMascota.textoMascota.length <= 7 ? "text-xl" : nombreMascota.textoMascota.length >= 8 ? "text-sm" : "text-md"}`}>
+                    className={`z-20 absolute bottom-0 leading-2 font-extrabold text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-500"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_kanit ${calculoFuenteCotenedorProductos(nombreMascota.textoMascota, nombreMascota.fuente)}`}>
                         {nombreMascota.textoMascota}
                     </p>
                 }
 
-                { nombreMascota.textoMascota && nombreMascota.fuente === "Leckerli%20One" &&
+                { nombreMascota.textoMascota && nombreMascota.fuente === "Suez%20One" &&
                     <p 
-                    className={`z-20 absolute leading-12 bottom-4 tracking-wider text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-500"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_leckerli ${nombreMascota.textoMascota.length <= 5 & isUpperCase(nombreMascota.textoMascota) ? "text-6xl" : nombreMascota.textoMascota.length <= 7 ? "text-6xl" : "text-2xl"}`}>
+                    className={`z-20 absolute leading-2 bottom-0 tracking-wider text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-500"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_Suez ${calculoFuenteCotenedorProductos(nombreMascota.textoMascota, nombreMascota.fuente)}`}>
                         {nombreMascota.textoMascota}
                     </p>
                 }
@@ -146,15 +143,19 @@ const ContenedorProductos = (props) => {
             }
             .fuente_kanit {
                 font-family: 'Kanit', serif;
-                -webkit-text-stroke: 1px white;
             }
-            .fuente_leckerli {
-                font-family: 'Leckerli One', serif;
+            .fuente_Suez {
+                font-family: 'Suez One', serif;
                 font-weight: black;
-                -webkit-text-stroke: 1px white;
             }
             .borde-negro {
                 -webkit-text-stroke: 1px black;
+            }
+            .borde-minimo {
+                -webkit-text-stroke: 1px white;
+            }
+            .borde-maximo {
+                -webkit-text-stroke: 1px white;
             }
             .medida-frame {
                 width: 82px;

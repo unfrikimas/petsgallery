@@ -16,6 +16,7 @@ const ContenedorTexto = (props) => {
                 placeholder="Pet name"
                 onChange={e => handleTexto(e)}
                 autoComplete="off"
+                maxLength = "12"
             />
 
             <div className="mt-4 space-x-4 flex items-center justify-center">
@@ -28,7 +29,7 @@ const ContenedorTexto = (props) => {
                     onChange={e => handleFuente(e)}
                 >
                     <option value="Kanit">Kanit</option>
-                    <option value="Leckerli%20One">Lekerli</option>
+                    <option value="Suez%20One">Suez One</option>
                 </select>
 
                 <select
