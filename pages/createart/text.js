@@ -54,9 +54,7 @@ const AgregarTexto = () => {
     },[texto])
 
     const handleTexto = e => {
-      console.log(e.target.value.length)
       if(e.target.value.length === 12) {
-        console.log("paso")
         setAlertaLimiteTexto(true)
       } else {
         setAlertaLimiteTexto(false)
