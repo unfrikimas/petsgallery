@@ -101,6 +101,10 @@ const ContenedorImagen = (props) => {
             }
             .fuente_kanit {
                 font-family: 'Kanit', serif;
+                bottom: 0;
+            }
+            .fuente-5 {
+                font-size: 3rem;
             }
             .fuente_Suez {
                 font-family: 'Suez One', serif;
