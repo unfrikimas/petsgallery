@@ -363,6 +363,8 @@ export const calculoFuenteCotenedorImagen = (texto, fuente) => {
     if(texto.length === 9 && isUpperCase(texto)) return size="text-4xl borde-maximo bottom-5"
     if(texto.length >= 10 && isUpperCase(texto)) return size="text-4xl borde-minimo bottom-5"
 
+    console.log(texto.length, isUpperCase(texto), fuente)
+
     if(texto.length <= 6 && !isUpperCase(texto)) return size="text-7xl borde-maximo bottom-5" 
     if(texto.length === 7 && !isUpperCase(texto)) return size="text-6xl borde-maximo bottom-5"
     if(texto.length === 8 && !isUpperCase(texto)) return size="text-5xl borde-maximo bottom-5" 
