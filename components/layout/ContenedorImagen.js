@@ -117,6 +117,15 @@ const ContenedorImagen = (props) => {
             .fuente-7 {
                 font-size: 4.5rem;
             }
+            .abajo-1 {
+                bottom: 0.5rem;
+            }
+            .abajo-2 {
+                bottom: 0.5rem;
+            }
+            .abajo-3 {
+                bottom: 0.75rem;
+            }
             .fuente_Suez {
                 font-family: 'Suez One', serif;
             }

@@ -366,11 +366,11 @@ export const calculoFuenteCotenedorImagen = (texto, fuente) => {
     console.log(texto.length, isUpperCase(texto), fuente)
 
     if(texto.length <= 6 && !isUpperCase(texto)) return size="fuente-7 borde-maximo" 
-    if(texto.length === 7 && !isUpperCase(texto)) return size="fuente-6 borde-maximo bottom-1"
-    if(texto.length === 8 && !isUpperCase(texto)) return size="fuente-5 borde-maximo bottom-2" 
-    if(texto.length === 9 && !isUpperCase(texto)) return size="fuente-5 borde-maximo bottom-2" 
-    if(texto.length === 10 && !isUpperCase(texto)) return size="fuente-4 borde-minimo bottom-3" 
-    if(texto.length >= 11 && !isUpperCase(texto)) return size="fuente-4 borde-minimo bottom-3" 
+    if(texto.length === 7 && !isUpperCase(texto)) return size="fuente-6 borde-maximo abajo-1"
+    if(texto.length === 8 && !isUpperCase(texto)) return size="fuente-5 borde-maximo abajo-2" 
+    if(texto.length === 9 && !isUpperCase(texto)) return size="fuente-5 borde-maximo abajo-2" 
+    if(texto.length === 10 && !isUpperCase(texto)) return size="fuente-4 borde-minimo abajo-3" 
+    if(texto.length >= 11 && !isUpperCase(texto)) return size="fuente-4 borde-minimo abajo-3" 
   } 
   
   if (fuente === "Suez%20One") {
