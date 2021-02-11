@@ -81,7 +81,7 @@ const ContenedorImagen = (props) => {
 
             { nombreMascota.textoMascota && nombreMascota.fuente === "Kanit" &&
                 <p 
-                  className={`z-20 absolute text-center font-extrabold ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-500"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_kanit ${calculoFuenteCotenedorImagen(nombreMascota.textoMascota, nombreMascota.fuente)}`}>
+                  className={`z-20 absolute bottom-0 text-center font-extrabold ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-500"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_kanit ${calculoFuenteCotenedorImagen(nombreMascota.textoMascota, nombreMascota.fuente)}`}>
                     {nombreMascota.textoMascota}
                 </p>
             }
@@ -101,10 +101,21 @@ const ContenedorImagen = (props) => {
             }
             .fuente_kanit {
                 font-family: 'Kanit', serif;
-                bottom: 0;
+            }
+            .fuente-3 {
+                font-size: 1.875rem;
+            }
+            .fuente-4 {
+                font-size: 2.25rem;
             }
             .fuente-5 {
                 font-size: 3rem;
+            }
+            .fuente-6 {
+                font-size: 3.75rem;
+            }
+            .fuente-7 {
+                font-size: 4.5rem;
             }
             .fuente_Suez {
                 font-family: 'Suez One', serif;
