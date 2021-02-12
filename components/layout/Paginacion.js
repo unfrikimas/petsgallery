@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import IconFlechaAdelante from '../icons/FlechaAdelante'
 import IconFlechaAtras from '../icons/FlechaAtras'
+import Toggle from '../layout/Toggle'
 
 const Paginacion = ({retroceder, rutaAnterior, adelantar, rutaSiguiente, tienda=false}) => {
     return (  

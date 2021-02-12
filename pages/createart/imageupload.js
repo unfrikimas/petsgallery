@@ -4,6 +4,7 @@ import { FirebaseContext } from '../../firebase'
 import imageContext from '../../context/image/imageContext'
 import ContenedorImagen from "../../components/layout/ContenedorImagen"
 import Paginacion from "../../components/layout/Paginacion"
+import Toggle from '../../components/layout/Toggle'
 import { subirACloudinary } from '../../utils/helper'
 
 const SubirImagen = () => {
@@ -60,7 +61,6 @@ const SubirImagen = () => {
             });
     }
 
-
     return (
     <>
       <div className="max-w-lg mx-auto">
@@ -90,6 +90,8 @@ const SubirImagen = () => {
             Upload image
           </label>
         </div>
+
+        {/* <Toggle /> */}
 
         <Paginacion
           retroceder={false}

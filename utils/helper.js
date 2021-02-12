@@ -15,25 +15,25 @@ export const colores = [
 
 //Guardar imagen en Cloudinary
 export const subirACloudinary = async (e) => {
-    // setPublicId("")
-    // setProcesandoImagen(true);
-    const files = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", files);
-    formData.append("upload_preset", "petsgallery");
-    // setCargando(true);
+  // setPublicId("")
+  // setProcesandoImagen(true);
+  const files = e.target.files[0];
+  const formData = new FormData();
+  formData.append("file", files);
+  formData.append("upload_preset", "petsgallery");
+  // setCargando(true);
 
 
-    return await axios.post("https://api.cloudinary.com/v1_1/petportrait/upload", formData)
-      .then(respuesta => {
-          return respuesta.data.asset_id
-      })
-      .catch(error => {
-        console.log(error);
-        // setProcesandoImagen(false);
-      })
+  return await axios.post("https://api.cloudinary.com/v1_1/petportrait/upload", formData)
+    .then(respuesta => {
+        return respuesta.data.asset_id
+    })
+    .catch(error => {
+      console.log(error);
+      // setProcesandoImagen(false);
+    })
 
-  };
+};
 
 //REALTIME GET FUNCTION
 export const esperarImagen = (assetId) => {
@@ -353,52 +353,156 @@ export const isUpperCase = (str) => {
 }
 
 
-export const calculoFuenteCotenedorImagen = (texto, fuente) => {
+export const calculoFuenteCotenedorImagen = (texto, fuente, color) => {
   let size
   if(fuente === "Kanit") {
-    if(texto.length <=5  && isUpperCase(texto)) return size="fuente-7 borde-maximo" 
-    if(texto.length === 6 && isUpperCase(texto)) return size="fuente-6 borde-maximo bottom-5" 
-    if(texto.length === 7 && isUpperCase(texto)) return size="fuente-5 borde-maximo bottom-5"
-    if(texto.length === 8 && isUpperCase(texto)) return size="fuente-5 borde-maximo bottom-5"
-    if(texto.length === 9 && isUpperCase(texto)) return size="fuente-4 borde-maximo bottom-5"
-    if(texto.length >= 10 && isUpperCase(texto)) return size="fuente-4 borde-minimo bottom-5"
+    if(texto.length <=5  && isUpperCase(texto)) {
+      if(color==="white") {
+        return size="fuente-7 borde-maximo-negro" 
+      } else return size="fuente-7 borde-maximo-blanco" 
+    }
+    if(texto.length === 6 && isUpperCase(texto)) {
+      if(color==="white") {
+        return size="fuente-6 borde-maximo-negro abajo-1"
+      } else return size="fuente-6 borde-maximo-blanco abajo-1"
+    }
+    if(texto.length === 7 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-5 borde-maximo-negro abajo-2"
+      } else return size="fuente-5 borde-maximo-blanco abajo-2"
+    }
+    if(texto.length === 8 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-5 borde-maximo-negro abajo-2"
+      } else return size="fuente-5 borde-maximo-blanco abajo-2"
+    }
+    if(texto.length === 9 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-4 borde-minimo-negro abajo-3"
+      } else return size="fuente-4 borde-maximo-blanco abajo-3"
+    }
+    if(texto.length >= 10 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-4 borde-minimo-negro abajo-3"
+      } else return size="fuente-4 borde-minimo-blanco abajo-3"
+    }
 
-    console.log(texto.length, isUpperCase(texto), fuente)
-
-    if(texto.length <= 6 && !isUpperCase(texto)) return size="fuente-7 borde-maximo" 
-    if(texto.length === 7 && !isUpperCase(texto)) return size="fuente-6 borde-maximo abajo-1"
-    if(texto.length === 8 && !isUpperCase(texto)) return size="fuente-5 borde-maximo abajo-2" 
-    if(texto.length === 9 && !isUpperCase(texto)) return size="fuente-5 borde-maximo abajo-2" 
-    if(texto.length === 10 && !isUpperCase(texto)) return size="fuente-4 borde-minimo abajo-3" 
-    if(texto.length >= 11 && !isUpperCase(texto)) return size="fuente-4 borde-minimo abajo-3" 
+    if(texto.length <= 6 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-7 borde-maximo-negro" 
+      } else return size="fuente-7 borde-maximo-blanco" 
+    }
+    if(texto.length === 7 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-6 borde-maximo-negro abajo-1"
+      } else return size="fuente-6 borde-maximo-blanco abajo-1"
+    }
+    if(texto.length === 8 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-5 borde-maximo-negro abajo-2" 
+      } else return size="fuente-5 borde-maximo-blanco abajo-2"
+    } 
+    if(texto.length === 9 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-5 borde-minimo-negro abajo-2" 
+      } else return size="fuente-5 borde-maximo-blanco abajo-2" 
+    }
+    if(texto.length === 10 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-4 borde-minimo-negro abajo-3" 
+      } else return size="fuente-4 borde-minimo-blanco abajo-3" 
+    }
+    if(texto.length >= 11 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-4 borde-minimo-negro abajo-3" 
+      } else return size="fuente-4 borde-minimo-blanco abajo-3"
+    } 
   } 
   
   if (fuente === "Suez%20One") {
 
-    if(texto.length <= 4 && isUpperCase(texto)) return size="fuente-7 borde-maximo bottom-4" 
-    if(texto.length === 5 && isUpperCase(texto)) return size="fuente-6 borde-maximo bottom-5" 
-    if(texto.length === 6 && isUpperCase(texto)) return size="fuente-6 borde-maximo bottom-5"
-    if(texto.length === 7 && isUpperCase(texto)) return size="fuente-5 borde-maximo bottom-5"
-    if(texto.length === 8 && isUpperCase(texto)) return size="fuente-5 borde-minimo bottom-5"
-    if(texto.length === 9 && isUpperCase(texto)) return size="fuente-4 borde-minimo bottom-5"
-    if(texto.length === 10 && isUpperCase(texto)) return size="fuente-4 borde-minimo bottom-5"
-    if(texto.length >= 11 && isUpperCase(texto)) return size="fuente-3 borde-minimo bottom-5"
+    if(texto.length <= 4 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-7 borde-maximo-negro" 
+      } else return size="fuente-7 borde-maximo-blanco" 
+    }
+    if(texto.length === 5 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-6 borde-maximo-negro abajo-1" 
+      } else return size="fuente-6 borde-maximo-blanco abajo-1" 
+    }
+    if(texto.length === 6 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-6 borde-maximo-negro abajo-1"
+      } else return size="fuente-6 borde-maximo-blanco abajo-1"
+    }
+    if(texto.length === 7 && isUpperCase(texto)) {
+      if(color==="white") {  
+       return size="fuente-5 borde-maximo-negro abajo-2"
+      } else return size="fuente-5 borde-maximo-blanco abajo-2"
+    }
+    if(texto.length === 8 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-5 borde-minimo-negro abajo-2"
+      } else return size="fuente-5 borde-minimo-blanco abajo-2"
+    }
+    if(texto.length === 9 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-4 borde-minimo-negro abajo-3"
+      } else return size="fuente-4 borde-minimo-blanco abajo-3"
+    }
+    if(texto.length === 10 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-4 borde-minimo-negro abajo-3"
+      } else return size="fuente-4 borde-minimo-blanco abajo-3"
+    }
+    if(texto.length >= 11 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-3 borde-minimo-negro abajo-4"
+      } else return size="fuente-3 borde-minimo-blanco abajo-4"
+    }
 
-    if(texto.length <= 5 && !isUpperCase(texto)) return size="fuente-7 borde-maximo bottom-4" 
-    if(texto.length === 6 && !isUpperCase(texto)) return size="fuente-6 borde-maximo bottom-4" 
-    if(texto.length === 7 && !isUpperCase(texto)) return size="fuente-6 borde-maximo bottom-5" 
-    if(texto.length === 8 && !isUpperCase(texto)) return size="fuente-5 borde-minimo bottom-5"
-    if(texto.length === 9 && !isUpperCase(texto)) return size="fuente-5 borde-minimo bottom-5" 
-    if(texto.length === 10 && !isUpperCase(texto)) return size="fuente-4 borde-minimo bottom-5" 
-    if(texto.length >= 11 && !isUpperCase(texto)) return size="fuente-4 borde-minimo bottom-5" 
+    if(texto.length <= 5 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-7 borde-maximo-negro" 
+      } else return size="fuente-7 borde-maximo-blanco" 
+    }
+    if(texto.length === 6 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-6 borde-maximo-negro abajo-1" 
+      } else return size="fuente-6 borde-maximo-blanco abajo-1" 
+    }
+    if(texto.length === 7 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-6 borde-maximo-negro abajo-1" 
+      } else return size="fuente-6 borde-maximo-blanco abajo-1" 
+    }
+    if(texto.length === 8 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-5 borde-minimo-negro abajo-2"
+      } else return size="fuente-5 borde-minimo-blanco abajo-2"
+    }
+    if(texto.length === 9 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-5 borde-minimo-negro abajo-2" 
+      } else return size="fuente-5 borde-minimo-blanco abajo-2" 
+    }
+    if(texto.length === 10 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-4 borde-minimo-negro abajo-3" 
+      } else return size="fuente-4 borde-minimo-blanco abajo-3"
+    } 
+    if(texto.length >= 11 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-4 borde-minimo-negro abajo-3" 
+      } else return size="fuente-4 borde-minimo-blanco abajo-3" 
+    }
   }
 
 }
 
 export const calculoFuenteCotenedorProductos = (texto, fuente) => {
-
   let size
-
   if(fuente === "Kanit") {
     if(texto.length <= 5 && isUpperCase(texto)) return size="text-lg borde-maximo" 
     if(texto.length === 6 && isUpperCase(texto)) return size="text-base borde-maximo" 
@@ -431,5 +535,4 @@ export const calculoFuenteCotenedorProductos = (texto, fuente) => {
     if(texto.length === 10 && !isUpperCase(texto)) return size="text-xs borde-minimo bottom-1" 
     if(texto.length >= 11 && !isUpperCase(texto)) return size="text-xs borde-minimo bottom-1" 
   }
-
 }
