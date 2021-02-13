@@ -3,6 +3,7 @@ import HeaderUser from "../../components/layout/HeaderUser"
 import imageContext from '../../context/image/imageContext'
 import ContenedorImagen from "../../components/layout/ContenedorImagen"
 import Paginacion from "../../components/layout/Paginacion"
+import AnimacionCircle from '../../components/icons/AnimacionCircle'
 import { descargarArte } from '../../utils/helper'
 
 const Download = () => {
@@ -16,6 +17,7 @@ const Download = () => {
     const [urlBackground, setUrlBackground] = useState(rutaBackground)
     const [frame, setFrame] = useState(tieneFrame)
     const [texto, setTexto] = useState(nombreMascota)
+    const [animacion, setAnimacion] = useState(false)
 
     useEffect(() => {
       const backgroundInicial = JSON.parse(window.localStorage.getItem('urlBackground'))
@@ -59,9 +61,21 @@ const Download = () => {
 
         <div className="w-80 mt-8 flex items-center justify-center mx-auto">
           <button
-              className="px-4 py-3 bg-amarillo border-2 border-gray-800 rounded-2xl text-xl font-bold text-gray-800 sombra focus:outline-none tracking-tight"
-              onClick={() => descargarArte(publicId, urlBackground, frame, texto)}
+              className="flex items-center justify-center px-4 py-3 bg-amarillo border-2 border-gray-800 rounded-2xl text-xl font-bold text-gray-800 sombra focus:outline-none tracking-tight"
+              onClick={() => {
+                setAnimacion(true)
+                descargarArte(publicId, urlBackground, frame, texto)
+                  .then(() => {
+                    setAnimacion(false)
+                  })
+                  .catch((error) => {
+                    console.log(error)
+                  })
+              }}
           >
+              { animacion && 
+                <AnimacionCircle className="animate-spin" width={30} heigth={30} stroke={"#1f2937"} />
+              }
               Free download
           </button>
         </div>

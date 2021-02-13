@@ -123,7 +123,7 @@ const Login = () => {
               </button>
             </div>
           </div>
-          <div className="flex justify-center mt-12">
+          <div className="flex justify-center mt-8">
             <div className="w-full max-w-lg">
               <form
                 onSubmit={handleSubmit}
@@ -165,7 +165,7 @@ const Login = () => {
               </form>
               <p className="block text-gray-700 mt-5 text-md">Are you new?
                 <Link href="/signup">
-                  <a className="text-red-600 font-semibold"> Create new</a>
+                  <a className="text-red-600"> Create new</a>
                 </Link>
               </p>
             </div>

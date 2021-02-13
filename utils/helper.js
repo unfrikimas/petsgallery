@@ -23,7 +23,6 @@ export const subirACloudinary = async (e) => {
   formData.append("upload_preset", "petsgallery");
   // setCargando(true);
 
-
   return await axios.post("https://api.cloudinary.com/v1_1/petportrait/upload", formData)
     .then(respuesta => {
         return respuesta.data.asset_id
@@ -52,8 +51,7 @@ export const esperarImagen = (assetId) => {
 }
 
 //descargar arte
-export const descargarArte = (publicId, urlBackground, frame, texto) => {
-
+export const descargarArte = async (publicId, urlBackground, frame, texto) => {
   //url inicial
   const urlInicio = "https://res.cloudinary.com/petportrait/image/upload/"
 
@@ -89,7 +87,7 @@ export const descargarArte = (publicId, urlBackground, frame, texto) => {
   // guardarArteDB(urlCompleta)
 
   //descargar imagen al disco
-  axios
+  await axios
     .get(urlCompleta, {
       responseType: 'arraybuffer'
     })
@@ -110,7 +108,6 @@ export const descargarArte = (publicId, urlBackground, frame, texto) => {
     .catch(error => {
       console.error(error);
     });
-
 }
 
 //funcion para obtener el hex del color

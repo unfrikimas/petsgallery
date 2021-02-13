@@ -127,7 +127,7 @@ const CrearCuenta = () => {
                 </button>
                 <p className="block text-gray-700 mt-5 text-md">Already have account?
                   <Link href="/login">
-                    <a className="text-red-600 font-semibold"> Go here</a>
+                    <a className="text-red-600"> Go here</a>
                   </Link>
                 </p>
               </form>
