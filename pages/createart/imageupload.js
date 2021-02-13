@@ -10,7 +10,7 @@ import { subirACloudinary } from '../../utils/helper'
 const SubirImagen = () => {
   
     //context de firebase
-    const { firebase } = useContext(FirebaseContext)
+    const { usuario, firebase } = useContext(FirebaseContext)
     
     const ImageContext = useContext(imageContext)
     const {public_Id, guardarIdPublico} = ImageContext
@@ -67,6 +67,8 @@ const SubirImagen = () => {
 
         <HeaderUser 
           titulo={"New Art"}
+          usuario={usuario}
+          firebase={firebase}
         />
 
         <ContenedorImagen 

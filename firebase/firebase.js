@@ -37,6 +37,18 @@ class Firebase {
         return await this.auth.signInWithEmailAndPassword(email, password);
     }
 
+    //Inicia sesion con Google
+    async loginGoogle() {
+        var google = new app.auth.GoogleAuthProvider()
+        return await this.auth.signInWithPopup(google);
+    }
+
+    //Inicia sesion con Facebook
+    async loginFacebook() {
+        var facebook = new app.auth.FacebookAuthProvider()
+        return await this.auth.signInWithPopup(facebook);
+    }
+
     //Cierra la sesion
     async cerrarSesion() {
         try {

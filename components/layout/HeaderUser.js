@@ -5,15 +5,7 @@ import { Transition } from '@headlessui/react'
 import IconUsuario from '../icons/user'
 import IconUserItem from '../icons/useritem';
 
-// const Logo = styled.a`
-//   font-family: 'Playfair Display', serif;
-//   color: #fe2c55;
-//   font-size: 2rem;
-//   font-weight: 700;
-//   cursor: pointer;
-// `;
-
-const HeaderUser = ({titulo}) => {
+const HeaderUser = ({titulo, usuario, firebase}) => {
 
     //Estado para el dropdown
     const [ menuDropDown, setMenuDropDown ] = useState(false)
@@ -23,7 +15,6 @@ const HeaderUser = ({titulo}) => {
 
     const cerrarSesion = () => {
       firebase.cerrarSesion();
-      limpiarDatosTarjeta();
     }
 
     return (
@@ -43,16 +34,23 @@ const HeaderUser = ({titulo}) => {
                 <div>
                   <button 
                     type="button" 
-                    className="inline-flex items-center justify-center w-full mt-1 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-principal-hover" 
+                    className="inline-flex items-center justify-center w-full mt-1 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none" 
                     id="options-menu"
                     aria-haspopup="true" 
                     aria-expanded="true"
                     onClick={ () => setMenuDropDown(!menuDropDown) }
                     onBlur={ () => setMenuDropDown(false) }
                   >
-                    {/* { usuario.displayName.replace(/\b\w/g, l => l.toUpperCase()) } */}
-
+                    { usuario ?
+                      <img
+                      className="rounded-full" 
+                      src={usuario?.photoURL} 
+                      width={30} 
+                      height={30}
+                      />
+                    : 
                     <IconUsuario width={30} height={30} stroke={"#2a2e3b"}/>
+                    }
                     
                     <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                       <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -75,11 +73,14 @@ const HeaderUser = ({titulo}) => {
                       <div ref={ref} className="z-40 origin-top-right absolute right-0 mt-2 w-48 shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                         <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                           <div className="flex items-center px-4">
-                            <IconUserItem width={15} height={15} />
+                            {/* <img src={usuario?.photoURL} width={20} height={20}/> */}
+                            {/* <IconUserItem width={15} height={15} /> */}
                             <p 
-                              className="block truncate pl-1 py-2 text-sm text-gray-400 border-b border-gray-100">
-                                  Usuario
-                              {/* { usuario.displayName.replace(/\b\w/g, l => l.toUpperCase()) } */}
+                              className="block truncate py-2 text-sm text-gray-400 border-b border-gray-100">    
+                              { usuario 
+                              ? usuario.displayName.replace(/\b\w/g, l => l.toUpperCase())
+                              : <IconUserItem width={15} height={15} />
+                              }
                             </p>
                           </div>
                           { pathname === "/cuenta" ? "" 

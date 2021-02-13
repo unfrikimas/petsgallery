@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import '../styles/globals.css'
+import '../styles/custom.css'
 import ImageState from '../context/image/imageState'
 import firebase, { FirebaseContext } from '../firebase';
 import useAutenticacion from '../hooks/useAutenticacion';
