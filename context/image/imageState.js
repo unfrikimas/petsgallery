@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import imageContext from './imageContext';
 import imageReducer from './imageReducer';
 import {  
+    ACTUALIZAR_USUARIO_LOGUEADO,
     ACTUALIZAR_ID_PUBLICO_IMAGEN,
     ACTUALIZAR_RUTA_BACKGROUND,
     ACTUALIZAR_FILTRO,
@@ -15,6 +16,7 @@ import {
 const imageState = ({children}) => {
 
     const initialState = {
+        usuarioLogueado: false,
         public_Id: "",
         secureUrl: "",
         rutaBackground: "",
@@ -39,7 +41,15 @@ const imageState = ({children}) => {
 
     const [ state, dispatch ] = useReducer(imageReducer, initialState); 
 
-    //actualiza redes sociales
+    //actualiza si el usuario esta logueado
+    const guardarUsuarioLogueado = (login) => {
+        dispatch({
+            type: ACTUALIZAR_USUARIO_LOGUEADO,
+            payload: login
+        })
+    }
+
+    //actualiza id publico de imagen en el context
     const guardarIdPublico = (idPublico) => {
         if(idPublico) {
             dispatch({
@@ -122,12 +132,14 @@ const imageState = ({children}) => {
     return (
         <imageContext.Provider
             value={{
+                usuarioLogueado: state.usuarioLogueado,
                 public_Id: state.public_Id,
                 secureUrl: state.secureUrl,
                 rutaBackground: state.rutaBackground,
                 filtro: state.filtro,
                 tieneFrame: state.tieneFrame,
                 nombreMascota: state.nombreMascota,
+                guardarUsuarioLogueado,
                 guardarIdPublico,
                 asignarBackground,
                 asignarFiltro,

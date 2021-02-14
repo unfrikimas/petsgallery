@@ -1,5 +1,6 @@
 import React from 'react';
 import {  
+    ACTUALIZAR_USUARIO_LOGUEADO,
     ACTUALIZAR_ID_PUBLICO_IMAGEN,
     ACTUALIZAR_RUTA_BACKGROUND,
     ACTUALIZAR_FILTRO,
@@ -12,6 +13,11 @@ import {
 
 const imageReducer = (state, action) => {
     switch(action.type) {
+        case ACTUALIZAR_USUARIO_LOGUEADO:
+            return {
+                ...state,
+                usuarioLogueado: action.payload
+            }
         case ACTUALIZAR_ID_PUBLICO_IMAGEN:
             return {
                 ...state,

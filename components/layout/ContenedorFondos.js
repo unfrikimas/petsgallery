@@ -127,7 +127,6 @@ const ContenedorFondos = (props) => {
           display: inline-block;
           inline-size: 10ch;
           block-size: 10ch;
-          border-radius: 50%;
         }
         img {
           display: block;

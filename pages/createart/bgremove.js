@@ -8,23 +8,18 @@ import AnimacionCircle from '../../components/icons/AnimacionCircle'
 import Toggle from '../../components/layout/Toggle'
 import { subirACloudinary, subirACloudinaryConFondo } from '../../utils/helper'
 
-const SubirImagen = () => {
+const RemoverBackground = () => {
   
     //context de firebase
     const { usuario, firebase } = useContext(FirebaseContext)
     
     const ImageContext = useContext(imageContext)
-    const {public_Id, guardarUsuarioLogueado, guardarIdPublico} = ImageContext
+    const {public_Id, guardarIdPublico} = ImageContext
 
     const [publicId, setPublicId] = useState(public_Id)
     const [mostrarCargandoImagen, setMostrarCargadoImagen] = useState(false)
-    const [usuarioLogueado, setUsuarioLogueado] = useState(false)
     
     useEffect(() => {
-      const sesionInicial = JSON.parse(window.localStorage.getItem('pets-isLogged'))
-      if(sesionInicial){
-        setUsuarioLogueado(true)
-      }
       const idInicial = JSON.parse(window.localStorage.getItem('publicId'))
       if(idInicial){
         setPublicId(idInicial)
@@ -106,10 +101,10 @@ const SubirImagen = () => {
                 name="inputImagen"
                 onChange={e => subirPetConFondo(e)}
             />
-              { mostrarCargandoImagen && 
+              { mostrarCargandoImagen &&
                 <AnimacionCircle className="animate-spin" width={30} heigth={30} stroke={"#1f2937"} />
-              }
-            Upload image
+                }
+            {mostrarCargandoImagen ? "Uploading" : "Upload image"}
           </label>
         </div>
 
@@ -133,4 +128,4 @@ const SubirImagen = () => {
   );
 };
 
-export default SubirImagen;
+export default RemoverBackground;

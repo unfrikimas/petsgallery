@@ -35,22 +35,18 @@ export const subirACloudinary = async (e) => {
 
 //Guardar imagen en Cloudinary
 export const subirACloudinaryConFondo = async (e) => {
-  // setPublicId("")
-  // setProcesandoImagen(true);
   const files = e.target.files[0];
   const formData = new FormData();
   formData.append("file", files);
   formData.append("upload_preset", "petswithbackground");
-  // setCargando(true);
 
-  return await axios.post("https://api.cloudinary.com/v1_1/petportrait/upload", formData)
-    .then(respuesta => {
-        return respuesta.data.asset_id
-    })
-    .catch(error => {
-      console.log(error);
-      // setProcesandoImagen(false);
-    })
+  try {
+    const respuesta = await axios.post("https://api.cloudinary.com/v1_1/petportrait/upload", formData)
+    return respuesta.data
+  } catch (error) {
+    console.log(error);
+  }
+
 }
 
 //REALTIME GET FUNCTION

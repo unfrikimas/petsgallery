@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react"
+import { FirebaseContext } from '../../firebase'
 import HeaderUser from "../../components/layout/HeaderUser"
 import imageContext from '../../context/image/imageContext'
 import ContenedorImagen from "../../components/layout/ContenedorImagen"
@@ -6,6 +7,9 @@ import ContenedorFiltros from '../../components/layout/ContenedorFiltros'
 import Paginacion from "../../components/layout/Paginacion"
 
 const ElegirFiltro = () => {
+
+    //context de firebase
+    const { usuario, firebase } = useContext(FirebaseContext)
 
     //context de la imagen
     const ImageContext = useContext(imageContext)
@@ -63,6 +67,8 @@ const ElegirFiltro = () => {
 
         <HeaderUser 
             titulo={"Filter"}
+            usuario={usuario}
+            firebase={firebase}
         />
 
         <ContenedorImagen 
@@ -72,12 +78,19 @@ const ElegirFiltro = () => {
             colorFrame={frame.colorFrame ? frame.colorFrame : "none"}
             nombreMascota={texto ? texto : ""}
         />
-
-        <ContenedorFiltros
-            handleFilter={e => handleFilter(e)}
-            imagen={publicId}
-            nombre={filtro}
-        />
+        { publicId ?        
+            <ContenedorFiltros
+                handleFilter={e => handleFilter(e)}
+                imagen={publicId}
+                nombre={filtro}
+            />
+        :
+            <div className="w-80 mx-auto flex space-x-4 animate-pulse">
+                <div className="w-24 h-28 bg-gray-300 rounded-2xl"></div>
+                <div className="w-24 h-28 bg-gray-300 rounded-2xl"></div>
+                <div className="w-24 h-28 bg-gray-300 rounded-2xl"></div>
+            </div>
+        }
 
         <Paginacion
           retroceder={true}
