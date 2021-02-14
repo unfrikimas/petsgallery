@@ -4,6 +4,7 @@ import imageReducer from './imageReducer';
 import {  
     ACTUALIZAR_ID_PUBLICO_IMAGEN,
     ACTUALIZAR_RUTA_BACKGROUND,
+    ACTUALIZAR_FILTRO,
     ACTUALIZAR_FRAME,
     ACTUALIZAR_NOMBRE_MASCOTA,
     ACTUALIZAR_FUENTE,
@@ -17,6 +18,7 @@ const imageState = ({children}) => {
         public_Id: "",
         secureUrl: "",
         rutaBackground: "",
+        filtro: "",
         tieneFrame: {
             anchoFrame: "730",
             gruesoBordeFrame: "40",
@@ -53,6 +55,16 @@ const imageState = ({children}) => {
             dispatch({
                 type: ACTUALIZAR_RUTA_BACKGROUND,
                 payload: objetoBackground
+            })
+        }
+    }
+
+    //asignar el filtro al context
+    const asignarFiltro = (filtro) => {
+        if(filtro) {
+            dispatch({
+                type: ACTUALIZAR_FILTRO,
+                payload: filtro
             })
         }
     }
@@ -113,10 +125,12 @@ const imageState = ({children}) => {
                 public_Id: state.public_Id,
                 secureUrl: state.secureUrl,
                 rutaBackground: state.rutaBackground,
+                filtro: state.filtro,
                 tieneFrame: state.tieneFrame,
                 nombreMascota: state.nombreMascota,
                 guardarIdPublico,
                 asignarBackground,
+                asignarFiltro,
                 asignarFrame,
                 asignarNombreMascota,
                 asignarFuente,

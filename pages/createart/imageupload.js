@@ -4,8 +4,9 @@ import { FirebaseContext } from '../../firebase'
 import imageContext from '../../context/image/imageContext'
 import ContenedorImagen from "../../components/layout/ContenedorImagen"
 import Paginacion from "../../components/layout/Paginacion"
+import AnimacionCircle from '../../components/icons/AnimacionCircle'
 import Toggle from '../../components/layout/Toggle'
-import { subirACloudinary } from '../../utils/helper'
+import { subirACloudinary, subirACloudinaryConFondo } from '../../utils/helper'
 
 const SubirImagen = () => {
   
@@ -43,6 +44,17 @@ const SubirImagen = () => {
                 esperarImagen(idImagen)
             })
             .catch(error => console.log(error))
+    }
+
+    //funcion para subir la imagen a Cloudinary
+    const subirPetConFondo = e => {
+      setMostrarCargadoImagen(true)
+      setPublicId("")
+      subirACloudinaryConFondo(e)
+          .then(idImagen => {
+              esperarImagen(idImagen)
+          })
+          .catch(error => console.log(error))
     }
 
     //REALTIME GET FUNCTION
@@ -87,8 +99,11 @@ const SubirImagen = () => {
                 className="hidden"
                 type="file" 
                 name="inputImagen"
-                onChange={e => subirPet(e)}
+                onChange={e => subirPetConFondo(e)}
             />
+              { mostrarCargandoImagen && 
+                <AnimacionCircle className="animate-spin" width={30} heigth={30} stroke={"#1f2937"} />
+              }
             Upload image
           </label>
         </div>
@@ -99,7 +114,7 @@ const SubirImagen = () => {
           retroceder={false}
           rutaAnterior={"/"}
           adelantar={true}
-          rutaSiguiente={"/createart/background"}
+          rutaSiguiente={"/createart/filter"}
         />
       </div>
       <style jsx>

@@ -2,18 +2,19 @@ import React, { useState, useContext, useEffect } from "react"
 import HeaderUser from "../../components/layout/HeaderUser"
 import imageContext from '../../context/image/imageContext'
 import ContenedorImagen from "../../components/layout/ContenedorImagen"
-import ContenedorFondos from '../../components/layout/ContenedorFondos'
+import ContenedorFiltros from '../../components/layout/ContenedorFiltros'
 import Paginacion from "../../components/layout/Paginacion"
 
-const ElegirBackground = () => {
+const ElegirFiltro = () => {
 
     //context de la imagen
     const ImageContext = useContext(imageContext)
-    const { public_Id, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarBackground, asignarFrame, asignarNombreMascota } = ImageContext
+    const { public_Id, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarBackground, asignarFiltro, asignarFrame, asignarNombreMascota } = ImageContext
 
     //states
     const [publicId, setPublicId] = useState(public_Id)
     const [urlBackground, setUrlBackground] = useState(rutaBackground)
+    const [filtro, setFiltro] = useState("")
     const [frame, setFrame] = useState(tieneFrame)
     const [texto, setTexto] = useState(nombreMascota)
 
@@ -22,6 +23,11 @@ const ElegirBackground = () => {
       if(backgroundInicial){
         setUrlBackground(backgroundInicial)
         asignarBackground(backgroundInicial)
+      }
+      const filtroInicial = JSON.parse(window.localStorage.getItem('pets-filter'))
+      if(filtroInicial){
+        setFiltro(filtroInicial)
+        asignarFiltro(filtroInicial)
       }
       const idInicial = JSON.parse(window.localStorage.getItem('publicId'))
       if(idInicial){
@@ -41,14 +47,14 @@ const ElegirBackground = () => {
     }, [])
 
     useEffect(() => {
-      if(urlBackground){
-        window.localStorage.setItem('urlBackground', JSON.stringify(urlBackground))
+      if(filtro){
+        window.localStorage.setItem('pets-filter', JSON.stringify(filtro))
       }
-    },[urlBackground])
+    },[filtro])
 
-    const handleBack = (e) => {
-        asignarBackground(e)
-        setUrlBackground(e)
+    const handleFilter = (e) => {
+        asignarFiltro(e)
+        setFiltro(e)
     }
 
     return (
@@ -56,26 +62,28 @@ const ElegirBackground = () => {
       <div className="max-w-lg mx-auto">
 
         <HeaderUser 
-            titulo={"Background"}
+            titulo={"Filter"}
         />
 
         <ContenedorImagen 
             background={urlBackground.urlLocal ? urlBackground.urlLocal : ""}
+            filtro={filtro ? filtro : "none"}
             imagen={publicId}
             colorFrame={frame.colorFrame ? frame.colorFrame : "none"}
             nombreMascota={texto ? texto : ""}
         />
 
-        <ContenedorFondos 
-            handleBack={e => handleBack(e)}
-            nombre={urlBackground.nombre}
+        <ContenedorFiltros
+            handleFilter={e => handleFilter(e)}
+            imagen={publicId}
+            nombre={filtro}
         />
 
         <Paginacion
           retroceder={true}
-          rutaAnterior={"/createart/filter"}
+          rutaAnterior={"/createart/imageupload"}
           adelantar={true}
-          rutaSiguiente={"/createart/frame"}
+          rutaSiguiente={"/createart/background"}
         />
       </div>
       <style jsx>
@@ -89,4 +97,4 @@ const ElegirBackground = () => {
   );
 };
 
-export default ElegirBackground;
+export default ElegirFiltro;

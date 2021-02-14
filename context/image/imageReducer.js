@@ -2,6 +2,7 @@ import React from 'react';
 import {  
     ACTUALIZAR_ID_PUBLICO_IMAGEN,
     ACTUALIZAR_RUTA_BACKGROUND,
+    ACTUALIZAR_FILTRO,
     ACTUALIZAR_FRAME,
     ACTUALIZAR_NOMBRE_MASCOTA,
     ACTUALIZAR_FUENTE,
@@ -20,6 +21,11 @@ const imageReducer = (state, action) => {
             return {
                 ...state,
                 rutaBackground: action.payload
+            }
+        case ACTUALIZAR_FILTRO:
+            return {
+                ...state,
+                filtro: action.payload
             }
         case ACTUALIZAR_FRAME:
             return {

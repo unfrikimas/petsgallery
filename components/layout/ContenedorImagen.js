@@ -4,12 +4,12 @@ import { calculoFuenteCotenedorImagen } from '../../utils/helper'
 
 const ContenedorImagen = (props) => {
 
-    const {background, colorFrame, imagen, mostrarCargandoImagen=false, nombreMascota} = props
+    const {background, filtro, colorFrame, imagen, mostrarCargandoImagen=false, nombreMascota} = props
 
     return (  
         <>
         <div 
-            className="z-0 relative flex items-center justify-center mx-auto w-80 h-80 mt-4 border-2 border-gray-800 rounded-2xl sombra pt-2 overflow-hidden bg-cover"
+            className="z-0 relative flex items-center justify-center mx-auto w-80 h-80 mt-4 border-2 border-gray-800 rounded-2xl sombra overflow-hidden bg-cover"
             style={ { backgroundImage: `url(${background})` } }
         >
 
@@ -67,9 +67,11 @@ const ContenedorImagen = (props) => {
                 dpr="auto"
                 width="auto"
                 >
-                <Transformation effect="vectorize" />
-                <Transformation effect="trim:10" />
-                <Transformation width="310" height="310" crop="fit" />
+                {filtro === "vectorize" && <Transformation effect="vectorize" />}
+                {/* <Transformation effect="trim:10" /> */}
+                {filtro === "grayscale" && <Transformation effect="grayscale" />}
+                <Transformation effect="sharpen" />
+                <Transformation width="320" height="320" crop="fill" />
             </Image>
 
             { !imagen && mostrarCargandoImagen &&
