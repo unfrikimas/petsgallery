@@ -127,6 +127,7 @@ const SubirImagen = () => {
             <input
                 className="hidden"
                 type="file" 
+                accept="image/*"
                 name="inputImagen"
                 onChange={e => subirPetConFondo(e)}
             />
