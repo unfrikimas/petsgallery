@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react"
+import React, { useState, useContext, useEffect, useRef } from "react"
 import HeaderUser from "../../components/layout/HeaderUser"
 import { FirebaseContext } from '../../firebase'
 import imageContext from '../../context/image/imageContext'
@@ -19,7 +19,10 @@ const SubirImagen = () => {
     const [publicId, setPublicId] = useState(public_Id)
     const [mostrarCargandoImagen, setMostrarCargadoImagen] = useState(false)
     const [usuarioLogueado, setUsuarioLogueado] = useState(false)
-    
+
+    const inputRef = useRef(null)
+    const btn = useRef(null)
+
     useEffect(() => {
       const sesionInicial = JSON.parse(window.localStorage.getItem('pets-isLogged'))
       if(sesionInicial){
@@ -28,15 +31,15 @@ const SubirImagen = () => {
       const idInicial = JSON.parse(window.localStorage.getItem('publicId'))
       if(idInicial){
         setPublicId(idInicial)
-      }
-    }, [])
-    
+      } 
+    }, [])    
+
     useEffect(() => {
       if(publicId) {
         setMostrarCargadoImagen(false);
         guardarIdPublico(publicId)
         window.localStorage.setItem('publicId', JSON.stringify(publicId))
-      }
+      } 
         // eslint-disable-next-line
     }, [publicId]);
     
@@ -53,14 +56,25 @@ const SubirImagen = () => {
 
     //funcion para subir la imagen a Cloudinary
     const subirPetConFondo = e => {
-      setMostrarCargadoImagen(true)
       setPublicId("")
+      setMostrarCargadoImagen(true)
       subirACloudinaryConFondo(e)
-          .then(idImagen => {
-              esperarImagen(idImagen)
-          })
-          .catch(error => console.log(error))
+        .then((imagen) => {
+          setPublicId(imagen.public_id)
+        })
+        .catch((error) => console.log(error))
     }
+
+    // //funcion para subir la imagen a Cloudinary
+    // const subirPetConFondo = e => {
+    //   setMostrarCargadoImagen(true)
+    //   setPublicId("")
+    //   subirACloudinaryConFondo(e)
+    //       .then(idImagen => {
+    //           esperarImagen(idImagen)
+    //       })
+    //       .catch(error => console.log(error))
+    // }
 
     //REALTIME GET FUNCTION
     const esperarImagen = async (assetId) => {
@@ -88,17 +102,27 @@ const SubirImagen = () => {
           firebase={firebase}
         />
 
-        <ContenedorImagen 
-            background={""}
-            colorFrame={"none"}
-            imagen={publicId}
-            mostrarCargandoImagen={mostrarCargandoImagen}
-            nombreMascota={""}
-        />
+        {publicId || mostrarCargandoImagen
+        ?
+          <ContenedorImagen 
+              background={""}
+              colorFrame={"none"}
+              imagen={publicId}
+              mostrarCargandoImagen={mostrarCargandoImagen}
+              nombreMascota={""}
+          />
+        :
+          <div className="w-80 h-80 mt-4 flex items-center justify-center mx-auto">
+            <p 
+              className="text-5xl font-bold text-gray-700 text-center leading-snug">
+                Upload<br></br>an image<br></br>to Start
+            </p>
+          </div>
+        }
 
         <div className="w-80 h-16 mx-auto mt-8">
           <label
-            className="w-full h-full flex items-center justify-center bg-amarillo border-2 border-gray-800 rounded-2xl text-xl font-bold text-gray-800 sombra focus:outline-none cursor-pointer"
+            className={`w-full h-full flex items-center justify-center bg-amarillo border-2 border-gray-800 rounded-2xl text-xl font-bold text-gray-800 sombra focus:outline-none cursor-pointer ${mostrarCargandoImagen ? "animate-pulse" : ""}`}
           >
             <input
                 className="hidden"
@@ -109,18 +133,21 @@ const SubirImagen = () => {
               { mostrarCargandoImagen && 
                 <AnimacionCircle className="animate-spin" width={30} heigth={30} stroke={"#1f2937"} />
               }
-            Upload image
+            {mostrarCargandoImagen ? "Uploading" : "Upload image"}
           </label>
         </div>
 
         {/* <Toggle /> */}
 
-        <Paginacion
-          retroceder={false}
-          rutaAnterior={"/"}
-          adelantar={true}
-          rutaSiguiente={"/createart/filter"}
-        />
+        {publicId && 
+          <Paginacion
+            retroceder={false}
+            rutaAnterior={"/"}
+            adelantar={true}
+            rutaSiguiente={"/createart/filter"}
+          />
+        }
+
       </div>
       <style jsx>
         {`

@@ -154,7 +154,7 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
             )
             :
               <Link href={"/login"}>
-                <a>Login</a>
+                <a><IconUsuario width={30} height={30} stroke={"#2a2e3b"}/></a>
               </Link>
             }
           </div>

@@ -4,26 +4,32 @@ import IconFlechaAdelante from '../icons/FlechaAdelante'
 import IconFlechaAtras from '../icons/FlechaAtras'
 import Toggle from '../layout/Toggle'
 
-const Paginacion = ({retroceder, rutaAnterior, adelantar, rutaSiguiente, tienda=false}) => {
+const Paginacion = ({retroceder, rutaAnterior, pantallaAnterior, adelantar, rutaSiguiente, pantallaSiguiente, tienda=false}) => {
     return (  
         <>
         <div className="flex mt-8 w-80 mx-auto">
             <div className="w-1/2 flex items-center justify-center">
                 { retroceder &&
+                    <>
                     <Link href={rutaAnterior}>
                         <a className="flex items-center justify-center w-12 h-12 bg-white rounded-full border-2 border-gray-800 sombra">
                             <IconFlechaAtras />
                         </a>
                     </Link>
+                    <p className="pt-2 text-sm font-semibold">{pantallaAnterior}</p>
+                    </>
                 }
             </div>
-            <div className="w-1/2 flex items-center justify-center">
+            <div className="w-1/2 flex flex-col items-center justify-center">
                 { adelantar && 
+                    <>
                     <Link href={rutaSiguiente}>
                         <a className="flex items-center justify-center w-12 h-12 bg-white rounded-full border-2 border-gray-800 sombra">
                             <IconFlechaAdelante />
                         </a>
                     </Link>
+                    <p className="pt-2 text-sm text-gray-700 font-semibold">{pantallaSiguiente}</p>
+                    </>
                 }
                 { tienda && 
                     <Link href="/createart/shop">

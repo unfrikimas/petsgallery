@@ -35,6 +35,8 @@ const Login = () => {
   const { nombre, email, password } = valores
 
   const router = useRouter()
+  const {query} = router
+  console.log(query.path)
 
   //Si hay usuario logueado, se redirecciona al dashboard
   // useEffect(() => {
@@ -48,10 +50,10 @@ const Login = () => {
       .then(usuario => {
         // console.log(usuario.user)
         if(usuario.user.emailVerified){
-          router.replace("/createart/imageupload");
+          router.replace(`${query.path}`)
         } else {
           // firebase.cerrarSesion()
-          router.replace("/verification");
+          router.replace("/verification")
         }
       })
       .catch(error => {
@@ -67,11 +69,11 @@ const Login = () => {
       .then( usuario => {
         // console.log(usuario.user)
         if(usuario) {
-            router.replace("/createart/imageupload");
+          router.replace(`${query.path}`)
         }  
       })
       .catch(error => {
-        console.error(error);
+        console.error(error)
       })
   }
 
@@ -80,11 +82,11 @@ const Login = () => {
       .then( usuario => {
         // console.log(usuario.user)
         if(usuario) {
-            router.replace("/createart/imageupload");
+          router.replace(`${query.path}`)
         }  
       })
       .catch(error => {
-        console.error(error);
+        console.error(error)
       })
   }
 

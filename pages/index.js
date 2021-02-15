@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react"
 import {useRouter} from 'next/router'
+import Link from 'next/link'
 import HeaderUser from "../components/layout/HeaderUser"
 import { FirebaseContext } from "../firebase"
 import imageContext from "../context/image/imageContext"
@@ -23,8 +24,8 @@ const Home = () => {
     if(publicId) {
         guardarIdPublico(publicId)
         window.localStorage.setItem('publicId', JSON.stringify(publicId))
-        setMostrarCargadoImagen(false);
         router.push("/createart/bgremove")
+        // setMostrarCargadoImagen(false);
     }
       // eslint-disable-next-line
   }, [publicId]);
@@ -59,8 +60,9 @@ const Home = () => {
   return (
     <div className="max-w-lg mx-auto mt-32">
       <div className="w-80 h-16 mx-auto mt-8">
-        <label className="w-full h-full flex items-center justify-center bg-amarillo border-2 border-gray-800 rounded-2xl text-xl font-bold text-gray-800 sombra focus:outline-none cursor-pointer">
-          <input
+        <Link href={"/createart/imageupload"} passHref>
+        <a className="w-full h-full flex items-center justify-center bg-amarillo border-2 border-gray-800 rounded-2xl text-xl font-bold text-gray-800 sombra focus:outline-none cursor-pointer">
+          {/* <input
             className="hidden"
             type="file"
             name="inputImagen"
@@ -75,8 +77,10 @@ const Home = () => {
               stroke={"#1f2937"}
             />
           )}
-          {mostrarCargandoImagen ? "Uploading" : "Upload image"}
-        </label>
+          {mostrarCargandoImagen ? "Uploading" : "Upload image"} */}
+          Upload Image
+        </a>
+        </Link>
       </div>
     </div>
   );

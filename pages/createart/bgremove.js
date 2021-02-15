@@ -1,4 +1,6 @@
 import React, { useState, useContext, useEffect } from "react"
+import {useRouter} from 'next/router'
+import Link from "next/link"
 import HeaderUser from "../../components/layout/HeaderUser"
 import { FirebaseContext } from '../../firebase'
 import imageContext from '../../context/image/imageContext'
@@ -18,6 +20,9 @@ const RemoverBackground = () => {
 
     const [publicId, setPublicId] = useState(public_Id)
     const [mostrarCargandoImagen, setMostrarCargadoImagen] = useState(false)
+
+    const router = useRouter()
+    const ruta = router.pathname
     
     useEffect(() => {
       const idInicial = JSON.parse(window.localStorage.getItem('publicId'))
@@ -90,8 +95,17 @@ const RemoverBackground = () => {
             mostrarCargandoImagen={mostrarCargandoImagen}
             nombreMascota={""}
         />
+        
+        <div  className="w-80 h-16 mx-auto mt-8">
+          <p 
+            className="text-2xl font-bold text-gray-700 text-center">You have 1 credit to remove the background 
+            <Link href={{pathname: '/login', query: {path: `${ruta}`} }} passHref>
+              <a className="text-amarillo"> Sign up</a>
+            </Link>
+          </p>
+        </div>
 
-        <div className="w-80 h-16 mx-auto mt-8">
+        {/* <div className="w-80 h-16 mx-auto mt-8">
           <label
             className="w-full h-full flex items-center justify-center bg-amarillo border-2 border-gray-800 rounded-2xl text-xl font-bold text-gray-800 sombra focus:outline-none cursor-pointer"
           >
@@ -101,20 +115,19 @@ const RemoverBackground = () => {
                 name="inputImagen"
                 onChange={e => subirPetConFondo(e)}
             />
-              { mostrarCargandoImagen &&
-                <AnimacionCircle className="animate-spin" width={30} heigth={30} stroke={"#1f2937"} />
-                }
-            {mostrarCargandoImagen ? "Uploading" : "Upload image"}
+            Background remover
           </label>
-        </div>
+        </div> */}
 
         {/* <Toggle /> */}
 
         <Paginacion
           retroceder={false}
           rutaAnterior={"/"}
+          pantallaAnterior={""}
           adelantar={true}
           rutaSiguiente={"/createart/filter"}
+          pantallaSiguiente={"Filter"}
         />
       </div>
       <style jsx>

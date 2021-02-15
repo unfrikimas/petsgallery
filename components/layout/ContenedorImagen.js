@@ -75,7 +75,7 @@ const ContenedorImagen = (props) => {
             </Image>
 
             { !imagen && mostrarCargandoImagen &&
-                <div className="h-full w-full flex items-center justify-center">
+                <div className="animate-pulse h-full w-full flex items-center justify-center">
                     <p className="px-4 py-2 bg-white font-bold border-2 border-gray-800 rounded-xl">Uploading...</p>
                 </div>
             }

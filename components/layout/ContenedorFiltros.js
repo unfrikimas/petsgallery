@@ -10,7 +10,7 @@ const ContenedorFiltros = ({ handleFilter, imagen, nombre }) => {
               className={`rounded-2xl ${nombre === "none" ? "sombra" : ""}`}
             >
               <picture
-                className="z-10 flex flex-col rounded-2xl border-2 border-gray-800"
+                className="z-10 flex flex-col rounded-2xl border-2 border-gray-800 overflow-hidden"
                 onClick={() => handleFilter("none")}
               >
                 <Image
@@ -34,7 +34,7 @@ const ContenedorFiltros = ({ handleFilter, imagen, nombre }) => {
               className={`rounded-2xl ${nombre === "grayscale" ? "sombra" : ""}`}
             >
               <picture
-                className="z-10 flex flex-col rounded-2xl border-2 border-gray-800"
+                className="z-10 flex flex-col rounded-2xl border-2 border-gray-800 overflow-hidden"
                 onClick={() => handleFilter("grayscale")}
               >
                 <Image
@@ -59,7 +59,7 @@ const ContenedorFiltros = ({ handleFilter, imagen, nombre }) => {
               className={`rounded-2xl ${nombre === "vectorize" ? "sombra" : ""}`}
             >
               <picture
-                className="z-10 rounded-2xl border-2 border-gray-800 flex flex-col"
+                className="z-10 rounded-2xl border-2 border-gray-800 flex flex-col overflow-hidden"
                 onClick={() => handleFilter("vectorize")}
               >
                 <Image
