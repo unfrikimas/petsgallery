@@ -51,7 +51,7 @@ const Shop = () => {
 
         <ContenedorProductos
             background={urlBackground.urlLocal ? urlBackground.urlLocal : ""}
-            imagen={publicId}
+            imagen={publicId.publicid}
             colorFrame={frame.colorFrame ? frame.colorFrame : "none"}
             nombreMascota={texto ? texto : ""}
         />
