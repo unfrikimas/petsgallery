@@ -9,7 +9,8 @@ const webHook = async (req, res) => {
                 imagen_sin_background: {
                     asset_id: req.body.asset_id,
                     version: req.body.version,
-                    public_id: req.body.public_id
+                    public_id: req.body.public_id,
+                    format: req.body.format
                 },
                 creado: req.body.timestamp ? req.body.timestamp : Date.now()
             }
@@ -22,7 +23,7 @@ const webHook = async (req, res) => {
                 console.log(error)    
             }
             
-            console.log("desde servidor", req.body)
+            console.log("desde webhook", req.body)
             return res.status(200).json({msg: "ok"});
         }
     }

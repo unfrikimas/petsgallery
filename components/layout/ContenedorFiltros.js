@@ -17,7 +17,7 @@ const ContenedorFiltros = ({ handleFilter, imagen, nombre }) => {
                   className="z-10"
                   cloudName="petportrait"
                   secure="true"
-                  publicId={imagen}
+                  publicId={imagen.publicid}
                   dpr="auto"
                   width="auto"
                 >
@@ -41,7 +41,7 @@ const ContenedorFiltros = ({ handleFilter, imagen, nombre }) => {
                   className="z-10 imagen"
                   cloudName="petportrait"
                   secure="true"
-                  publicId={imagen}
+                  publicId={imagen.publicid}
                   dpr="auto"
                   width="auto"
                 >
@@ -65,7 +65,7 @@ const ContenedorFiltros = ({ handleFilter, imagen, nombre }) => {
                 <Image
                   cloudName="petportrait"
                   secure="true"
-                  publicId={imagen}
+                  publicId={imagen.publicid}
                   dpr="auto"
                   width="auto"
                 >

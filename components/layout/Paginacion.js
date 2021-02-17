@@ -8,7 +8,7 @@ const Paginacion = ({retroceder, rutaAnterior, pantallaAnterior, adelantar, ruta
     return (  
         <>
         <div className="flex mt-8 w-80 mx-auto">
-            <div className="w-1/2 flex items-center justify-center">
+            <div className="w-1/2 flex flex-col items-center justify-center">
                 { retroceder &&
                     <>
                     <Link href={rutaAnterior}>
@@ -16,7 +16,7 @@ const Paginacion = ({retroceder, rutaAnterior, pantallaAnterior, adelantar, ruta
                             <IconFlechaAtras />
                         </a>
                     </Link>
-                    <p className="pt-2 text-sm font-semibold">{pantallaAnterior}</p>
+                    <p className="pt-2 text-sm text-gray-700">{pantallaAnterior}</p>
                     </>
                 }
             </div>
@@ -28,7 +28,7 @@ const Paginacion = ({retroceder, rutaAnterior, pantallaAnterior, adelantar, ruta
                             <IconFlechaAdelante />
                         </a>
                     </Link>
-                    <p className="pt-2 text-sm text-gray-700 font-semibold">{pantallaSiguiente}</p>
+                    <p className="pt-2 text-sm text-gray-700">{pantallaSiguiente}</p>
                     </>
                 }
                 { tienda && 

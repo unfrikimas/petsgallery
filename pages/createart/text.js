@@ -125,8 +125,10 @@ const AgregarTexto = () => {
         <Paginacion
           retroceder={true}
           rutaAnterior={"/createart/frame"}
+          pantallaAnterior={"Frame"}
           adelantar={true}
           rutaSiguiente={"/createart/download"}
+          pantallaSiguiente={"Download"}
         />
       </div>
     </>

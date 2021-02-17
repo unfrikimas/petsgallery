@@ -4,18 +4,21 @@ import imageContext from '../../context/image/imageContext'
 import ContenedorImagen from "../../components/layout/ContenedorImagen"
 import ContenedorFondos from '../../components/layout/ContenedorFondos'
 import Paginacion from "../../components/layout/Paginacion"
+import AlertaNoPng from '../../components/layout/AlertaNoPng'
 
 const ElegirBackground = () => {
 
     //context de la imagen
     const ImageContext = useContext(imageContext)
-    const { public_Id, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarBackground, asignarFrame, asignarNombreMascota } = ImageContext
+    const { public_Id, filtro, creditos, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarFiltro, asignarBackground, asignarFrame, asignarNombreMascota } = ImageContext
 
     //states
     const [publicId, setPublicId] = useState(public_Id)
+    const [filtroImagen, setFiltroImagen] = useState(filtro)
     const [urlBackground, setUrlBackground] = useState(rutaBackground)
     const [frame, setFrame] = useState(tieneFrame)
     const [texto, setTexto] = useState(nombreMascota)
+    const [freeCredit, setFreeCredit] = useState(creditos)
 
     useEffect(() => {
       const backgroundInicial = JSON.parse(window.localStorage.getItem('urlBackground'))
@@ -28,6 +31,11 @@ const ElegirBackground = () => {
         setPublicId(idInicial)
         guardarIdPublico(idInicial)
       }
+      const filtroInicial = JSON.parse(window.localStorage.getItem('pets-filter'))
+      if(filtroInicial){
+        setFiltroImagen(filtroInicial)
+        asignarFiltro(filtroInicial)
+      }
       const frameInicial = JSON.parse(window.localStorage.getItem('frame'))
       if(frameInicial){
         setFrame(frameInicial)
@@ -38,6 +46,10 @@ const ElegirBackground = () => {
         setTexto(textoInicial)
         asignarNombreMascota(textoInicial.textoMascota)
       }
+      const freeRbInicial = JSON.parse(window.localStorage.getItem('pet-rb'))
+      if(freeRbInicial){
+        setFreeCredit(freeRbInicial)
+      } 
     }, [])
 
     useEffect(() => {
@@ -59,11 +71,18 @@ const ElegirBackground = () => {
             titulo={"Background"}
         />
 
+        {publicId.format !== "png" && 
+          <AlertaNoPng 
+            creditos={creditos}
+          />
+        }
+
         <ContenedorImagen 
-            background={urlBackground.urlLocal ? urlBackground.urlLocal : ""}
+            background={publicId.format === "png" ? urlBackground.urlLocal : "none"}
             imagen={publicId}
-            colorFrame={frame.colorFrame ? frame.colorFrame : "none"}
-            nombreMascota={texto ? texto : ""}
+            filtro={filtroImagen || "none"}
+            colorFrame={frame.colorFrame || "none"}
+            nombreMascota={texto || ""}
         />
 
         <ContenedorFondos 
@@ -74,8 +93,10 @@ const ElegirBackground = () => {
         <Paginacion
           retroceder={true}
           rutaAnterior={"/createart/filter"}
+          pantallaAnterior={"Filter"}
           adelantar={true}
           rutaSiguiente={"/createart/frame"}
+          pantallaSiguiente={"Frame"}
         />
       </div>
       <style jsx>

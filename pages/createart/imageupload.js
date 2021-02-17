@@ -1,12 +1,17 @@
 import React, { useState, useContext, useEffect, useRef } from "react"
+import Link from 'next/link'
+import {useRouter} from 'next/router'
 import HeaderUser from "../../components/layout/HeaderUser"
 import { FirebaseContext } from '../../firebase'
 import imageContext from '../../context/image/imageContext'
 import ContenedorImagen from "../../components/layout/ContenedorImagen"
 import Paginacion from "../../components/layout/Paginacion"
-import AnimacionCircle from '../../components/icons/AnimacionCircle'
+import IconLoader from '../../components/icons/Loader'
+import IconUpload from '../../components/icons/Upload'
 import Toggle from '../../components/layout/Toggle'
-import { subirACloudinary, subirACloudinaryConFondo } from '../../utils/helper'
+import { subirACloudinaryRemoverFondo, subirACloudinaryConFondo } from '../../utils/helper'
+
+export const CREDITOS = 1
 
 const SubirImagen = () => {
   
@@ -14,14 +19,14 @@ const SubirImagen = () => {
     const { usuario, firebase } = useContext(FirebaseContext)
     
     const ImageContext = useContext(imageContext)
-    const {public_Id, guardarUsuarioLogueado, guardarIdPublico} = ImageContext
+    const {public_Id, creditos, guardarIdPublico, asignarCredito} = ImageContext
 
     const [publicId, setPublicId] = useState(public_Id)
     const [mostrarCargandoImagen, setMostrarCargadoImagen] = useState(false)
-    const [usuarioLogueado, setUsuarioLogueado] = useState(false)
+    const [freeCredit, setFreeCredit] = useState(creditos)
 
-    const inputRef = useRef(null)
-    const btn = useRef(null)
+    const router = useRouter()
+    const ruta = router.pathname
 
     useEffect(() => {
       const sesionInicial = JSON.parse(window.localStorage.getItem('pets-isLogged'))
@@ -32,26 +37,52 @@ const SubirImagen = () => {
       if(idInicial){
         setPublicId(idInicial)
       } 
-    }, [])    
+      const freeRbInicial = JSON.parse(window.localStorage.getItem('pet-rb'))
+      if(freeRbInicial){
+        setFreeCredit(freeRbInicial)
+      } 
+    }, [])
+
+    useEffect(() => {
+      if(usuario && !freeCredit){
+        obtenerFreeBr(usuario)
+          .then((data) => {
+            console.log("freebr", data)
+            if(data) {
+              setFreeCredit(data.creditos)
+            } else {
+              asignarFreeBr(usuario)
+              window.localStorage.setItem('pet-rb', JSON.stringify(CREDITOS))
+            }
+          })
+      }
+    }, [usuario])
+
+    useEffect(() => {
+      if(freeCredit) {
+        asignarCredito(freeCredit) //context
+        window.localStorage.setItem('pet-rb', JSON.stringify(freeCredit))
+      }
+        // eslint-disable-next-line
+    }, [freeCredit]);
 
     useEffect(() => {
       if(publicId) {
-        setMostrarCargadoImagen(false);
-        guardarIdPublico(publicId)
+        setMostrarCargadoImagen(false)
+        guardarIdPublico(publicId) //context
         window.localStorage.setItem('publicId', JSON.stringify(publicId))
       } 
         // eslint-disable-next-line
     }, [publicId]);
     
     //funcion para subir la imagen a Cloudinary
-    const subirPet = async e => {
-        setMostrarCargadoImagen(true)
-        setPublicId("")
-        await subirACloudinary(e)
-            .then(idImagen => {
-                esperarImagen(idImagen)
-            })
-            .catch(error => console.log(error))
+    const subirPetRemoverFondo = () => {
+      setMostrarCargadoImagen(true)
+      subirACloudinaryRemoverFondo(publicId.publicid)
+        .then(idImagen => {
+            esperarImagen(idImagen)
+        })
+        .catch(error => console.log(error))
     }
 
     //funcion para subir la imagen a Cloudinary
@@ -60,7 +91,10 @@ const SubirImagen = () => {
       setMostrarCargadoImagen(true)
       subirACloudinaryConFondo(e)
         .then((imagen) => {
-          setPublicId(imagen.public_id)
+          setPublicId({
+            publicid: imagen.public_id,
+            format: imagen.format
+          })
         })
         .catch((error) => console.log(error))
     }
@@ -76,6 +110,49 @@ const SubirImagen = () => {
     //       .catch(error => console.log(error))
     // }
 
+    const obtenerFreeBr = async (usuario) => {
+      return await firebase.db
+        .collection('free_br')
+        .where('idUsuario', '==', usuario.uid)
+        .get()
+        .then(snapshot => {
+            if (snapshot.empty) {
+              console.log('usuario no existe')
+              return
+            }
+            const datosUsuario = snapshot.docs.map(doc => {
+                const data = doc.data()
+                console.log("data", data)
+                return {
+                  id: doc.id,
+                  ...data,
+                }
+            })
+            return datosUsuario[0]
+        })
+        .catch(err => {
+            console.log('Error', err)
+        })
+    }
+
+  //asignar un free br si es un usuario nuevo
+  const asignarFreeBr = async (usuario) => {
+    const freeBr = {
+      primeraSesion: Date.now(),
+      ultimaSesion: Date.now(),
+      idUsuario: usuario.uid,
+      nombre: usuario.displayName,
+      creditos: CREDITOS
+    }
+    try {      
+      //insertar productos en la base de datos
+      const freeBrRef = await firebase.db.collection('creditos')
+      await freeBrRef.add(freeBr);
+    } catch (error) {
+      console.log(error)
+    }
+  }    
+    
     //REALTIME GET FUNCTION
     const esperarImagen = async (assetId) => {
         // console.log("assetid", assetId)
@@ -88,7 +165,11 @@ const SubirImagen = () => {
                     pets.push(doc.data());
                 });
                 // setMascotas(pets[0]);
-                setPublicId(pets[0]?.imagen_sin_background.public_id)
+                // setPublicId(pets[0]?.imagen_sin_background.public_id)
+                setPublicId({
+                  publicid: pets[0]?.imagen_sin_background.public_id,
+                  format: pets[0]?.imagen_sin_background.format
+                })
             });
     }
 
@@ -131,8 +212,10 @@ const SubirImagen = () => {
                 name="inputImagen"
                 onChange={e => subirPetConFondo(e)}
             />
-              { mostrarCargandoImagen && 
-                <AnimacionCircle className="animate-spin" width={30} heigth={30} stroke={"#1f2937"} />
+              { mostrarCargandoImagen ? 
+                <IconLoader className="animate-spin" width={30} heigth={30} stroke={"#1f2937"} />
+                :
+                <IconUpload className="mr-2" width={25} heigth={25} stroke={"#1f2937"}/>
               }
             {mostrarCargandoImagen ? "Uploading" : "Upload image"}
           </label>
@@ -140,12 +223,33 @@ const SubirImagen = () => {
 
         {/* <Toggle /> */}
 
+        {freeCredit > 0 &&
+          <div  className="w-80 mx-auto mt-4">
+            <p 
+              className="text-xl font-bold text-gray-600 text-center ">You have 1 credit to remove the background.
+              {usuario ?
+                <button 
+                  className="text-amarillo font-bold pl-1"
+                  onClick={subirPetRemoverFondo}
+                >
+                  Use it
+                </button>              
+              :
+                <Link href={{pathname: '/login', query: {path: `${ruta}`} }} passHref>
+                  <a className="text-amarillo"> Sign up</a>
+                </Link>
+              } 
+            </p>
+          </div>
+        }
+
         {publicId && 
           <Paginacion
             retroceder={false}
             rutaAnterior={"/"}
             adelantar={true}
             rutaSiguiente={"/createart/filter"}
+            pantallaSiguiente={"Filter"}
           />
         }
 

@@ -13,12 +13,12 @@ const ElegirFiltro = () => {
 
     //context de la imagen
     const ImageContext = useContext(imageContext)
-    const { public_Id, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarBackground, asignarFiltro, asignarFrame, asignarNombreMascota } = ImageContext
+    const { public_Id, filtro, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarBackground, asignarFiltro, asignarFrame, asignarNombreMascota } = ImageContext
 
     //states
     const [publicId, setPublicId] = useState(public_Id)
     const [urlBackground, setUrlBackground] = useState(rutaBackground)
-    const [filtro, setFiltro] = useState("")
+    const [filtroImagen, setFiltroImagen] = useState(filtro)
     const [frame, setFrame] = useState(tieneFrame)
     const [texto, setTexto] = useState(nombreMascota)
 
@@ -30,7 +30,7 @@ const ElegirFiltro = () => {
       }
       const filtroInicial = JSON.parse(window.localStorage.getItem('pets-filter'))
       if(filtroInicial){
-        setFiltro(filtroInicial)
+        setFiltroImagen(filtroInicial)
         asignarFiltro(filtroInicial)
       }
       const idInicial = JSON.parse(window.localStorage.getItem('publicId'))
@@ -51,14 +51,14 @@ const ElegirFiltro = () => {
     }, [])
 
     useEffect(() => {
-      if(filtro){
-        window.localStorage.setItem('pets-filter', JSON.stringify(filtro))
+      if(filtroImagen){
+        window.localStorage.setItem('pets-filter', JSON.stringify(filtroImagen))
       }
-    },[filtro])
+    },[filtroImagen])
 
     const handleFilter = (e) => {
         asignarFiltro(e)
-        setFiltro(e)
+        setFiltroImagen(e)
     }
 
     return (
@@ -72,20 +72,20 @@ const ElegirFiltro = () => {
         />
 
         <ContenedorImagen 
-            background={urlBackground.urlLocal ? urlBackground.urlLocal : ""}
-            filtro={filtro ? filtro : "none"}
+            background={urlBackground.urlLocal || ""}
             imagen={publicId}
-            colorFrame={frame.colorFrame ? frame.colorFrame : "none"}
-            nombreMascota={texto ? texto : ""}
+            filtro={filtroImagen || "none"}
+            colorFrame={frame.colorFrame || "none"}
+            nombreMascota={texto || ""}
         />
-        { publicId ?        
+        { publicId.publicid ?        
             <ContenedorFiltros
                 handleFilter={e => handleFilter(e)}
                 imagen={publicId}
                 nombre={filtro}
             />
         :
-            <div className="w-80 mx-auto flex space-x-4 animate-pulse">
+            <div className="w-80 mt-6 mx-auto flex space-x-4 animate-pulse">
                 <div className="w-24 h-28 bg-gray-300 rounded-2xl"></div>
                 <div className="w-24 h-28 bg-gray-300 rounded-2xl"></div>
                 <div className="w-24 h-28 bg-gray-300 rounded-2xl"></div>
@@ -95,9 +95,12 @@ const ElegirFiltro = () => {
         <Paginacion
           retroceder={true}
           rutaAnterior={"/createart/imageupload"}
+          pantallaAnterior={"Upload"}
           adelantar={true}
           rutaSiguiente={"/createart/background"}
+          pantallaSiguiente={"Background"}
         />
+
       </div>
       <style jsx>
         {`

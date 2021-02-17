@@ -77,8 +77,10 @@ const ElegirFrame = () => {
         <Paginacion
           retroceder={true}
           rutaAnterior={"/createart/background"}
+          pantallaAnterior={"Background"}
           adelantar={true}
           rutaSiguiente={"/createart/text"}
+          pantallaSiguiente={"Text"}
         />
       </div>
     </>

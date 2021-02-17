@@ -3,7 +3,8 @@ import HeaderUser from "../../components/layout/HeaderUser"
 import imageContext from '../../context/image/imageContext'
 import ContenedorImagen from "../../components/layout/ContenedorImagen"
 import Paginacion from "../../components/layout/Paginacion"
-import AnimacionCircle from '../../components/icons/AnimacionCircle'
+import IconLoader from '../../components/icons/Loader'
+import IconDownload from '../../components/icons/Download'
 import { descargarArte } from '../../utils/helper'
 
 const Download = () => {
@@ -73,10 +74,12 @@ const Download = () => {
                   })
               }}
           >
-              { animacion && 
-                <AnimacionCircle className="animate-spin" width={30} heigth={30} stroke={"#1f2937"} />
-              }
-              Free download
+            { animacion ? 
+              <IconLoader className="animate-spin" width={30} heigth={30} stroke={"#1f2937"} />
+              :
+              <IconDownload className="mr-2" width={25} heigth={25} stroke={"#1f2937"}/>
+            }
+            {animacion ? "Downloading" : "Free download"}
           </button>
         </div>
 

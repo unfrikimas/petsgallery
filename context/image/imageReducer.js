@@ -8,7 +8,8 @@ import {
     ACTUALIZAR_NOMBRE_MASCOTA,
     ACTUALIZAR_FUENTE,
     ACTUALIZAR_COLOR_FUENTE,
-    ACTUALIZAR_COLOR_BORDE_FUENTE
+    ACTUALIZAR_COLOR_BORDE_FUENTE,
+    ACTUALIZAR_FREE_CREDITS
 } from '../../types';
 
 const imageReducer = (state, action) => {
@@ -22,6 +23,11 @@ const imageReducer = (state, action) => {
             return {
                 ...state,
                 public_Id: action.payload
+            }
+        case ACTUALIZAR_FREE_CREDITS:
+            return {
+                ...state,
+                creditos: action.payload
             }
         case ACTUALIZAR_RUTA_BACKGROUND:
             return {

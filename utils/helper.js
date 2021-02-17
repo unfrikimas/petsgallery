@@ -14,23 +14,19 @@ export const colores = [
 ]
 
 //Guardar imagen en Cloudinary
-export const subirACloudinary = async (e) => {
-  // setPublicId("")
-  // setProcesandoImagen(true);
-  const files = e.target.files[0];
-  const formData = new FormData();
-  formData.append("file", files);
-  formData.append("upload_preset", "petsgallery");
-  // setCargando(true);
-
-  return await axios.post("https://api.cloudinary.com/v1_1/petportrait/upload", formData)
-    .then(respuesta => {
-        return respuesta.data.asset_id
+export const subirACloudinaryRemoverFondo = async (imagen) => {
+  const urlApi = "https://api.cloudinary.com/v1_1/petportrait/image/upload/"
+  const file = "https://res.cloudinary.com/petportrait/image/upload/"+imagen
+  try {
+    const respuesta = await axios.post(urlApi, {
+      file: file,
+      upload_preset: 'petsgallery'
     })
-    .catch(error => {
-      console.log(error);
-      // setProcesandoImagen(false);
-    })
+    // console.log(respuesta)
+    return respuesta.data.asset_id
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 //Guardar imagen en Cloudinary
@@ -38,15 +34,13 @@ export const subirACloudinaryConFondo = async (e) => {
   const files = e.target.files[0];
   const formData = new FormData();
   formData.append("file", files);
-  formData.append("upload_preset", "petswithbackground");
-
+  formData.append("upload_preset", "petswithbackground")
   try {
-    const respuesta = await axios.post("https://api.cloudinary.com/v1_1/petportrait/upload", formData)
+    const respuesta = await axios.post("https://api.cloudinary.com/v1_1/petportrait/image/upload", formData)
     return respuesta.data
   } catch (error) {
     console.log(error);
   }
-
 }
 
 //REALTIME GET FUNCTION
@@ -80,16 +74,17 @@ export const descargarArte = async (publicId, urlBackground, frame, texto) => {
   //transformacion para descargar el archivo
   const transformacionDescarga = `fl_attachment:${texto.textoMascota}`
 
+  
   //transformacion del frame
   if(frame.colorFrame !== "none") {
     var transformacionFrame = `l_${urlBackground.idPublicoModificado},w_${frame.anchoFrame},bo_${frame.gruesoBordeFrame}px_solid_rgb:${valorColor(frame.colorFrame)},g_south,y_110`
   } else {
     var transformacionFrame = ""
   }
-  // console.log(transformacionFrame)
 
   //transformacion de la imagen de la mascota
-  const transformacionMascota = `l_petsgallery:${nombreMascotaLimpio},h_${"1070"},g_south,y_0,e_vectorize`
+  const nombreMascotaSinBarras = reemplazarBarras(publicId)
+  const transformacionMascota = `l_${nombreMascotaSinBarras},h_${"1070"},g_south,y_0,e_vectorize`
 
   //transformacion del texto
   const transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)},g_south,y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente)}`
@@ -303,6 +298,12 @@ export const reemplazarEspacios = (texto) => {
   const textoSinEspacios = texto.split(" ").join("%20")
   return textoSinEspacios
 }
+
+export const reemplazarBarras = (urlMascota) => {
+  const urlSinBarras = urlMascota.publicid.split("/").join(":")
+  return urlSinBarras
+}
+
 
 export const calculoBordeFuente = (texto, fuente) => {
   let borde

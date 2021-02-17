@@ -21,7 +21,7 @@ const STATE_INICIAL = {
 const Login = () => {
 
   //context de usuario
-  const { usuario, firebase, google } = useContext(FirebaseContext)
+  const { firebase } = useContext(FirebaseContext)
 
   const [error, guardarError] = useState(false)
 
@@ -32,11 +32,10 @@ const Login = () => {
   );
 
   //extraer datos del objeto valores
-  const { nombre, email, password } = valores
+  const { email, password } = valores
 
   const router = useRouter()
   const {query} = router
-  console.log(query.path)
 
   //Si hay usuario logueado, se redirecciona al dashboard
   // useEffect(() => {
@@ -66,8 +65,7 @@ const Login = () => {
 
   function iniciarSesionGoogle() {
     firebase.loginGoogle()
-      .then( usuario => {
-        // console.log(usuario.user)
+      .then(usuario => {
         if(usuario) {
           router.replace(`${query.path}`)
         }  
@@ -80,7 +78,6 @@ const Login = () => {
   function iniciarSesionFacebook() {
     firebase.loginFacebook()
       .then( usuario => {
-        // console.log(usuario.user)
         if(usuario) {
           router.replace(`${query.path}`)
         }  
@@ -89,6 +86,7 @@ const Login = () => {
         console.error(error)
       })
   }
+
 
   return (
     <>

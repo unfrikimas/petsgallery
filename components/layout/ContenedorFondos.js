@@ -48,8 +48,8 @@ const ContenedorFondos = (props) => {
 
   return (
     <>
-    <div className="mt-6 section-overflow-x">
-      <div className="relative pl-6 py-3 horizontal-frame-list">
+    <div className={`mt-6 section-overflow-x`}>
+      <div className={`relative pl-6 py-3 horizontal-frame-list`}>
         <figure className={`rounded-2xl ${nombre === 'amarillo' ? "sombra" : ""}`}>
           <picture>
             <img

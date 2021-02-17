@@ -59,22 +59,39 @@ const ContenedorImagen = (props) => {
                 </div>
             )}
 
-            <Image 
-                className="z-10"
-                cloudName="petportrait" 
-                secure="true"
-                publicId={imagen}
-                dpr="auto"
-                width="auto"
-                >
-                {filtro === "vectorize" && <Transformation effect="vectorize" />}
-                {/* <Transformation effect="trim:10" /> */}
-                {filtro === "grayscale" && <Transformation effect="grayscale" />}
-                <Transformation effect="sharpen" />
-                <Transformation width="320" height="320" crop="fill" />
-            </Image>
+            {imagen.publicid && imagen.format === "png" ?
+                <Image
+                    className={`z-10 pt-2 ${mostrarCargandoImagen ? "animate-pulse" : ""}`}
+                    cloudName="petportrait" 
+                    secure="true"
+                    publicId={imagen.publicid}
+                    dpr="auto"
+                    width="auto"
+                    >
+                    {filtro === "vectorize" && <Transformation effect="vectorize" />}
+                    <Transformation effect="trim:10" />
+                    {filtro === "grayscale" && <Transformation effect="grayscale" />}
+                    <Transformation effect="sharpen" />
+                    <Transformation width="310" height="310" crop="fit" />
+                </Image>
+            :
+                <Image 
+                    className={`z-10 ${mostrarCargandoImagen ? "animate-pulse" : ""}`}
+                    cloudName="petportrait" 
+                    secure="true"
+                    publicId={imagen.publicid}
+                    dpr="auto"
+                    width="auto"
+                    >
+                    {filtro === "vectorize" && <Transformation effect="vectorize" />}
+                    {/* <Transformation effect="trim:10" /> */}
+                    {filtro === "grayscale" && <Transformation effect="grayscale" />}
+                    <Transformation effect="sharpen" />
+                    <Transformation width="320" height="320" crop="fill" />
+                </Image>
+            }
 
-            { !imagen && mostrarCargandoImagen &&
+            { !imagen.publicid && mostrarCargandoImagen &&
                 <div className="animate-pulse h-full w-full flex items-center justify-center">
                     <p className="px-4 py-2 bg-white font-bold border-2 border-gray-800 rounded-xl">Uploading...</p>
                 </div>

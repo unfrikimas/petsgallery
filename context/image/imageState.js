@@ -10,17 +10,29 @@ import {
     ACTUALIZAR_NOMBRE_MASCOTA,
     ACTUALIZAR_FUENTE,
     ACTUALIZAR_COLOR_FUENTE,
-    ACTUALIZAR_COLOR_BORDE_FUENTE
+    ACTUALIZAR_COLOR_BORDE_FUENTE,
+    ACTUALIZAR_FREE_CREDITS
 } from '../../types';
 
 const imageState = ({children}) => {
 
     const initialState = {
         usuarioLogueado: false,
-        public_Id: "",
+        creditos: 1,
+        public_Id: {
+            publicid: "",
+            format: ""
+        },
         secureUrl: "",
-        rutaBackground: "",
-        filtro: "",
+        rutaBackground: {
+            nombre: "amarillo",
+            urlLocal: "/images/backs/back1.jpg",
+            archivoConExtension: "back1_hlttte.jpg",
+            archivoSinExtension: "back1_hlttte",
+            idPublico: "petsgallery/backs/back1_hlttte",
+            idPublicoModificado: "petsgallery:backs:back1_hlttte",
+        },
+        filtro: "none",
         tieneFrame: {
             anchoFrame: "730",
             gruesoBordeFrame: "40",
@@ -47,6 +59,16 @@ const imageState = ({children}) => {
             type: ACTUALIZAR_USUARIO_LOGUEADO,
             payload: login
         })
+    }
+
+    //actualiza los creditos para remover background
+    const asignarCredito = (credito) => {
+        if(credito) {
+            dispatch({
+                type: ACTUALIZAR_FREE_CREDITS,
+                payload: credito
+            })
+        }
     }
 
     //actualiza id publico de imagen en el context
@@ -133,6 +155,7 @@ const imageState = ({children}) => {
         <imageContext.Provider
             value={{
                 usuarioLogueado: state.usuarioLogueado,
+                creditos: state.creditos,
                 public_Id: state.public_Id,
                 secureUrl: state.secureUrl,
                 rutaBackground: state.rutaBackground,
@@ -147,7 +170,8 @@ const imageState = ({children}) => {
                 asignarNombreMascota,
                 asignarFuente,
                 asignarColorFuente,
-                asignarColorBordeFuente
+                asignarColorBordeFuente,
+                asignarCredito
             }}
         >
             {children}
