@@ -8,7 +8,7 @@ import ContenedorImagen from "../../components/layout/ContenedorImagen"
 import Paginacion from "../../components/layout/Paginacion"
 import AnimacionCircle from '../../components/icons/AnimacionCircle'
 import Toggle from '../../components/layout/Toggle'
-import { subirACloudinary, subirACloudinaryConFondo } from '../../utils/helper'
+// import { subirACloudinary, subirACloudinaryConFondo } from '../../utils/helper'
 
 const RemoverBackground = () => {
   
@@ -40,27 +40,27 @@ const RemoverBackground = () => {
         // eslint-disable-next-line
     }, [publicId]);
     
-    //funcion para subir la imagen a Cloudinary
-    const subirPet = async e => {
-        setMostrarCargadoImagen(true)
-        setPublicId("")
-        await subirACloudinary(e)
-            .then(idImagen => {
-                esperarImagen(idImagen)
-            })
-            .catch(error => console.log(error))
-    }
+    // //funcion para subir la imagen a Cloudinary
+    // const subirPet = async e => {
+    //     setMostrarCargadoImagen(true)
+    //     setPublicId("")
+    //     await subirACloudinary(e)
+    //         .then(idImagen => {
+    //             esperarImagen(idImagen)
+    //         })
+    //         .catch(error => console.log(error))
+    // }
 
-    //funcion para subir la imagen a Cloudinary
-    const subirPetConFondo = e => {
-      setMostrarCargadoImagen(true)
-      setPublicId("")
-      subirACloudinaryConFondo(e)
-          .then(idImagen => {
-              esperarImagen(idImagen)
-          })
-          .catch(error => console.log(error))
-    }
+    // //funcion para subir la imagen a Cloudinary
+    // const subirPetConFondo = e => {
+    //   setMostrarCargadoImagen(true)
+    //   setPublicId("")
+    //   subirACloudinaryConFondo(e)
+    //       .then(idImagen => {
+    //           esperarImagen(idImagen)
+    //       })
+    //       .catch(error => console.log(error))
+    // }
 
     //REALTIME GET FUNCTION
     const esperarImagen = async (assetId) => {
