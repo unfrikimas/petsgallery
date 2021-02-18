@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react"
+import { FirebaseContext } from '../../firebase'
 import HeaderUser from "../../components/layout/HeaderUser"
 import imageContext from '../../context/image/imageContext'
 import ContenedorImagen from "../../components/layout/ContenedorImagen"
@@ -7,6 +8,9 @@ import Paginacion from "../../components/layout/Paginacion"
 import AlertaNoPng from '../../components/layout/AlertaNoPng'
 
 const ElegirBackground = () => {
+
+    //context de firebase
+    const { usuario, firebase } = useContext(FirebaseContext)
 
     //context de la imagen
     const ImageContext = useContext(imageContext)
@@ -69,6 +73,8 @@ const ElegirBackground = () => {
 
         <HeaderUser 
             titulo={"Background"}
+            usuario={usuario}
+            firebase={firebase}
         />
 
         {publicId.format !== "png" && 

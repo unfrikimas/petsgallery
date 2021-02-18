@@ -9,7 +9,7 @@ import Paginacion from "../../components/layout/Paginacion"
 import IconLoader from '../../components/icons/Loader'
 import IconUpload from '../../components/icons/Upload'
 import Toggle from '../../components/layout/Toggle'
-import { subirACloudinaryRemoverFondo, subirACloudinaryConFondo } from '../../utils/helper'
+import { subirACloudinaryRemoverFondo, subirACloudinaryConFondo, subirACloudinaryPng } from '../../utils/helper'
 
 export const CREDITOS = 1
 
@@ -75,6 +75,18 @@ const SubirImagen = () => {
         // eslint-disable-next-line
     }, [publicId]);
     
+    //funcion para definir a que preset subir la imagen
+    const definirPreset = (e) => {
+      const file = e.target.value
+      const file_splitted = file.split('.')
+      const extension = file_splitted.pop()
+      if(extension === "png") {
+        subirPetPng(e)
+      } else {
+        subirPetConFondo(e)
+      }
+    }
+
     //funcion para subir la imagen a Cloudinary
     const subirPetRemoverFondo = () => {
       setMostrarCargadoImagen(true)
@@ -86,7 +98,7 @@ const SubirImagen = () => {
     }
 
     //funcion para subir la imagen a Cloudinary
-    const subirPetConFondo = e => {
+    const subirPetConFondo = (e) => {
       setPublicId("")
       setMostrarCargadoImagen(true)
       subirACloudinaryConFondo(e)
@@ -99,16 +111,19 @@ const SubirImagen = () => {
         .catch((error) => console.log(error))
     }
 
-    // //funcion para subir la imagen a Cloudinary
-    // const subirPetConFondo = e => {
-    //   setMostrarCargadoImagen(true)
-    //   setPublicId("")
-    //   subirACloudinaryConFondo(e)
-    //       .then(idImagen => {
-    //           esperarImagen(idImagen)
-    //       })
-    //       .catch(error => console.log(error))
-    // }
+    //funcion para subir la imagen a Cloudinary
+    const subirPetPng = (e) => {
+      setPublicId("")
+      setMostrarCargadoImagen(true)
+      subirACloudinaryPng(e)
+        .then((imagen) => {
+          setPublicId({
+            publicid: imagen.public_id,
+            format: imagen.format
+          })
+        })
+        .catch((error) => console.log(error))
+    }
 
     const obtenerFreeBr = async (usuario) => {
       return await firebase.db
@@ -153,25 +168,25 @@ const SubirImagen = () => {
     }
   }    
     
-    //REALTIME GET FUNCTION
-    const esperarImagen = async (assetId) => {
-        // console.log("assetid", assetId)
-        const ref = firebase.db.collection("mascotas");
-        await ref
-            .where('imagen_sin_background.asset_id', '==', assetId)
-            .onSnapshot((querySnapshot) => {
-                const pets = [];
-                querySnapshot.forEach((doc) => {
-                    pets.push(doc.data());
-                });
-                // setMascotas(pets[0]);
-                // setPublicId(pets[0]?.imagen_sin_background.public_id)
-                setPublicId({
-                  publicid: pets[0]?.imagen_sin_background.public_id,
-                  format: pets[0]?.imagen_sin_background.format
-                })
-            });
-    }
+  //REALTIME GET FUNCTION
+  const esperarImagen = async (assetId) => {
+    // console.log("assetid", assetId)
+    const ref = firebase.db.collection("mascotas");
+    await ref
+      .where('imagen_sin_background.asset_id', '==', assetId)
+      .onSnapshot((querySnapshot) => {
+        const pets = [];
+        querySnapshot.forEach((doc) => {
+            pets.push(doc.data());
+        });
+        // setMascotas(pets[0]);
+        // setPublicId(pets[0]?.imagen_sin_background.public_id)
+        setPublicId({
+          publicid: pets[0]?.imagen_sin_background.public_id,
+          format: pets[0]?.imagen_sin_background.format
+        })
+      });
+  }
 
     return (
     <>
@@ -210,7 +225,8 @@ const SubirImagen = () => {
                 type="file" 
                 accept="image/*"
                 name="inputImagen"
-                onChange={e => subirPetConFondo(e)}
+                onChange={e => definirPreset(e)}
+                // onChange={e => subirPetConFondo(e)}
             />
               { mostrarCargandoImagen ? 
                 <IconLoader className="animate-spin" width={30} heigth={30} stroke={"#1f2937"} />

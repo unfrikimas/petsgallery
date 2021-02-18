@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react"
+import { FirebaseContext } from '../../firebase'
 import HeaderUser from "../../components/layout/HeaderUser"
 import imageContext from '../../context/image/imageContext'
 import ContenedorImagen from "../../components/layout/ContenedorImagen"
@@ -7,12 +8,16 @@ import Paginacion from "../../components/layout/Paginacion"
 
 const ElegirFrame = () => {
 
+    //context de firebase
+    const { usuario, firebase } = useContext(FirebaseContext)
+
     //context de la imagen
     const ImageContext = useContext(imageContext)
-    const { public_Id, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarBackground, asignarFrame, asignarNombreMascota } = ImageContext
+    const { public_Id, filtro, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarFiltro, asignarBackground, asignarFrame, asignarNombreMascota } = ImageContext
 
     //states
     const [publicId, setPublicId] = useState(public_Id)
+    const [filtroImagen, setFiltroImagen] = useState(filtro)
     const [urlBackground, setUrlBackground] = useState(rutaBackground)
     const [ frame, setFrame ] = useState(tieneFrame)
     const [ texto, setTexto ] = useState(nombreMascota)
@@ -27,6 +32,11 @@ const ElegirFrame = () => {
       if (idInicial) {
         setPublicId(idInicial)
         guardarIdPublico(idInicial)
+      }
+      const filtroInicial = JSON.parse(window.localStorage.getItem('pets-filter'))
+      if(filtroInicial){
+        setFiltroImagen(filtroInicial)
+        asignarFiltro(filtroInicial)
       }
       const frameInicial = JSON.parse(window.localStorage.getItem('frame'))
       if (frameInicial) {
@@ -60,18 +70,21 @@ const ElegirFrame = () => {
 
         <HeaderUser 
             titulo={"Frame"}
+            usuario={usuario}
+            firebase={firebase}
         />
 
         <ContenedorImagen 
-            background={urlBackground.urlLocal ? urlBackground.urlLocal : ""}
+            background={urlBackground.urlLocal || ""}
             imagen={publicId}
-            colorFrame={frame.colorFrame ? frame.colorFrame : "none"}
-            nombreMascota={texto ? texto : ""}
+            filtro={filtroImagen || "none"}
+            colorFrame={frame.colorFrame || "none"}
+            nombreMascota={texto || ""}
         />
 
         <ContenedorFrames 
             handleFrame={e => handleFrame(e)}
-            colorFrame={frame.colorFrame ? frame.colorFrame : "none"}
+            colorFrame={frame.colorFrame || "none"}
         />
 
         <Paginacion

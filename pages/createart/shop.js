@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react"
+import { FirebaseContext } from '../../firebase'
 import HeaderUser from "../../components/layout/HeaderUser"
 import imageContext from '../../context/image/imageContext'
 import Paginacion from "../../components/layout/Paginacion"
@@ -6,12 +7,16 @@ import ContenedorProductos from "../../components/layout/ContenedorProductos"
 
 const Shop = () => {
 
+    //context de firebase
+    const { usuario, firebase } = useContext(FirebaseContext)  
+
     //context de la imagen
     const ImageContext = useContext(imageContext)
-    const { public_Id, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarBackground, asignarFrame, asignarNombreMascota, asignarFuente, asignarColorFuente } = ImageContext
+    const { public_Id, filtro, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarFiltro, asignarBackground, asignarFrame, asignarNombreMascota, asignarFuente, asignarColorFuente } = ImageContext
 
     //states
     const [publicId, setPublicId] = useState(public_Id)
+    const [filtroImagen, setFiltroImagen] = useState(filtro)
     const [urlBackground, setUrlBackground] = useState(rutaBackground)
     const [frame, setFrame] = useState(tieneFrame)
     const [texto, setTexto] = useState(nombreMascota)
@@ -26,6 +31,11 @@ const Shop = () => {
       if (idInicial) {
         setPublicId(idInicial)
         guardarIdPublico(idInicial)
+      }
+      const filtroInicial = JSON.parse(window.localStorage.getItem('pets-filter'))
+      if(filtroInicial){
+        setFiltroImagen(filtroInicial)
+        asignarFiltro(filtroInicial)
       }
       const frameInicial = JSON.parse(window.localStorage.getItem('frame'))
       if (frameInicial) {
@@ -47,11 +57,14 @@ const Shop = () => {
 
         <HeaderUser 
             titulo={"Premium products"}
+            usuario={usuario}
+            firebase={firebase}
         />
 
         <ContenedorProductos
             background={urlBackground.urlLocal ? urlBackground.urlLocal : ""}
-            imagen={publicId.publicid}
+            imagen={publicId}
+            filtro={filtroImagen || "none"}
             colorFrame={frame.colorFrame ? frame.colorFrame : "none"}
             nombreMascota={texto ? texto : ""}
         />
@@ -59,6 +72,7 @@ const Shop = () => {
         <Paginacion
           retroceder={true}
           rutaAnterior={"/createart/download"}
+          pantallaAnterior={"Download"}
           adelantar={false}
           rutaSiguiente={""}
           tienda={false}

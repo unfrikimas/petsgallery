@@ -13,6 +13,12 @@ export const colores = [
   {nombre: "green", valor: "10b981"}
 ]
 
+export const filtros = {
+  vectorize: "e_vectorize",
+  grayscale: "e_grayscale",
+  none: ""
+}
+
 //Guardar imagen en Cloudinary
 export const subirACloudinaryRemoverFondo = async (imagen) => {
   const urlApi = "https://api.cloudinary.com/v1_1/petportrait/image/upload/"
@@ -31,10 +37,24 @@ export const subirACloudinaryRemoverFondo = async (imagen) => {
 
 //Guardar imagen en Cloudinary
 export const subirACloudinaryConFondo = async (e) => {
-  const files = e.target.files[0];
+  const file = e.target.files[0];
   const formData = new FormData();
-  formData.append("file", files);
+  formData.append("file", file);
   formData.append("upload_preset", "petswithbackground")
+  try {
+    const respuesta = await axios.post("https://api.cloudinary.com/v1_1/petportrait/image/upload", formData)
+    return respuesta.data
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+//Guardar imagen PNG subida por el usuario, en Cloudinary
+export const subirACloudinaryPng = async (e) => {
+  const file = e.target.files[0];
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", "petsgallerypng")
   try {
     const respuesta = await axios.post("https://api.cloudinary.com/v1_1/petportrait/image/upload", formData)
     return respuesta.data
@@ -60,12 +80,13 @@ export const esperarImagen = (assetId) => {
 }
 
 //descargar arte
-export const descargarArte = async (publicId, urlBackground, frame, texto) => {
+export const descargarArte = async (publicId, filtro, urlBackground, frame, texto) => {
+  
   //url inicial
   const urlInicio = "https://res.cloudinary.com/petportrait/image/upload/"
 
   //separando el nombre del archivo de la mascota
-  const nombreBaseMascota = publicId+".png"
+  const nombreBaseMascota = publicId.publicid+".png"
   const letrasHastaPunto = nombreBaseMascota.lastIndexOf(".")
   const letrasUltimoSlashMascota = nombreBaseMascota.lastIndexOf("/")
   const nombreMascotaLimpio = nombreBaseMascota.substring(letrasUltimoSlashMascota+1, letrasHastaPunto)
@@ -73,7 +94,6 @@ export const descargarArte = async (publicId, urlBackground, frame, texto) => {
   //transformaciones
   //transformacion para descargar el archivo
   const transformacionDescarga = `fl_attachment:${texto.textoMascota}`
-
   
   //transformacion del frame
   if(frame.colorFrame !== "none") {
@@ -83,8 +103,9 @@ export const descargarArte = async (publicId, urlBackground, frame, texto) => {
   }
 
   //transformacion de la imagen de la mascota
-  const nombreMascotaSinBarras = reemplazarBarras(publicId)
-  const transformacionMascota = `l_${nombreMascotaSinBarras},h_${"1070"},g_south,y_0,e_vectorize`
+  const nombreMascotaSinBarras = reemplazarBarras(publicId.publicid)
+  const transformacionMascota = `l_${nombreMascotaSinBarras},h_${calcularAlturaImagen(publicId.format)},g_south,y_0${valorFiltro(filtro)}`
+  // const transformacionMascota = `l_${nombreMascotaSinBarras},h_${"1070"},g_south,y_0,e_trim/e_vectorize,fl_layer_apply`
 
   //transformacion del texto
   const transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)},g_south,y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente)}`
@@ -118,6 +139,20 @@ export const descargarArte = async (publicId, urlBackground, frame, texto) => {
     .catch(error => {
       console.error(error);
     });
+}
+
+export const valorFiltro = (filtro) => {
+  let tipoFiltro
+  if(filtro === "none") return tipoFiltro=""
+  if(filtro === "vectorize") return tipoFiltro=",e_vectorize"
+  if(filtro === "grayscale") return tipoFiltro=",e_grayscale"
+}
+
+export const calcularAlturaImagen = (formato) => {
+  let altura
+  if(formato === "png") {
+    return altura="1070"
+  } else return altura="1080"
 }
 
 //funcion para obtener el hex del color
@@ -300,7 +335,7 @@ export const reemplazarEspacios = (texto) => {
 }
 
 export const reemplazarBarras = (urlMascota) => {
-  const urlSinBarras = urlMascota.publicid.split("/").join(":")
+  const urlSinBarras = urlMascota.split("/").join(":")
   return urlSinBarras
 }
 

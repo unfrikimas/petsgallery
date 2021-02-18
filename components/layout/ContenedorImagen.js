@@ -65,8 +65,8 @@ const ContenedorImagen = (props) => {
                     cloudName="petportrait" 
                     secure="true"
                     publicId={imagen.publicid}
-                    dpr="auto"
-                    width="auto"
+                    // dpr="auto"
+                    // width="auto"
                     >
                     {filtro === "vectorize" && <Transformation effect="vectorize" />}
                     <Transformation effect="trim:10" />

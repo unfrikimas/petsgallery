@@ -52,7 +52,7 @@ const AlertaNoPng = ({creditos}) => {
       <div className="flex flex-col justify-center pl-4 py-4">
         <p className="pt-2 text-sm text-gray-800 font-semibold">Attention</p>
         <p className="text-xs text-gray-600 font-normal">
-          To use these designs, you need to upload an image without background
+          To use a layout, you need to upload an image without background
           on png format!
         </p>
       </div>
