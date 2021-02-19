@@ -128,7 +128,7 @@ const ContenedorFiltros = ({ handleFilter, imagen, nombre }) => {
                 }
 
                 <figcaption className="z-20 absolute w-full bottom-0 py-1 text-white text-xs text-center bg-gray-800 ">
-                  Grayscale
+                  Vectorize
                 </figcaption>
               </picture>
             </figure>

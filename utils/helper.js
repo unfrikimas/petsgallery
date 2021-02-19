@@ -104,7 +104,7 @@ export const descargarArte = async (publicId, filtro, urlBackground, frame, text
 
   //transformacion de la imagen de la mascota
   const nombreMascotaSinBarras = reemplazarBarras(publicId.publicid)
-  const transformacionMascota = `l_${nombreMascotaSinBarras},h_${calcularAlturaImagen(publicId.format)},g_south,y_0${valorFiltro(filtro)}`
+  const transformacionMascota = `l_${nombreMascotaSinBarras},h_${calcularAlturaImagen(publicId.format)},${calcularAnchoImagen(publicId.format)}g_south,y_0${valorFiltro(filtro)}`
   // const transformacionMascota = `l_${nombreMascotaSinBarras},h_${"1070"},g_south,y_0,e_trim/e_vectorize,fl_layer_apply`
 
   //transformacion del texto
@@ -153,6 +153,13 @@ export const calcularAlturaImagen = (formato) => {
   if(formato === "png") {
     return altura="1070"
   } else return altura="1080"
+}
+
+export const calcularAnchoImagen = (formato) => {
+  let ancho
+  if(formato === "png") {
+    return ancho=""
+  } else return ancho="w_1080,"
 }
 
 //funcion para obtener el hex del color

@@ -20,7 +20,7 @@ const imageState = ({children}) => {
         usuarioLogueado: false,
         creditos: 1,
         public_Id: {
-            publicid: "",
+            publicid: "none",
             format: ""
         },
         secureUrl: "",
@@ -63,7 +63,7 @@ const imageState = ({children}) => {
 
     //actualiza los creditos para remover background
     const asignarCredito = (credito) => {
-        if(credito) {
+        if(credito !== "") {
             dispatch({
                 type: ACTUALIZAR_FREE_CREDITS,
                 payload: credito

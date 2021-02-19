@@ -38,7 +38,7 @@ const SubirImagen = () => {
         setPublicId(idInicial)
       } 
       const freeRbInicial = JSON.parse(window.localStorage.getItem('pet-rb'))
-      if(freeRbInicial){
+      if(freeRbInicial !== ""){
         setFreeCredit(freeRbInicial)
       } 
     }, [])
@@ -59,7 +59,7 @@ const SubirImagen = () => {
     }, [usuario])
 
     useEffect(() => {
-      if(freeCredit) {
+      if(freeCredit !== "") {
         asignarCredito(freeCredit) //context
         window.localStorage.setItem('pet-rb', JSON.stringify(freeCredit))
       }
@@ -188,9 +188,16 @@ const SubirImagen = () => {
       });
   }
 
+    const noExiste = publicId.publicid === ""
+    const mensaje = noExiste ? 
+    `<div className="w-80 h-80 bg-gray-200 animate-pulse mt-4 flex items-center justify-center mx-auto rounded-2xl">
+    </div>`
+    :
+    ""
+
     return (
     <>
-      <div className="max-w-lg mx-auto">
+      <div className="relative max-w-lg mx-auto">
 
         <HeaderUser 
           titulo={"New Art"}
@@ -198,8 +205,7 @@ const SubirImagen = () => {
           firebase={firebase}
         />
 
-        {publicId || mostrarCargandoImagen
-        ?
+        {publicId.publicid !== "none" &&
           <ContenedorImagen 
               background={""}
               colorFrame={"none"}
@@ -207,7 +213,14 @@ const SubirImagen = () => {
               mostrarCargandoImagen={mostrarCargandoImagen}
               nombreMascota={""}
           />
-        :
+        }
+
+        {/* {console.log(public_Id, publicId.publicid)}
+        {public_Id.publicid === "none" &&
+          <div className="w-80 h-80 bg-gray-200 animate-pulse mt-4 flex items-center justify-center mx-auto rounded-2xl">
+          </div>
+        } */}
+        {public_Id.publicid === "none" && publicId.publicid === "none" && 
           <div className="w-80 h-80 mt-4 flex items-center justify-center mx-auto">
             <p 
               className="text-5xl font-bold text-gray-700 text-center leading-snug">
@@ -234,12 +247,13 @@ const SubirImagen = () => {
                 <IconUpload className="mr-2" width={25} heigth={25} stroke={"#1f2937"}/>
               }
             {mostrarCargandoImagen ? "Uploading" : "Upload image"}
+            {/* {publicId.publicid && !mostrarCargandoImagen ? "Upload another image" : "Upload image"} */}
           </label>
         </div>
 
         {/* <Toggle /> */}
 
-        {freeCredit > 0 &&
+        {publicId.publicid !== "none" && freeCredit > 0 &&
           <div  className="w-80 mx-auto mt-4">
             <p 
               className="text-xl font-bold text-gray-600 text-center ">You have 1 credit to remove the background.
@@ -259,7 +273,7 @@ const SubirImagen = () => {
           </div>
         }
 
-        {publicId && 
+        {publicId.publicid && 
           <Paginacion
             retroceder={false}
             rutaAnterior={"/"}
