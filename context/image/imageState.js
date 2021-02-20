@@ -20,7 +20,7 @@ const imageState = ({children}) => {
         usuarioLogueado: false,
         creditos: 1,
         public_Id: {
-            publicid: "none",
+            publicid: "",
             format: ""
         },
         secureUrl: "",

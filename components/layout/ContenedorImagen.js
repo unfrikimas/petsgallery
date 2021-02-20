@@ -59,7 +59,7 @@ const ContenedorImagen = (props) => {
                 </div>
             )}
 
-            {imagen.publicid && imagen.format === "png" ?
+            {imagen.publicid && imagen.format === "png" &&
                 <Image
                     className={`z-10 pt-2 ${mostrarCargandoImagen ? "animate-pulse" : ""}`}
                     cloudName="petportrait" 
@@ -69,12 +69,13 @@ const ContenedorImagen = (props) => {
                     // width="auto"
                     >
                     {filtro === "vectorize" && <Transformation effect="vectorize" />}
-                    <Transformation effect="trim:10" />
                     {filtro === "grayscale" && <Transformation effect="grayscale" />}
+                    <Transformation effect="trim:10" />
                     <Transformation effect="sharpen" />
                     <Transformation width="310" height="310" crop="fit" />
                 </Image>
-            :
+            }
+            {imagen.publicid && imagen.format !== "png" &&
                 <Image 
                     className={`z-10 ${mostrarCargandoImagen ? "animate-pulse" : ""}`}
                     cloudName="petportrait" 
@@ -89,10 +90,14 @@ const ContenedorImagen = (props) => {
                     <Transformation effect="sharpen" />
                     <Transformation width="320" height="320" crop="fill" />
                 </Image>
-            }
+            } 
+            {/* {!publicId.publicid &&
+                <div className="z-20 w-80 h-80 bg-gray-200 animate-pulse mt-4 flex items-center justify-center mx-auto rounded-2xl">
+                </div>
+            } */}
 
             { !imagen.publicid && mostrarCargandoImagen &&
-                <div className="animate-pulse h-full w-full flex items-center justify-center">
+                <div className="z-40 h-full w-full flex items-center justify-center">
                     <p className="px-4 py-2 bg-white font-bold border-2 border-gray-800 rounded-xl">Uploading...</p>
                 </div>
             }

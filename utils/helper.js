@@ -19,17 +19,43 @@ export const filtros = {
   none: ""
 }
 
+//funcion para subir la imagen a Cloudinary
+export const subirPetPng = (imagen) => {
+  subirACloudinaryPng(imagen)
+    .then((imagen) => {
+      setPublicId({
+        publicid: imagen.public_id,
+        format: imagen.format
+      })
+    })
+    .catch((error) => console.log(error))
+}
+
 //Guardar imagen en Cloudinary
-export const subirACloudinaryRemoverFondo = async (imagen) => {
+export const subirACloudinaryRemoverFondo = async (e) => {
+  const file = e.target.files[0]
+  const formData = new FormData()
+  formData.append("file", file)
+  formData.append("upload_preset", "petsgallery")
+  try {
+    const respuesta = await axios.post("https://api.cloudinary.com/v1_1/petportrait/image/upload", formData)
+    return respuesta.data
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+//Guardar imagen en Cloudinary
+export const subirACloudinaryEfectoTrim = async (imagen) => {
   const urlApi = "https://api.cloudinary.com/v1_1/petportrait/image/upload/"
   const file = "https://res.cloudinary.com/petportrait/image/upload/"+imagen
   try {
     const respuesta = await axios.post(urlApi, {
       file: file,
-      upload_preset: 'petsgallery'
+      upload_preset: 'petsgallerypng'
     })
     // console.log(respuesta)
-    return respuesta.data.asset_id
+    return respuesta.data
   } catch (error) {
     console.log(error);
   }

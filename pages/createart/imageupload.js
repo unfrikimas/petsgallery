@@ -13,6 +13,15 @@ import { subirACloudinaryRemoverFondo, subirACloudinaryConFondo, subirACloudinar
 
 export const CREDITOS = 1
 
+const Alerta = ({mensaje}) => {
+  return (
+    <p 
+      className="text-red-600 text-lg font-bold text-center pt-3 -mb-4">
+      {mensaje}
+    </p>
+  )
+}
+
 const SubirImagen = () => {
   
     //context de firebase
@@ -24,6 +33,10 @@ const SubirImagen = () => {
     const [publicId, setPublicId] = useState(public_Id)
     const [mostrarCargandoImagen, setMostrarCargadoImagen] = useState(false)
     const [freeCredit, setFreeCredit] = useState(creditos)
+    const [alerta, setAlerta] = useState(false)
+    const [mensaje, setMensaje] = useState("")
+
+    const inputRef = useRef()
 
     const router = useRouter()
     const ruta = router.pathname
@@ -44,10 +57,9 @@ const SubirImagen = () => {
     }, [])
 
     useEffect(() => {
-      if(usuario && !freeCredit){
+      if(usuario && freeCredit){
         obtenerFreeBr(usuario)
           .then((data) => {
-            console.log("freebr", data)
             if(data) {
               setFreeCredit(data.creditos)
             } else {
@@ -67,35 +79,60 @@ const SubirImagen = () => {
     }, [freeCredit]);
 
     useEffect(() => {
-      if(publicId) {
-        setMostrarCargadoImagen(false)
+      if(publicId.publicid) {
         guardarIdPublico(publicId) //context
         window.localStorage.setItem('publicId', JSON.stringify(publicId))
+        setMostrarCargadoImagen(false)
+        setAlerta(false)
       } 
         // eslint-disable-next-line
     }, [publicId]);
+
+    //funccion para activar el input de remover background
+    const handleClickInputRef = () => {
+      inputRef.current.click()
+    }
     
     //funcion para definir a que preset subir la imagen
     const definirPreset = (e) => {
+      const siseFile = e.target.files[0]
       const file = e.target.value
       const file_splitted = file.split('.')
       const extension = file_splitted.pop()
+
+      if(siseFile.size >= 5349047) {
+        setAlerta(true)
+        setMensaje("Upload a smaller image. Max 5Mb")
+        return
+      } 
       if(extension === "png") {
         subirPetPng(e)
+      } else if (extension === "jpg") {
+        subirPetConFondo(e)      
       } else {
-        subirPetConFondo(e)
+        setAlerta(true)
+        setMensaje("Upload a jpg or png image")
       }
     }
 
     //funcion para subir la imagen a Cloudinary
-    const subirPetRemoverFondo = () => {
+    const subirPetRemoverFondo = (e) => {
       setMostrarCargadoImagen(true)
-      subirACloudinaryRemoverFondo(publicId.publicid)
-        .then(idImagen => {
-            esperarImagen(idImagen)
+      subirACloudinaryRemoverFondo(e)
+        .then(data => {
+            esperarImagen(data)
         })
         .catch(error => console.log(error))
     }
+    // //funcion para subir la imagen a Cloudinary
+    // const subirPetRemoverFondo = () => {
+    //   setMostrarCargadoImagen(true)
+    //   subirACloudinaryRemoverFondo(publicId.publicid)
+    //     .then(idImagen => {
+    //         esperarImagen(idImagen)
+    //     })
+    //     .catch(error => console.log(error))
+    // }
 
     //funcion para subir la imagen a Cloudinary
     const subirPetConFondo = (e) => {
@@ -127,7 +164,7 @@ const SubirImagen = () => {
 
     const obtenerFreeBr = async (usuario) => {
       return await firebase.db
-        .collection('free_br')
+        .collection('creditos')
         .where('idUsuario', '==', usuario.uid)
         .get()
         .then(snapshot => {
@@ -137,7 +174,6 @@ const SubirImagen = () => {
             }
             const datosUsuario = snapshot.docs.map(doc => {
                 const data = doc.data()
-                console.log("data", data)
                 return {
                   id: doc.id,
                   ...data,
@@ -169,31 +205,31 @@ const SubirImagen = () => {
   }    
     
   //REALTIME GET FUNCTION
-  const esperarImagen = async (assetId) => {
+  const esperarImagen = async (data) => {
     // console.log("assetid", assetId)
     const ref = firebase.db.collection("mascotas");
     await ref
-      .where('imagen_sin_background.asset_id', '==', assetId)
+      .where('imagen_sin_background.asset_id', '==', data.asset_id)
       .onSnapshot((querySnapshot) => {
         const pets = [];
         querySnapshot.forEach((doc) => {
             pets.push(doc.data());
         });
-        // setMascotas(pets[0]);
-        // setPublicId(pets[0]?.imagen_sin_background.public_id)
+        // format: `${pets[0]?.imagen_sin_background.format || "png"}`
         setPublicId({
           publicid: pets[0]?.imagen_sin_background.public_id,
-          format: pets[0]?.imagen_sin_background.format
+          format: "png"
         })
+        //setFreeCredit(freeCredit - 1) descontar de la base de datos.
       });
   }
 
-    const noExiste = publicId.publicid === ""
-    const mensaje = noExiste ? 
-    `<div className="w-80 h-80 bg-gray-200 animate-pulse mt-4 flex items-center justify-center mx-auto rounded-2xl">
-    </div>`
-    :
-    ""
+    // const noExiste = publicId.publicid === ""
+    // const mensaje = noExiste ? 
+    // `<div className="w-80 h-80 bg-gray-200 animate-pulse mt-4 flex items-center justify-center mx-auto rounded-2xl">
+    // </div>`
+    // :
+    // ""
 
     return (
     <>
@@ -204,8 +240,8 @@ const SubirImagen = () => {
           usuario={usuario}
           firebase={firebase}
         />
-
-        {publicId.publicid !== "none" &&
+        {console.log(publicId.publicid)}
+        {publicId.publicid || mostrarCargandoImagen ?
           <ContenedorImagen 
               background={""}
               colorFrame={"none"}
@@ -213,20 +249,22 @@ const SubirImagen = () => {
               mostrarCargandoImagen={mostrarCargandoImagen}
               nombreMascota={""}
           />
-        }
-
-        {/* {console.log(public_Id, publicId.publicid)}
-        {public_Id.publicid === "none" &&
-          <div className="w-80 h-80 bg-gray-200 animate-pulse mt-4 flex items-center justify-center mx-auto rounded-2xl">
-          </div>
-        } */}
-        {public_Id.publicid === "none" && publicId.publicid === "none" && 
+        : 
           <div className="w-80 h-80 mt-4 flex items-center justify-center mx-auto">
             <p 
               className="text-5xl font-bold text-gray-700 text-center leading-snug">
                 Upload<br></br>an image<br></br>to Start
             </p>
           </div>
+        }
+
+          {/* <div className="z-10 w-80 h-80 bg-gray-200 animate-pulse mt-4 flex items-center justify-center mx-auto rounded-2xl">
+          </div> */}
+
+        {alerta && !mostrarCargandoImagen &&
+          <Alerta 
+            mensaje={mensaje}
+          />
         }
 
         <div className="w-80 h-16 mx-auto mt-8">
@@ -252,15 +290,25 @@ const SubirImagen = () => {
         </div>
 
         {/* <Toggle /> */}
+        <input
+          className="hidden"
+          type="file" 
+          ref={inputRef}
+          accept="image/*"
+          name="inputRemoverFondo"
+          onChange={e => subirPetRemoverFondo(e)}
+          // onChange={e => subirPetConFondo(e)}
+        />
 
-        {publicId.publicid !== "none" && freeCredit > 0 &&
+        {publicId.publicid && freeCredit > 0 &&
           <div  className="w-80 mx-auto mt-4">
             <p 
-              className="text-xl font-bold text-gray-600 text-center ">You have 1 credit to remove the background.
+              className="text-xl font-bold text-gray-600 text-center ">You have {creditos} credits to remove the background.
               {usuario ?
                 <button 
                   className="text-amarillo font-bold pl-1"
-                  onClick={subirPetRemoverFondo}
+                  onClick={handleClickInputRef}
+                  // onClick={subirPetRemoverFondo}
                 >
                   Use it
                 </button>              

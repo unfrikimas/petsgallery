@@ -84,7 +84,7 @@ const ElegirBackground = () => {
         }
 
         <ContenedorImagen 
-            background={publicId.format === "png" ? urlBackground.urlLocal : "none"}
+            background={urlBackground.urlLocal}
             imagen={publicId}
             filtro={filtroImagen || "none"}
             colorFrame={frame.colorFrame || "none"}

@@ -16,7 +16,7 @@ const ContenedorTexto = (props) => {
                 placeholder="Pet name"
                 onChange={e => handleTexto(e)}
                 autoComplete="off"
-                maxLength = "12"
+                maxLength={"12"}
             />
 
             <div className="mt-4 space-x-4 flex items-center justify-center">
