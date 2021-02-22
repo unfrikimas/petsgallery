@@ -86,9 +86,9 @@ const ElegirFiltro = () => {
             />
         :
             <div className="w-80 mt-6 mx-auto flex space-x-4 animate-pulse">
-                <div className="w-24 h-28 bg-gray-300 rounded-2xl"></div>
-                <div className="w-24 h-28 bg-gray-300 rounded-2xl"></div>
-                <div className="w-24 h-28 bg-gray-300 rounded-2xl"></div>
+                <div className="w-24 h-24 bg-gray-300 rounded-2xl"></div>
+                <div className="w-24 h-24 bg-gray-300 rounded-2xl"></div>
+                <div className="w-24 h-24 bg-gray-300 rounded-2xl"></div>
             </div>
         }
 

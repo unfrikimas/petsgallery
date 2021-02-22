@@ -204,7 +204,7 @@ const ContenedorProductos = (props) => {
             font-weight: black;
           }
           .borde-negro {
-            -webkit-text-stroke: 1px black;
+            -webkit-text-stroke: 2px black;
           }
           .borde-minimo {
             -webkit-text-stroke: 1px white;

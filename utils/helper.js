@@ -1,5 +1,6 @@
 import axios from 'axios'
 import firebase from '../firebase/firebase'
+import shortid from 'shortid'
 
 export const colores = [
   {nombre: "white", valor: "ffffff"},
@@ -33,7 +34,8 @@ export const subirPetPng = (imagen) => {
 
 //Guardar imagen en Cloudinary
 export const subirACloudinaryRemoverFondo = async (e) => {
-  const file = e.target.files[0]
+  const file = e
+  // const file = e.target.files[0]
   const formData = new FormData()
   formData.append("file", file)
   formData.append("upload_preset", "petsgallery")
@@ -63,7 +65,8 @@ export const subirACloudinaryEfectoTrim = async (imagen) => {
 
 //Guardar imagen en Cloudinary
 export const subirACloudinaryConFondo = async (e) => {
-  const file = e.target.files[0];
+  const file = e
+  // const file = e.target.files[0];
   const formData = new FormData();
   formData.append("file", file);
   formData.append("upload_preset", "petswithbackground")
@@ -77,7 +80,8 @@ export const subirACloudinaryConFondo = async (e) => {
 
 //Guardar imagen PNG subida por el usuario, en Cloudinary
 export const subirACloudinaryPng = async (e) => {
-  const file = e.target.files[0];
+  const file = e
+  // const file = e.target.files[0];
   const formData = new FormData();
   formData.append("file", file);
   formData.append("upload_preset", "petsgallerypng")
@@ -106,7 +110,7 @@ export const esperarImagen = (assetId) => {
 }
 
 //descargar arte
-export const descargarArte = async (publicId, filtro, urlBackground, frame, texto) => {
+export const descargarArte = async (publicId, filtro, urlBackground, frame, texto, usuario) => {
   
   //url inicial
   const urlInicio = "https://res.cloudinary.com/petportrait/image/upload/"
@@ -141,30 +145,60 @@ export const descargarArte = async (publicId, filtro, urlBackground, frame, text
   const urlCompleta = urlInicio+transformaciones+"/petsgallery/backs/"+urlBackground.archivoConExtension
   console.log(urlCompleta)
   
-  // guardarArteDB(urlCompleta)
-
   //descargar imagen al disco
   await axios
-    .get(urlCompleta, {
-      responseType: 'arraybuffer'
-    })
-    .then(response => {
-      const buffer = Buffer.from(response.data, 'base64');
-      // console.log(buffer)
-      var element = document.createElement("a");
-      var file = new Blob(
-        [
-          buffer
-        ],
-        { type: "image/jpg" }
-      );
-      element.href = URL.createObjectURL(file);
-      element.download = texto.textoMascota+".jpg";
-      element.click();
-    })
+  .get(urlCompleta, {
+    responseType: 'arraybuffer'
+  })
+  .then(response => {
+    const buffer = Buffer.from(response.data, 'base64');
+    // console.log(buffer)
+    var element = document.createElement("a");
+    var file = new Blob(
+      [
+        buffer
+      ],
+      { type: "image/jpg" }
+    );
+    element.href = URL.createObjectURL(file);
+    element.download = texto.textoMascota+".jpg";
+    element.click();
+  })
     .catch(error => {
       console.error(error);
-    });
+  });
+
+  guardarArteDB(urlCompleta, usuario, publicId, filtro, urlBackground, frame, texto,)
+
+}
+
+//Guardar arte de mascota en Firebase
+export const guardarArteDB = async (url, usuario, publicId, filtro, urlBackground, frame, texto,) => {
+  //objeto de nuevo producto
+  const arteMascota = {
+    id: shortid.generate(),
+    url,
+    creado: Date.now(),
+    creador: {
+      uid: usuario.uid,
+      nombre: usuario.displayName
+    },
+    props: {
+      publicId,
+      filtro,
+      urlBackground,
+      frame,
+      texto
+    }
+  }
+
+  try {                
+    //insertar artes en la base de datos
+    const arteRef = firebase.db.collection('artes')
+    await arteRef.add(arteMascota)
+  } catch (error) {
+      console.log(error)    
+  }  
 }
 
 export const valorFiltro = (filtro) => {

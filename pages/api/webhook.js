@@ -19,7 +19,7 @@ const webHook = async (req, res) => {
                     try {                
                         //insertar productos en la base de datos
                         const arteRef = firebase.db.collection('mascotas')
-                        arteRef.add(imagenSinBackground)
+                        await arteRef.add(imagenSinBackground)
                     } catch (error) {
                         console.log(error)    
                     }             

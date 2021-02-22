@@ -78,7 +78,7 @@ const Download = () => {
               className="flex items-center justify-center px-4 py-3 bg-amarillo border-2 border-gray-800 rounded-2xl text-xl font-bold text-gray-800 sombra focus:outline-none tracking-tight"
               onClick={() => {
                 setAnimacion(true)
-                descargarArte(publicId, filtroImagen, urlBackground, frame, texto)
+                descargarArte(publicId, filtroImagen, urlBackground, frame, texto, usuario)
                   .then(() => {
                     setAnimacion(false)
                   })

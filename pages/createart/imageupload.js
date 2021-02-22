@@ -16,7 +16,7 @@ export const CREDITOS = 1
 const Alerta = ({mensaje}) => {
   return (
     <p 
-      className="text-red-600 text-lg font-bold text-center pt-3 -mb-4">
+      className="w-80 mx-auto text-red-600 text-lg font-bold text-center pt-3 -mb-4">
       {mensaje}
     </p>
   )
@@ -104,7 +104,7 @@ const SubirImagen = () => {
         setAlerta(true)
         setMensaje("Upload a smaller image. Max 5Mb")
         return
-      } 
+      }
       if(extension === "png") {
         subirPetPng(e)
       } else if (extension === "jpg") {
@@ -112,6 +112,118 @@ const SubirImagen = () => {
       } else {
         setAlerta(true)
         setMensaje("Upload a jpg or png image")
+      }
+    }
+
+    //validar imagen sin remover background
+    const validateImg = (e) => { 
+      const fileUpload = e.target
+      var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png)$");
+      if (regex.test(fileUpload.value.toLowerCase())) {
+          if (typeof (fileUpload.files) != "undefined") {
+            const size = fileUpload.files[0].size
+            const filesize = Math.round(size/1024)
+            if(filesize >= 5000) {
+              setAlerta(true)
+              setMensaje("Upload a smaller image. Max 5Mb")
+              console.log(filesize)
+              return
+            }
+            const file_splitted = fileUpload.value.split('.')
+            const extension = file_splitted.pop()
+              var reader = new FileReader();
+              reader.readAsDataURL(fileUpload.files[0]);
+              reader.onload = function (e) {
+                  var image = new Image();
+                  image.src = e.target.result;
+                  image.onload = function () {
+                      var height = this.height
+                      var width = this.width
+                      if (height < 1080 || width < 1080) {
+                          setAlerta(true)
+                          setMensaje("At least you can upload a 1080*1080 photo size.")
+                          return
+                      } else {
+                        if(extension === "png") {
+                          subirPetPng(fileUpload.files[0])
+                        } else {
+                          subirPetConFondo(fileUpload.files[0])
+                        }
+                        console.log("paso la validacion")
+                      }
+                  };
+              }
+          } else {
+              setAlerta(true)
+              setMensaje("This browser does not support file upload.")
+              return
+          }
+      } else {
+          setAlerta(true)
+          setMensaje("Upload a jpg or png image.")
+          return
+      }
+      
+    }
+
+    //validar imagen y remover background
+    const validarImgRemoverBackground = (e) => { 
+      const fileUpload = e.target
+      var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png)$");
+      if (regex.test(fileUpload.value.toLowerCase())) {
+          if (typeof (fileUpload.files) != "undefined") {
+            const size = fileUpload.files[0].size
+            const filesize = Math.round(size/1024)
+            if(filesize >= 5000) {
+              setAlerta(true)
+              setMensaje("Upload a smaller image. Max 5Mb")
+              console.log(filesize)
+              return
+            }
+            const file_splitted = fileUpload.value.split('.')
+            const extension = file_splitted.pop()
+              var reader = new FileReader();
+              reader.readAsDataURL(fileUpload.files[0]);
+              reader.onload = function (e) {
+                  var image = new Image();
+                  image.src = e.target.result;
+                  image.onload = function () {
+                      var height = this.height
+                      var width = this.width
+                      if (height < 1080 || width < 1080) {
+                          setAlerta(true)
+                          setMensaje("At least you can upload a 1080*1080 photo size.")
+                          return
+                      } else {
+                        subirPetRemoverFondo(fileUpload.files[0])
+                        console.log("paso la validacion")
+                      }
+                  };
+              }
+          } else {
+              setAlerta(true)
+              setMensaje("This browser does not support file upload.")
+              return
+          }
+      } else {
+          setAlerta(true)
+          setMensaje("Upload a jpg or png image.")
+          return
+      }
+      
+    }
+
+    const revisarMedidas = async (e) => {
+      let img = new Image()
+      img.src = window.URL.createObjectURL(e.target.files[0])
+      img.onload = () => {
+        if(img.width >= 1080 && img.height >= 1080){
+          console.log(`Nice, image is the right size. It can be uploaded, ${img.width} x ${img.height}`)
+          return true
+        } else {
+          console.log(`Sorry, this image doesn't look like the size we wanted. It's ${img.width} x ${img.height} but we require 1080 x 1080 size image.`)
+          return false
+        }
       }
     }
 
@@ -207,15 +319,14 @@ const SubirImagen = () => {
   //REALTIME GET FUNCTION
   const esperarImagen = async (data) => {
     // console.log("assetid", assetId)
-    const ref = firebase.db.collection("mascotas");
+    const ref = firebase.db.collection("mascotas")
     await ref
       .where('imagen_sin_background.asset_id', '==', data.asset_id)
       .onSnapshot((querySnapshot) => {
-        const pets = [];
+        const pets = []
         querySnapshot.forEach((doc) => {
-            pets.push(doc.data());
+            pets.push(doc.data())
         });
-        // format: `${pets[0]?.imagen_sin_background.format || "png"}`
         setPublicId({
           publicid: pets[0]?.imagen_sin_background.public_id,
           format: "png"
@@ -276,8 +387,7 @@ const SubirImagen = () => {
                 type="file" 
                 accept="image/*"
                 name="inputImagen"
-                onChange={e => definirPreset(e)}
-                // onChange={e => subirPetConFondo(e)}
+                onChange={e => validateImg(e)}
             />
               { mostrarCargandoImagen ? 
                 <IconLoader className="animate-spin" width={30} heigth={30} stroke={"#1f2937"} />
@@ -296,8 +406,8 @@ const SubirImagen = () => {
           ref={inputRef}
           accept="image/*"
           name="inputRemoverFondo"
-          onChange={e => subirPetRemoverFondo(e)}
-          // onChange={e => subirPetConFondo(e)}
+          onChange={e => validarImgRemoverBackground(e)}
+          // onChange={e => subirPetRemoverFondo(e)}
         />
 
         {publicId.publicid && freeCredit > 0 &&

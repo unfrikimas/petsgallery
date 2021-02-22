@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { Transition } from "@headlessui/react";
 import IconUsuario from "../icons/user";
-import IconUserItem from "../icons/useritem";
+import IconUserItem from "../icons/useritem"
+import IconEditar from '../icons/Edit'
 
 const HeaderUser = ({ titulo, usuario, firebase }) => {
   //Estado para el dropdown
@@ -84,28 +85,13 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
                         <div className="flex items-center px-4">
                           {/* <img src={usuario?.photoURL} width={20} height={20}/> */}
                           {/* <IconUserItem width={15} height={15} /> */}
-                          <p className="block truncate py-2 text-sm text-gray-400 border-b border-gray-100">
-                            {usuario ? (
-                              usuario.displayName.replace(/\b\w/g, (l) =>
-                                l.toUpperCase()
-                              )
-                            ) : (
-                              <IconUserItem width={15} height={15} />
-                            )}
+                          <p className="w-full flex items-center justify-between truncate py-2 text-sm text-gray-400 border-b border-gray-100">
+                            {usuario.displayName.replace(/\b\w/g, (l) => l.toUpperCase())}
+                            <button>
+                              <IconEditar width={20} height={20} stroke={"#1f2937"} />
+                            </button>
                           </p>
                         </div>
-                        {pathname === "/cuenta" ? (
-                          ""
-                        ) : (
-                          <Link href="/cuenta">
-                            <a
-                              className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-                              role="menuitem"
-                            >
-                              Cuenta
-                            </a>
-                          </Link>
-                        )}
                         {pathname === "/dashboard" ? (
                           ""
                         ) : (
@@ -114,19 +100,7 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
                               className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                               role="menuitem"
                             >
-                              Tablero
-                            </a>
-                          </Link>
-                        )}
-                        {pathname === "/precios" ? (
-                          ""
-                        ) : (
-                          <Link href="/precios">
-                            <a
-                              className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-                              role="menuitem"
-                            >
-                              Precios
+                              Art dashboard
                             </a>
                           </Link>
                         )}
@@ -136,7 +110,7 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
                           className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                           role="menuitem"
                         >
-                          Contactar
+                          Contact us
                         </a>
                         <button
                           type="button"
@@ -144,7 +118,7 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
                           role="menuitem"
                           onClick={() => cerrarSesion()}
                         >
-                          Cerrar sesión
+                          Logout
                         </button>
                       </div>
                     </div>
