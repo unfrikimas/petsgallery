@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from '../../firebase/firebase'
 import { subirACloudinaryEfectoTrim } from '../../utils/helper'
 
-const webHook = async (req, res) => {
+const webHook = (req, res) => {
     if (req.method === 'POST') {
         if(req.body) {
             subirACloudinaryEfectoTrim(req.body.public_id)
@@ -19,7 +19,7 @@ const webHook = async (req, res) => {
                     try {                
                         //insertar productos en la base de datos
                         const arteRef = firebase.db.collection('mascotas')
-                        await arteRef.add(imagenSinBackground)
+                        arteRef.add(imagenSinBackground)
                     } catch (error) {
                         console.log(error)    
                     }             
