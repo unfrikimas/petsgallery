@@ -16,13 +16,13 @@ const webHook = (req, res) => {
                         },
                         creado: data.timestamp || Date.now()
                     }
-                    try {                
-                        //insertar productos en la base de datos
-                        const arteRef = firebase.db.collection('mascotas')
-                        arteRef.add(imagenSinBackground)
-                    } catch (error) {
-                        console.log(error)    
-                    }             
+                    // try {                
+                    //     //insertar productos en la base de datos
+                    //     const arteRef = firebase.db.collection('mascotas')
+                    //     arteRef.add(imagenSinBackground)
+                    // } catch (error) {
+                    //     console.log(error)    
+                    // }             
                 })
 
             // const imagenSinBackground = {
