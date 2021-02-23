@@ -168,7 +168,9 @@ export const descargarArte = async (publicId, filtro, urlBackground, frame, text
       console.error(error);
   });
 
-  guardarArteDB(urlCompleta, usuario, publicId, filtro, urlBackground, frame, texto,)
+  if(usuario) {
+    guardarArteDB(urlCompleta, usuario, publicId, filtro, urlBackground, frame, texto,)
+  }
 
 }
 
@@ -176,7 +178,7 @@ export const descargarArte = async (publicId, filtro, urlBackground, frame, text
 export const guardarArteDB = async (url, usuario, publicId, filtro, urlBackground, frame, texto,) => {
   //objeto de nuevo producto
   const arteMascota = {
-    id: shortid.generate(),
+    slug: shortid.generate(),
     url,
     creado: Date.now(),
     creador: {

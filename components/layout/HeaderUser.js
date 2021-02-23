@@ -8,10 +8,10 @@ import IconEditar from '../icons/Edit'
 
 const HeaderUser = ({ titulo, usuario, firebase }) => {
   //Estado para el dropdown
-  const [menuDropDown, setMenuDropDown] = useState(false);
+  const [menuDropDown, setMenuDropDown] = useState(false)
 
-  const router = useRouter();
-  const { pathname } = router;
+  const router = useRouter()
+  const { pathname } = router
 
   const cerrarSesion = () => {
     firebase.cerrarSesion();
@@ -22,7 +22,7 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
       <header className="h-16 px-4 border-b-2 border-gray-800">
         <div className="h-full flex justify-between items-center">
           <Link href="/">
-            <h2 className="text-gray-800 font-bold text-xl">P</h2>
+            <h2 className="text-gray-800 font-bold text-xl cursor-pointer">P</h2>
           </Link>
 
           <p className="font-bold text-xl text-gray-800">{titulo}</p>
@@ -40,12 +40,16 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
                     onClick={() => setMenuDropDown(!menuDropDown)}
                     onBlur={() => setMenuDropDown(false)}
                   >
-                    <img
-                      className="rounded-full"
-                      src={usuario?.photoURL}
-                      width={30}
-                      height={30}
-                    />
+                    {usuario.photoURL ?                    
+                      <img
+                        className="rounded-full"
+                        src={usuario.photoURL}
+                        width={30}
+                        height={30}
+                      />
+                    :
+                      <IconUsuario width={30} height={30} stroke={"#2a2e3b"}/>
+                    }
                     <svg
                       className="h-5 w-5"
                       xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +131,7 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
               </div>
             )
             :
-              <Link href={"/login"}>
+              <Link href={{pathname: '/login', query: {path: `${pathname}`} }} passHref>
                 <a><IconUsuario width={30} height={30} stroke={"#2a2e3b"}/></a>
               </Link>
             }

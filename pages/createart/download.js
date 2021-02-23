@@ -60,7 +60,7 @@ const Download = () => {
       <div className="max-w-lg mx-auto">
 
         <HeaderUser 
-            titulo={"Pet Name"}
+            titulo={"Download Art"}
             usuario={usuario}
             firebase={firebase}
         />

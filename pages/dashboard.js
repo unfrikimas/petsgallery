@@ -1,22 +1,27 @@
-import React, { useState, useContext, useEffect } from "react"
+import React, { useContext } from "react"
 import { useRouter } from "next/router"
 import Link from "next/link";
 import HeaderUser from "../components/layout/HeaderUser"
 import { FirebaseContext } from "../firebase"
 import useArtes from '../hooks/useArtes'
-import imageContext from "../context/image/imageContext"
 import Arte from "../components/layout/Arte"
 
 const Dashboard = () => {
   //context de firebase
   const { usuario, firebase } = useContext(FirebaseContext)
 
+  //Hook para obtener los artes
   const { artes } = useArtes('creado', usuario)
-
-  const ImageContext = useContext(imageContext)
-  const { guardarIdPublico } = ImageContext
-
+  
   const router = useRouter();
+  const ruta = router.pathname
+
+  // useEffect(() => {
+  //   console.log({usuario})
+  //     if(usuario === "null"){
+  //       router.replace('/createart/imageupload')
+  //     }
+  // }, [usuario])
 
   return (
     <div className="relative max-w-lg mx-auto">
@@ -26,16 +31,26 @@ const Dashboard = () => {
         firebase={firebase}
       />
 
-      <div className="w-80 mx-auto py-8">
-        <ul>
-          {artes.map(arte => (
-            <Arte
-              key={arte.id}
-              data={arte}
-            />
-          ))}
-        </ul>
-      </div>
+      {usuario ?
+        <div className="w-80 mx-auto py-4">
+          <ul>
+            {artes.map(arte => (
+              <Arte
+                key={arte.id}
+                url={arte.url}
+                id={arte.id}
+              />
+            ))}
+          </ul>
+        </div> 
+      : 
+        <p className="w-80 mx-auto text-center py-16">
+          There is no user.
+          <Link href={{pathname: '/login', query: {path: `${ruta}`} }} passHref>
+            <a className="text-amarillo font-bold"> Sign up</a>
+          </Link>
+        </p>
+      }
 
     </div>
   );

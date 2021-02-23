@@ -21,6 +21,7 @@ const useArtes = (orden, usuario) => {
     function manejarSnapshot(snapshot) {
       const listadoArtes = snapshot.docs.map(doc => {
         return {
+          id: doc.id,
           ...doc.data()
         }
       })
