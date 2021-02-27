@@ -110,7 +110,7 @@ export const esperarImagen = (assetId) => {
 }
 
 //descargar arte
-export const descargarArte = async (publicId, filtro, urlBackground, frame, texto, usuario) => {
+export const descargarArte = async (publicId, filtro, urlBackground, frame, texto) => {
   
   //url inicial
   const urlInicio = "https://res.cloudinary.com/petportrait/image/upload/"
@@ -127,18 +127,22 @@ export const descargarArte = async (publicId, filtro, urlBackground, frame, text
   
   //transformacion del frame
   if(frame.colorFrame !== "none") {
-    var transformacionFrame = `l_${urlBackground.idPublicoModificado},w_${frame.anchoFrame},bo_${frame.gruesoBordeFrame}px_solid_rgb:${valorColor(frame.colorFrame)},g_south,y_110`
+    var transformacionFrame = `l_${urlBackground.idPublicoModificado},w_${frame.anchoFrame},bo_${frame.gruesoBordeFrame}px_solid_rgb:${valorColor(frame.colorFrame)}/fl_layer_apply,g_south,y_110`
+    // var transformacionFrame = `l_${urlBackground.idPublicoModificado},w_${frame.anchoFrame},bo_${frame.gruesoBordeFrame}px_solid_rgb:${valorColor(frame.colorFrame)},g_south,y_110`
   } else {
     var transformacionFrame = ""
   }
 
   //transformacion de la imagen de la mascota
   const nombreMascotaSinBarras = reemplazarBarras(publicId.publicid)
-  const transformacionMascota = `l_${nombreMascotaSinBarras},h_${calcularAlturaImagen(publicId.format)},${calcularAnchoImagen(publicId.format)}g_south,y_0${valorFiltro(filtro)}`
-  // const transformacionMascota = `l_${nombreMascotaSinBarras},h_${"1070"},g_south,y_0,e_trim/e_vectorize,fl_layer_apply`
+  const transformacionMascota = `l_${nombreMascotaSinBarras}${valorFiltro(filtro)},$ar_ar${valorEfecto(publicId.format)}/h_${calcularAlturaImagen(publicId.format)},${calcularAnchoImagen(publicId.format)}c_fit,ar_$ar/fl_layer_apply,g_south,y_0`
+  
+  // const transformacionMascota = `l_${nombreMascotaSinBarras},h_${calcularAlturaImagen(publicId.format)},${calcularAnchoImagen(publicId.format)}g_south,y_0${valorFiltro(filtro)}`
+
 
   //transformacion del texto
-  const transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)},g_south,y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente)}`
+  const transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)}/fl_layer_apply,g_south,y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente)}`
+  // const transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)},g_south,y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente)}`
 
   const transformaciones = transformacionFrame+"/"+transformacionMascota+"/"+transformacionTexto
 
@@ -146,32 +150,56 @@ export const descargarArte = async (publicId, filtro, urlBackground, frame, text
   console.log(urlCompleta)
   
   //descargar imagen al disco
-  await axios
-  .get(urlCompleta, {
-    responseType: 'arraybuffer'
-  })
-  .then(response => {
-    const buffer = Buffer.from(response.data, 'base64');
-    // console.log(buffer)
-    var element = document.createElement("a");
-    var file = new Blob(
-      [
-        buffer
-      ],
-      { type: "image/jpg" }
-    );
-    element.href = URL.createObjectURL(file);
-    element.download = texto.textoMascota+".jpg";
-    element.click();
-  })
-    .catch(error => {
-      console.error(error);
-  });
-
-  if(usuario) {
-    guardarArteDB(urlCompleta, usuario, publicId, filtro, urlBackground, frame, texto,)
+  try {
+    await axios
+      .get(urlCompleta, {responseType: 'arraybuffer'})
+        .then(response => {
+          const buffer = Buffer.from(response.data, 'base64')
+          // console.log(buffer)
+          var element = document.createElement("a")
+          var file = new Blob(
+            [
+              buffer
+            ],
+            { type: "image/jpg" }
+          );
+          element.href = URL.createObjectURL(file)
+          element.download = texto.textoMascota+".jpg"
+          element.click()
+        })
+    return {urlCompleta, publicId, filtro, urlBackground, frame, texto}
+  } catch (error) {
+    console.error(error);
   }
 
+}
+
+
+//descargar arte
+export const crearUrlArte = async (publicId, filtro, urlBackground, frame, texto) => {
+  //url inicial
+  const urlInicio = "https://res.cloudinary.com/petportrait/image/upload/"
+
+
+  //transformaciones
+  //transformacion del frame
+  if(frame.colorFrame !== "none") {
+    var transformacionFrame = `l_${urlBackground.idPublicoModificado},w_${frame.anchoFrame},bo_${frame.gruesoBordeFrame}px_solid_rgb:${valorColor(frame.colorFrame)}/fl_layer_apply,g_south,y_110`
+  } else {
+    var transformacionFrame = ""
+  }
+
+  //transformacion de la imagen de la mascota
+  const nombreMascotaSinBarras = reemplazarBarras(publicId.publicid)
+  const transformacionMascota = `l_${nombreMascotaSinBarras}${valorFiltro(filtro)},$ar_ar${valorEfecto(publicId.format)}/e_sharpen:100/h_${calcularAlturaImagen(publicId.format)},${calcularAnchoImagen(publicId.format)}c_fit,ar_$ar/fl_layer_apply,g_south,y_0`
+  
+  //transformacion del texto
+  const transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)}/fl_layer_apply,g_south,y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente)}`
+
+  const transformaciones = transformacionFrame+"/"+transformacionMascota+"/"+transformacionTexto
+
+  const urlCompleta = urlInicio+transformaciones+"/petsgallery/backs/"+urlBackground.archivoConExtension
+  return urlCompleta
 }
 
 //Guardar arte de mascota en Firebase
@@ -208,6 +236,12 @@ export const valorFiltro = (filtro) => {
   if(filtro === "none") return tipoFiltro=""
   if(filtro === "vectorize") return tipoFiltro=",e_vectorize"
   if(filtro === "grayscale") return tipoFiltro=",e_grayscale"
+}
+
+export const valorEfecto = (formato) => {
+  let efecto
+  if(formato === "png") return efecto="/e_trim:25"
+  if(formato === "jpg") return efecto=""
 }
 
 export const calcularAlturaImagen = (formato) => {

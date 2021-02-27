@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AlertaNoPng = ({creditos}) => {
+const AlertaNoPng = () => {
 
     const [flag, setFlag] = useState(true);
 
@@ -8,14 +8,14 @@ const AlertaNoPng = ({creditos}) => {
     <div
       className={
         flag
-          ? "z-20 xl:w-5/12 mx-auto sm:mx-0 sm:w-6/12 md:w-6/12 w-10/12 bg-white shadow-lg rounded flex pr-4 absolute left-0 sm:left-auto right-0 sm:top-0 sm:mr-6 mt-16 sm:mt-6 mb-6 sm:mb-0 transition duration-150 ease-in-out translate-show"
+          ? "z-20 mx-auto w-9/12 shadow-md rounded-2xl border-2 border-gray-800 flex pr-4 absolute left-0 right-0 mt-16 mb-6 color-bg"
           : "hidden"
       }
     >
       <div
         role="alert"
         aria-label="Close"
-        className="cursor-pointer absolute right-0 mr-2 mt-2 text-gray-500 hover:text-gray-600 transition duration-150 ease-in-out"
+        className="cursor-pointer absolute right-0 mr-2 mt-2 text-gray-800 transition duration-150 ease-in-out"
         onClick={() => setFlag(false)}
       >
         <svg
@@ -50,8 +50,8 @@ const AlertaNoPng = ({creditos}) => {
         </svg>
       </div>
       <div className="flex flex-col justify-center pl-4 py-4">
-        <p className="pt-2 text-sm text-gray-800 font-semibold">Attention</p>
-        <p className="text-xs text-gray-600 font-normal">
+        <p className="pt-2 text-lg text-gray-800 font-bold">Attention</p>
+        <p className="text-sm text-gray-600 font-normal">
           To use a layout, you need to upload an image without background
           on png format!
         </p>
@@ -63,6 +63,9 @@ const AlertaNoPng = ({creditos}) => {
           }
           .translate-hide {
             transform: translateX(150%);
+          }
+          .color-bg {
+          background-color: #fff4cc;
           }
         `}
       </style>{" "}

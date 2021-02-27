@@ -79,21 +79,23 @@ const Shop = () => {
         />
 
         <ContenedorProductos
-          background={urlBackground.urlLocal || ""}
+          background={urlBackground || ""}
           imagen={publicId}
           filtro={filtroImagen || "none"}
-          colorFrame={frame.colorFrame || "none"}
-          nombreMascota={texto || ""}
+          frame={frame || "none"}
+          texto={texto || ""}
         />
 
-        <Paginacion
-          retroceder={true}
-          rutaAnterior={"/createart/download"}
-          pantallaAnterior={"Download"}
-          adelantar={false}
-          rutaSiguiente={""}
-          tienda={false}
-        />
+        <div className="pb-8">
+          <Paginacion
+            retroceder={true}
+            rutaAnterior={"/createart/download"}
+            pantallaAnterior={"Download"}
+            adelantar={false}
+            rutaSiguiente={""}
+            tienda={false}
+          />
+        </div>
 
         <style jsx>
           {`

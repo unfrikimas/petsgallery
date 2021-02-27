@@ -1,17 +1,21 @@
 import React from 'react'
 import Link from 'next/link'
+import {useRouter} from 'next/router'
 import IconFlechaAdelante from '../icons/FlechaAdelante'
 import IconFlechaAtras from '../icons/FlechaAtras'
 import Toggle from '../layout/Toggle'
 
 const Paginacion = ({retroceder, rutaAnterior, pantallaAnterior, adelantar, rutaSiguiente, pantallaSiguiente, tienda=false}) => {
+    
+    const router = useRouter()
+    
     return (  
         <>
         <div className="flex mt-8 w-80 mx-auto">
             <div className="w-1/2 flex flex-col items-center justify-center">
                 { retroceder &&
                     <>
-                    <Link href={rutaAnterior}>
+                    <Link href={rutaAnterior} passHref>
                         <a className="flex items-center justify-center w-12 h-12 bg-white rounded-full border-2 border-gray-800 sombra">
                             <IconFlechaAtras />
                         </a>
@@ -23,7 +27,7 @@ const Paginacion = ({retroceder, rutaAnterior, pantallaAnterior, adelantar, ruta
             <div className="w-1/2 flex flex-col items-center justify-center">
                 { adelantar && 
                     <>
-                    <Link href={rutaSiguiente}>
+                    <Link href={rutaSiguiente} passHref>
                         <a className="flex items-center justify-center w-12 h-12 bg-white rounded-full border-2 border-gray-800 sombra">
                             <IconFlechaAdelante />
                         </a>

@@ -6,7 +6,7 @@ import ContenedorImagen from "../../components/layout/ContenedorImagen"
 import Paginacion from "../../components/layout/Paginacion"
 import IconLoader from '../../components/icons/Loader'
 import IconDownload from '../../components/icons/Download'
-import { descargarArte } from '../../utils/helper'
+import { descargarArte, guardarArteDB } from '../../utils/helper'
 
 const Download = () => {
 
@@ -53,7 +53,28 @@ const Download = () => {
         asignarFuente(textoInicial.fuente)
         asignarColorFuente(textoInicial.colorTexto)
       } 
+      
     }, [])
+
+    // useEffect(() => {
+    //   return () => setAnimacion(false)
+    // }, [animacion])
+
+
+    const handleClick = () => {
+      setAnimacion(true)
+      descargarArte(publicId, filtroImagen, urlBackground, frame, texto)
+        .then((res) => {
+          if(usuario) {
+            guardarArteDB(res.urlCompleta, usuario, res.publicId, res.filtro, res.urlBackground, res.frame, res.texto)
+          }
+          setAnimacion(false)
+        })
+        .catch((error) => {
+          console.log(error)
+          setAnimacion(false)
+        })
+    }
 
     return (
     <>
@@ -76,23 +97,14 @@ const Download = () => {
         <div className="w-80 mt-8 flex items-center justify-center mx-auto">
           <button
               className="flex items-center justify-center px-4 py-3 bg-amarillo border-2 border-gray-800 rounded-2xl text-xl font-bold text-gray-800 sombra focus:outline-none tracking-tight"
-              onClick={() => {
-                setAnimacion(true)
-                descargarArte(publicId, filtroImagen, urlBackground, frame, texto, usuario)
-                  .then(() => {
-                    setAnimacion(false)
-                  })
-                  .catch((error) => {
-                    console.log(error)
-                  })
-              }}
+              onClick={handleClick}
           >
             { animacion ? 
               <IconLoader className="animate-spin" width={30} heigth={30} stroke={"#1f2937"} />
               :
               <IconDownload className="mr-2" width={25} heigth={25} stroke={"#1f2937"}/>
             }
-            {animacion ? "Downloading" : "Free download"}
+            {animacion ? "Downloading" : "Download"}
           </button>
         </div>
 

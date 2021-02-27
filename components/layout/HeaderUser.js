@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Transition } from "@headlessui/react";
 import IconUsuario from "../icons/user";
-import IconUserItem from "../icons/useritem"
 import IconEditar from '../icons/Edit'
 
 const HeaderUser = ({ titulo, usuario, firebase }) => {
@@ -21,7 +20,7 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
     <>
       <header className="h-16 px-4 border-b-2 border-gray-800">
         <div className="h-full flex justify-between items-center">
-          <Link href="/">
+          <Link href="/createart/imageupload">
             <h2 className="text-gray-800 font-bold text-xl cursor-pointer">P</h2>
           </Link>
 
@@ -42,7 +41,7 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
                   >
                     {usuario.photoURL ?                    
                       <img
-                        className="rounded-full"
+                        className="rounded-full border-2 border-gray-800"
                         src={usuario.photoURL}
                         width={30}
                         height={30}
@@ -50,7 +49,7 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
                     :
                       <IconUsuario width={30} height={30} stroke={"#2a2e3b"}/>
                     }
-                    <svg
+                    {/* <svg
                       className="h-5 w-5"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 20 20"
@@ -62,7 +61,7 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
                         d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                         clipRule="evenodd"
                       />
-                    </svg>
+                    </svg> */}
                   </button>
                 </div>
 
@@ -91,9 +90,9 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
                           {/* <IconUserItem width={15} height={15} /> */}
                           <p className="w-full flex items-center justify-between truncate py-2 text-sm text-gray-400 border-b border-gray-100">
                             {usuario.displayName.replace(/\b\w/g, (l) => l.toUpperCase())}
-                            <button>
+                            {/* <button>
                               <IconEditar width={20} height={20} stroke={"#1f2937"} />
-                            </button>
+                            </button> */}
                           </p>
                         </div>
                         {pathname === "/dashboard" ? (

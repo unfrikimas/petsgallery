@@ -78,9 +78,7 @@ const ElegirBackground = () => {
         />
 
         {publicId.format !== "png" && 
-          <AlertaNoPng 
-            creditos={creditos}
-          />
+          <AlertaNoPng />
         }
 
         <ContenedorImagen 

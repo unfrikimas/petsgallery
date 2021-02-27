@@ -65,12 +65,10 @@ const ContenedorImagen = (props) => {
                     cloudName="petportrait" 
                     secure="true"
                     publicId={imagen.publicid}
-                    // dpr="auto"
-                    // width="auto"
-                    >
+                >
                     {filtro === "vectorize" && <Transformation effect="vectorize" />}
                     {filtro === "grayscale" && <Transformation effect="grayscale" />}
-                    <Transformation effect="trim:10" />
+                    <Transformation effect="trim:20" />
                     <Transformation effect="sharpen" />
                     <Transformation width="310" height="310" crop="fit" />
                 </Image>
@@ -81,11 +79,8 @@ const ContenedorImagen = (props) => {
                     cloudName="petportrait" 
                     secure="true"
                     publicId={imagen.publicid}
-                    dpr="auto"
-                    width="auto"
-                    >
+                >
                     {filtro === "vectorize" && <Transformation effect="vectorize" />}
-                    {/* <Transformation effect="trim:10" /> */}
                     {filtro === "grayscale" && <Transformation effect="grayscale" />}
                     <Transformation effect="sharpen" />
                     <Transformation width="320" height="320" crop="fill" />

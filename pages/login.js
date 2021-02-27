@@ -100,9 +100,9 @@ const Login = () => {
           <h1 className="text-3xl font-bold text-gray-800 pt-8 pb-2">
             Login
           </h1>
-          <p className="text-gray-700">You don't think you should login first and behave like human not robot</p>
-          <div className="mt-5 flex space-x-4">
-            <div className="w-1/2">
+          <p className="text-gray-700">You don't think you should login first and behave like human not robot?</p>
+          <div className="mt-5 flex items-center justify-center space-x-4">
+            {/* <div className="w-1/2">
               <button
                 className="w-full py-3 flex items-center justify-center bg-blue-500 border-2 border-gray-800 rounded-2xl text-xl font-base text-white focus:outline-none cursor-pointer"
                 type="button"
@@ -111,7 +111,7 @@ const Login = () => {
                 <IconFacebook width={30} heigth={30} stroke={"#fff"}/>
                 <span className="pl-2">Facebook</span>
               </button>
-            </div>
+            </div> */}
             <div className="w-1/2">
               <button
                 className="w-full py-3 flex items-center justify-center bg-red-500 border-2 border-gray-800 rounded-2xl text-xl font-base text-white focus:outline-none cursor-pointer"

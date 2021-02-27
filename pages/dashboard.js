@@ -1,27 +1,49 @@
-import React, { useContext } from "react"
+import React, { useContext, useState, useEffect, useRef } from "react"
 import { useRouter } from "next/router"
-import Link from "next/link";
+import Link from "next/link"
 import HeaderUser from "../components/layout/HeaderUser"
 import { FirebaseContext } from "../firebase"
-import useArtes from '../hooks/useArtes'
 import Arte from "../components/layout/Arte"
 
 const Dashboard = () => {
   //context de firebase
   const { usuario, firebase } = useContext(FirebaseContext)
 
-  //Hook para obtener los artes
-  const { artes } = useArtes('creado', usuario)
+  const [artes, setArtes] = useState([])
+  const [consultarDB, setConsultarDB] = useState(true)
   
-  const router = useRouter();
+  const router = useRouter()
   const ruta = router.pathname
 
-  // useEffect(() => {
-  //   console.log({usuario})
-  //     if(usuario === "null"){
-  //       router.replace('/createart/imageupload')
-  //     }
-  // }, [usuario])
+  // const isRenderingOnServer = typeof window === 'undefined'
+
+  const obtenerArtes = () => {
+    try {   
+      firebase.db.collection('artes')
+        .where('creador.uid', '==', usuario.uid)
+        .orderBy('creado', 'desc')
+        .onSnapshot((querySnapshot) => {
+          const items = []
+          querySnapshot.forEach((doc) => {
+            items.push({id: doc.id, ...doc.data()})
+          })
+          setConsultarDB(false)
+          setArtes(items)
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    if(usuario && consultarDB) {
+      obtenerArtes()
+    }
+  }, [usuario, consultarDB])
+
+  // const handleClick = e => {
+  //   setId(e)
+  // }
 
   return (
     <div className="relative max-w-lg mx-auto">
@@ -39,6 +61,7 @@ const Dashboard = () => {
                 key={arte.id}
                 url={arte.url}
                 id={arte.id}
+                // handleClick={e => handleClick(e)}
               />
             ))}
           </ul>

@@ -7,7 +7,9 @@ import ContenedorImagen from "../../components/layout/ContenedorImagen"
 import Paginacion from "../../components/layout/Paginacion"
 import IconLoader from '../../components/icons/Loader'
 import IconDownload from '../../components/icons/Download'
-import { descargarArte } from '../../utils/helper'
+import { descargarArte, guardarArteDB } from '../../utils/helper'
+
+export let cargando = false
 
 const EditarArte = () => {
 
@@ -22,6 +24,7 @@ const EditarArte = () => {
     const [arte, setArte] = useState("")
     const [animacion, setAnimacion] = useState(false)
     const [consultarDB, setConsultarDB] = useState(true)
+    const [error, setError] = useState(false)
 
     // Routing para obtener el slug del arte
     const router = useRouter()
@@ -39,8 +42,8 @@ const EditarArte = () => {
             setError(true)
             setConsultarDB(false)
           }
-        };
-        return obtenerArte()
+        }
+        obtenerArte()
       }
     }, [id]);
 
@@ -65,6 +68,19 @@ const EditarArte = () => {
       }
     }, [arte])
 
+    const handleClick = () => {
+      setAnimacion(true)
+      descargarArte(arte.props.publicId, arte.props.filtro, arte.props.urlBackground, arte.props.frame, arte.props.texto)
+      .then((res) => {
+        guardarArteDB(res.urlCompleta, usuario, res.publicId, res.filtro, res.urlBackground, res.frame, res.texto)
+        setAnimacion(false)
+      })
+      .catch((error) => {
+        console.log(error)
+        setAnimacion(false)
+      })
+    }
+
     return (
     <>
       <div className="max-w-lg mx-auto">
@@ -88,26 +104,23 @@ const EditarArte = () => {
           </div>
         }
 
+        {error ? 
+          <p className="w-80 mx-auto text-center py-8">
+            There is no art.
+          </p>
+        :
+        <>
         <div className="w-80 mt-8 flex items-center justify-center mx-auto">
           <button
               className="flex items-center justify-center px-4 py-3 bg-amarillo border-2 border-gray-800 rounded-2xl text-xl font-bold text-gray-800 sombra focus:outline-none tracking-tight"
-              onClick={() => {
-                setAnimacion(true)
-                descargarArte(arte.props.publicId, arte.props.filtro, arte.props.urlBackground, arte.props.frame, arte.props.texto, usuario)
-                  .then(() => {
-                    setAnimacion(false)
-                  })
-                  .catch((error) => {
-                    console.log(error)
-                  })
-              }}
+              onClick={handleClick}
           >
             { animacion ? 
               <IconLoader className="animate-spin" width={30} heigth={30} stroke={"#1f2937"} />
               :
               <IconDownload className="mr-2" width={25} heigth={25} stroke={"#1f2937"}/>
             }
-            {animacion ? "Downloading" : "Free download"}
+            {cargando ? "Downloading" : "Download"}
           </button>
         </div>
 
@@ -119,6 +132,8 @@ const EditarArte = () => {
           rutaSiguiente={""}
           tienda={true}
         />
+        </>
+        }
 
         <style jsx>{`
             .sombra {

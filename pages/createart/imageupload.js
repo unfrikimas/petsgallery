@@ -213,19 +213,6 @@ const SubirImagen = () => {
       
     }
 
-    const revisarMedidas = async (e) => {
-      let img = new Image()
-      img.src = window.URL.createObjectURL(e.target.files[0])
-      img.onload = () => {
-        if(img.width >= 1080 && img.height >= 1080){
-          console.log(`Nice, image is the right size. It can be uploaded, ${img.width} x ${img.height}`)
-          return true
-        } else {
-          console.log(`Sorry, this image doesn't look like the size we wanted. It's ${img.width} x ${img.height} but we require 1080 x 1080 size image.`)
-          return false
-        }
-      }
-    }
 
     //funcion para subir la imagen a Cloudinary
     const subirPetRemoverFondo = (e) => {

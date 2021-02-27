@@ -5,6 +5,7 @@ import imageContext from '../../context/image/imageContext'
 import ContenedorImagen from "../../components/layout/ContenedorImagen"
 import ContenedorFrames from '../../components/layout/ContenedorFrames'
 import Paginacion from "../../components/layout/Paginacion"
+import AlertaNoPng from '../../components/layout/AlertaNoPng'
 
 const ElegirFrame = () => {
 
@@ -73,6 +74,10 @@ const ElegirFrame = () => {
             usuario={usuario}
             firebase={firebase}
         />
+
+        {publicId.format !== "png" && 
+          <AlertaNoPng />
+        }
 
         <ContenedorImagen 
             background={urlBackground.urlLocal || ""}

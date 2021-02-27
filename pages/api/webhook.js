@@ -1,51 +1,60 @@
-import React from 'react';
 import firebase from '../../firebase/firebase'
-import { subirACloudinaryEfectoTrim } from '../../utils/helper'
 
-const webHook = (req, res) => {
+const webHook = async (req, res) => {
+
     if (req.method === 'POST') {
-        if(req.body) {
-            subirACloudinaryEfectoTrim(req.body.public_id)
-                .then(data => {
-                    const imagenSinBackground = {
-                        imagen_sin_background: {
-                            asset_id: data.asset_id,
-                            version: data.version,
-                            public_id: data.public_id,
-                            format: "png"
-                        },
-                        creado: data.timestamp || Date.now()
-                    }
-                    // try {                
-                    //     //insertar productos en la base de datos
-                    //     const arteRef = firebase.db.collection('mascotas')
-                    //     arteRef.add(imagenSinBackground)
-                    // } catch (error) {
-                    //     console.log(error)    
-                    // }             
+        if(req.body.info_kind === 'cloudinary_ai') {         
+             
+            const buscarAsset = (assetId) => {
+                // console.log("assetid", assetId)
+                return new Promise((resolve) => {
+                    const ref = firebase.db.collection("mascotas")
+                    ref
+                    .where('imagen_sin_background.asset_id', '==', assetId)
+                    .onSnapshot((querySnapshot) => {
+                        const pets = []
+                        querySnapshot.forEach((doc) => {
+                            pets.push(doc.data())
+                        })
+                        resolve(pets[0])
+                        //setFreeCredit(freeCredit - 1) descontar de la base de datos.
+                    })
                 })
+            }
 
-            // const imagenSinBackground = {
-            //     imagen_sin_background: {
-            //         asset_id: req.body.asset_id,
-            //         version: req.body.version,
-            //         public_id: req.body.public_id,
-            //         format: "png"
-            //     },
-            //     creado: req.body.timestamp ? req.body.timestamp : Date.now()
-            // }
+            const imagenSinBackground = {
+                imagen_sin_background: {
+                    asset_id: req.body.asset_id,
+                    version: req.body.version,
+                    public_id: req.body.public_id,
+                    format: "png"
+                },
+                creado: req.body.timestamp ? req.body.timestamp : Date.now()
+            }
+
+            try {
+                const mascotaRef = firebase.db.collection('mascotas')
+                mascotaRef.add(imagenSinBackground)
+            } catch (error) {
+                console.log(error)    
+            }
             
-            // try {                
-            //     //insertar productos en la base de datos
-            //     const arteRef = firebase.db.collection('mascotas')
-            //     await arteRef.add(imagenSinBackground)
-            // } catch (error) {
-            //     console.log(error)    
-            // }
+            // buscarAsset(req.body.asset_id)
+            //     .then((data) => {
+            //         console.log({data})
+            //         if(!data) {
+            //             try {
+            //                 const mascotaRef = firebase.db.collection('mascotas')
+            //                 mascotaRef.add(imagenSinBackground)
+            //             } catch (error) {
+            //                 console.log(error)    
+            //             }
+            //         }
+            //     })
             
             console.log("desde webhook", req.body)
-            return res.status(200).json({msg: "ok"});
         }
+        return res.status(200).json({msg: "ok"});
     }
 }
  
