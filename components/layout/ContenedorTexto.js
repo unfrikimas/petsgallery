@@ -34,7 +34,7 @@ const ContenedorTexto = (props) => {
                 </select>
 
                 <select
-                    className={`w-2/5 px-2 py-2 border-2 border-gray-800 text-center text-xl font-bold focus:outline-none rounded-2xl sombra ${colorFuente === "white" ? "text-gray-800" : "text-white"} ${colorFuente === "white" && "bg-white"} ${colorFuente === "black" && "bg-black"} ${colorFuente === "red" && "bg-red-600"} ${colorFuente === "pink" && "bg-pink-600"} ${colorFuente === "yellow" && "bg-yellow-500"} ${colorFuente === "blue" && "bg-blue-600"} ${colorFuente === "indigo" && "bg-indigo-600"} ${colorFuente === "purple" && "bg-purple-600"} ${colorFuente === "green" && "bg-green-600"}`}
+                    className={`w-2/5 px-2 py-2 border-2 border-gray-800 text-center text-xl font-bold focus:outline-none rounded-2xl sombra ${colorFuente === "white" ? "text-gray-800" : "text-white"} ${colorFuente === "white" && "bg-white"} ${colorFuente === "black" && "bg-black"} ${colorFuente === "red" && "bg-red-600"} ${colorFuente === "pink" && "bg-pink-600"} ${colorFuente === "yellow" && "bg-yellow-400"} ${colorFuente === "blue" && "bg-blue-600"} ${colorFuente === "indigo" && "bg-indigo-600"} ${colorFuente === "purple" && "bg-purple-600"} ${colorFuente === "green" && "bg-green-600"}`}
                     type="select" 
                     name="colorFuente" 
                     value={colorFuente}

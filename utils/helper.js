@@ -127,7 +127,7 @@ export const descargarArte = async (publicId, filtro, urlBackground, frame, text
   
   //transformacion del frame
   if(frame.colorFrame !== "none") {
-    var transformacionFrame = `l_${urlBackground.idPublicoModificado},w_${frame.anchoFrame},bo_${frame.gruesoBordeFrame}px_solid_rgb:${valorColor(frame.colorFrame)}/fl_layer_apply,g_south,y_110`
+    var transformacionFrame = `l_${urlBackground.idPublicoModificado},w_${frame.anchoFrame},bo_${frame.gruesoBordeFrame}px_solid_rgb:${valorColorFrame(frame.colorFrame)}/fl_layer_apply,g_south,y_110`
     // var transformacionFrame = `l_${urlBackground.idPublicoModificado},w_${frame.anchoFrame},bo_${frame.gruesoBordeFrame}px_solid_rgb:${valorColor(frame.colorFrame)},g_south,y_110`
   } else {
     var transformacionFrame = ""
@@ -184,7 +184,7 @@ export const crearUrlArte = async (publicId, filtro, urlBackground, frame, texto
   //transformaciones
   //transformacion del frame
   if(frame.colorFrame !== "none") {
-    var transformacionFrame = `l_${urlBackground.idPublicoModificado},w_${frame.anchoFrame},bo_${frame.gruesoBordeFrame}px_solid_rgb:${valorColor(frame.colorFrame)}/fl_layer_apply,g_south,y_110`
+    var transformacionFrame = `l_${urlBackground.idPublicoModificado},w_${frame.anchoFrame},bo_${frame.gruesoBordeFrame}px_solid_rgb:${valorColorFrame(frame.colorFrame)}/fl_layer_apply,g_south,y_110`
   } else {
     var transformacionFrame = ""
   }
@@ -266,6 +266,19 @@ export const valorColor = (colorInput) => {
   if(colorInput==="red") return valor="dc2626"
   if(colorInput==="pink") return valor="db2777"
   if(colorInput==="yellow") return valor="fbbf24"
+  if(colorInput==="blue") return valor="2563eb"
+  if(colorInput==="indigo") return valor="4f46e5"
+  if(colorInput==="purple") return valor="7c3aed"
+  if(colorInput==="green") return valor="10b981"
+}
+
+export const valorColorFrame = (colorInput) => {
+  let valor
+  if(colorInput==="white") return valor="ffffff"
+  if(colorInput==="black") return valor="000000"
+  if(colorInput==="red") return valor="dc2626"
+  if(colorInput==="pink") return valor="db2777"
+  if(colorInput==="yellow") return valor="f3dc38"
   if(colorInput==="blue") return valor="2563eb"
   if(colorInput==="indigo") return valor="4f46e5"
   if(colorInput==="purple") return valor="7c3aed"

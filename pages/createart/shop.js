@@ -69,6 +69,18 @@ const Shop = () => {
     }
   }, []);
 
+  //para evitar el clic derecho
+  useEffect(() => {
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    })
+    return function cleanupListener() {
+      document.removeEventListener('contextmenu', (e) => {
+        e.preventDefault()
+      })
+    }
+  }, [])
+
   return (
     <>
       <div className="max-w-lg mx-auto">

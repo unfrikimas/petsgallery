@@ -22,24 +22,80 @@ export const BACKS = {
     urlLocal: "/images/backs/back3.jpg",
     archivoConExtension: "back3_gmufkg.jpg",
     archivoSinExtension: "back3_gmufkg",
-    idPublico: "petsgallery/backs/back3_gmufkg.jpg",
-    idPublicoModificado: "petsgallery:backs:back3_gmufkg.jpg",
+    idPublico: "petsgallery/backs/back3_gmufkg",
+    idPublicoModificado: "petsgallery:backs:back3_gmufkg",
   },
   rosa: {
     nombre: "rosa",
     urlLocal: "/images/backs/back4.jpg",
     archivoConExtension: "back4_a8jt5i.jpg",
     archivoSinExtension: "back4_a8jt5i",
-    idPublico: "petsgallery/backs/back4_a8jt5i.jpg",
-    idPublicoModificado: "petsgallery:backs:back4_a8jt5i.jpg",
+    idPublico: "petsgallery/backs/back4_a8jt5i",
+    idPublicoModificado: "petsgallery:backs:back4_a8jt5i",
   },
   gris: {
     nombre: "gris",
     urlLocal: "/images/backs/back5.jpg",
     archivoConExtension: "back5_n3rsiu.jpg",
     archivoSinExtension: "back5_n3rsiu",
-    idPublico: "petsgallery/backs/back5_n3rsiu.jpg",
-    idPublicoModificado: "petsgallery:backs:back5_n3rsiu.jpg",
+    idPublico: "petsgallery/backs/back5_n3rsiu",
+    idPublicoModificado: "petsgallery:backs:back5_n3rsiu",
+  },
+  rayos: {
+    nombre: "rayos",
+    urlLocal: "https://res.cloudinary.com/petportrait/image/upload/v1614663001/petsgallery/backs/fondos_pets-06_hjgnzg.jpg",
+    archivoConExtension: "fondos_pets-06_hjgnzg.jpg",
+    archivoSinExtension: "fondos_pets-06_hjgnzg",
+    idPublico: "petsgallery/backs/fondos_pets-06_hjgnzg",
+    idPublicoModificado: "petsgallery:backs:fondos_pets-06_hjgnzg",
+  },
+  sandias: {
+    nombre: "sandias",
+    urlLocal: "https://res.cloudinary.com/petportrait/image/upload/v1614663001/petsgallery/backs/fondos_pets-07_dnvzpq.jpg",
+    archivoConExtension: "fondos_pets-07_dnvzpq.jpg",
+    archivoSinExtension: "fondos_pets-07_dnvzpq",
+    idPublico: "petsgallery/backs/fondos_pets-07_dnvzpq",
+    idPublicoModificado: "petsgallery:backs:fondos_pets-07_dnvzpq",
+  },
+  bananas: {
+    nombre: "bananas",
+    urlLocal: "https://res.cloudinary.com/petportrait/image/upload/v1614663001/petsgallery/backs/fondos_pets-01_amnvd4.jpg",
+    archivoConExtension: "fondos_pets-01_amnvd4.jpg",
+    archivoSinExtension: "fondos_pets-01_amnvd4",
+    idPublico: "petsgallery/backs/fondos_pets-01_amnvd4",
+    idPublicoModificado: "petsgallery:backs:fondos_pets-01_amnvd4",
+  },
+  lazos: {
+    nombre: "lazos",
+    urlLocal: "https://res.cloudinary.com/petportrait/image/upload/v1614663001/petsgallery/backs/fondos_pets-08_iux5b6.jpg",
+    archivoConExtension: "fondos_pets-08_iux5b6.jpg",
+    archivoSinExtension: "fondos_pets-08_iux5b6",
+    idPublico: "petsgallery/backs/fondos_pets-08_iux5b6",
+    idPublicoModificado: "petsgallery:backs:fondos_pets-08_iux5b6",
+  },
+  huesos: {
+    nombre: "huesos",
+    urlLocal: "https://res.cloudinary.com/petportrait/image/upload/v1614663001/petsgallery/backs/fondos_pets-03_fa2dl0.jpg",
+    archivoConExtension: "fondos_pets-03_fa2dl0.jpg",
+    archivoSinExtension: "fondos_pets-03_fa2dl0",
+    idPublico: "petsgallery/backs/fondos_pets-03_fa2dl0",
+    idPublicoModificado: "petsgallery:backs:fondos_pets-03_fa2dl0",
+  },
+  manzanas: {
+    nombre: "manzanas",
+    urlLocal: "https://res.cloudinary.com/petportrait/image/upload/v1614663001/petsgallery/backs/fondos_pets-02_zeq5ia.jpg",
+    archivoConExtension: "fondos_pets-02_zeq5ia.jpg",
+    archivoSinExtension: "fondos_pets-02_zeq5ia",
+    idPublico: "petsgallery/backs/fondos_pets-02_zeq5ia",
+    idPublicoModificado: "petsgallery:backs:fondos_pets-02_zeq5ia",
+  },
+  peras: {
+    nombre: "peras",
+    urlLocal: "https://res.cloudinary.com/petportrait/image/upload/v1614663001/petsgallery/backs/fondos_pets-05_nmk1so.jpg",
+    archivoConExtension: "fondos_pets-05_nmk1so.jpg",
+    archivoSinExtension: "fondos_pets-05_nmk1so",
+    idPublico: "petsgallery/backs/fondos_pets-05_nmk1so",
+    idPublicoModificado: "petsgallery:backs:fondos_pets-05_nmk1so",
   },
 };
 
@@ -50,7 +106,65 @@ const ContenedorFondos = (props) => {
     <>
     <div className={`mt-6 section-overflow-x`}>
       <div className={`relative pl-6 py-3 horizontal-frame-list`}>
-        <figure className={`rounded-2xl ${nombre === 'amarillo' ? "sombra" : ""}`}>
+        <figure className={`rounded-2xl ${nombre === 'rayos' ? "sombra" : ""}`}>
+          <picture>
+            <img
+              src={BACKS.rayos.urlLocal}
+              onClick={() => handleBack(BACKS.rayos)}
+            />
+          </picture>
+        </figure>
+        <figure className={`rounded-2xl ${nombre === 'sandias' ? "sombra" : ""}`}>
+          <picture>
+            <img
+              src={BACKS.sandias.urlLocal}
+              onClick={() => handleBack(BACKS.sandias)}
+            />
+          </picture>
+        </figure>
+        <figure className={`rounded-2xl ${nombre === 'bananas' ? "sombra" : ""}`}>
+          <picture>
+            <img
+              src={BACKS.bananas.urlLocal}
+              onClick={() => handleBack(BACKS.bananas)}
+            />
+          </picture>
+        </figure>
+        <figure className={`rounded-2xl ${nombre === 'lazos' ? "sombra" : ""}`}>
+          <picture>
+            <img
+              src={BACKS.lazos.urlLocal}
+              onClick={() => handleBack(BACKS.lazos)}
+            />
+          </picture>
+        </figure>
+        <figure className={`rounded-2xl ${nombre === 'huesos' ? "sombra" : ""}`}>
+          <picture>
+            <img
+              src={BACKS.huesos.urlLocal}
+              onClick={() => handleBack(BACKS.huesos)}
+            />
+          </picture>
+        </figure>
+        <figure className={`rounded-2xl ${nombre === 'manzanas' ? "sombra" : ""}`}>
+          <picture>
+            <img
+              src={BACKS.manzanas.urlLocal}
+              onClick={() => handleBack(BACKS.manzanas)}
+            />
+          </picture>
+        </figure>
+        <figure className={`rounded-2xl ${nombre === 'peras' ? "sombra" : ""}`}>
+          <picture>
+            <img
+              src={BACKS.peras.urlLocal}
+              onClick={() => handleBack(BACKS.peras)}
+            />
+          </picture>
+        </figure>
+
+
+        {/* <figure className={`rounded-2xl ${nombre === 'amarillo' ? "sombra" : ""}`}>
           <picture>
             <img
               src="/images/backs/back1.jpg"
@@ -89,7 +203,8 @@ const ContenedorFondos = (props) => {
               onClick={() => handleBack(BACKS.gris)}
             />
           </picture>
-        </figure>
+        </figure> */}
+
       </div>
     </div>
       <style jsx>
