@@ -5,22 +5,22 @@ const webHook = async (req, res) => {
     if (req.method === 'POST') {
         if(req.body.info_kind === 'cloudinary_ai') {         
              
-            const buscarAsset = (assetId) => {
-                // console.log("assetid", assetId)
-                return new Promise((resolve) => {
-                    const ref = firebase.db.collection("mascotas")
-                    ref
-                    .where('imagen_sin_background.asset_id', '==', assetId)
-                    .onSnapshot((querySnapshot) => {
-                        const pets = []
-                        querySnapshot.forEach((doc) => {
-                            pets.push(doc.data())
-                        })
-                        resolve(pets[0])
-                        //setFreeCredit(freeCredit - 1) descontar de la base de datos.
-                    })
-                })
-            }
+            // const buscarAsset = (assetId) => {
+            //     // console.log("assetid", assetId)
+            //     return new Promise((resolve) => {
+            //         const ref = firebase.db.collection("mascotas")
+            //         ref
+            //         .where('imagen_sin_background.asset_id', '==', assetId)
+            //         .onSnapshot((querySnapshot) => {
+            //             const pets = []
+            //             querySnapshot.forEach((doc) => {
+            //                 pets.push(doc.data())
+            //             })
+            //             resolve(pets[0])
+            //             //setFreeCredit(freeCredit - 1) descontar de la base de datos.
+            //         })
+            //     })
+            // }
 
             const imagenSinBackground = {
                 imagen_sin_background: {
@@ -52,8 +52,8 @@ const webHook = async (req, res) => {
             //         }
             //     })
             
-            console.log("desde webhook", req.body)
         }
+        console.log("desde webhook", req.body)
         return res.status(200).json({msg: "ok"});
     }
 }

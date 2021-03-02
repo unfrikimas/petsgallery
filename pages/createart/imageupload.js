@@ -14,14 +14,14 @@ import { subirACloudinaryRemoverFondo, subirACloudinaryConFondo, subirACloudinar
 
 export const CREDITOS = 1
 
-const Alerta = ({mensaje}) => {
-  return (
-    <p 
-      className="w-80 mx-auto text-red-600 text-lg font-bold text-center pt-3 -mb-4">
-      {mensaje}
-    </p>
-  )
-}
+// const Alerta = ({mensaje}) => {
+//   return (
+//     <p 
+//       className="w-80 mx-auto text-red-600 text-lg font-bold text-center pt-3 -mb-4">
+//       {mensaje}
+//     </p>
+//   )
+// }
 
 const SubirImagen = () => {
   
