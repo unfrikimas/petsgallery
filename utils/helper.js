@@ -135,13 +135,17 @@ export const descargarArte = async (publicId, filtro, urlBackground, frame, text
 
   //transformacion de la imagen de la mascota
   const nombreMascotaSinBarras = reemplazarBarras(publicId.publicid)
-  const transformacionMascota = `l_${nombreMascotaSinBarras}${valorFiltro(filtro)},$ar_ar${valorEfecto(publicId.format)}/h_${calcularAlturaImagen(publicId.format)},${calcularAnchoImagen(publicId.format)}c_fit,ar_$ar/fl_layer_apply,g_south,y_0`
+  const transformacionMascota = `l_${nombreMascotaSinBarras}${valorFiltro(filtro)},$ar_ar${valorEfecto(publicId.format)}/h_${calcularAlturaImagen(publicId.format)},${calcularAnchoImagen(publicId.format)}${valorCrop(publicId.format)},ar_$ar/fl_layer_apply,g_south,y_0`
   
   // const transformacionMascota = `l_${nombreMascotaSinBarras},h_${calcularAlturaImagen(publicId.format)},${calcularAnchoImagen(publicId.format)}g_south,y_0${valorFiltro(filtro)}`
 
 
   //transformacion del texto
-  const transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)}/fl_layer_apply,g_south,y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente)}`
+  if(texto.textoMascota) {
+    var transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)}/fl_layer_apply,g_south,y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente)}`
+  } else {
+    var transformacionTexto = ""
+  }
   // const transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)},g_south,y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente)}`
 
   const transformaciones = transformacionFrame+"/"+transformacionMascota+"/"+transformacionTexto
@@ -191,14 +195,18 @@ export const crearUrlArte = async (publicId, filtro, urlBackground, frame, texto
 
   //transformacion de la imagen de la mascota
   const nombreMascotaSinBarras = reemplazarBarras(publicId.publicid)
-  const transformacionMascota = `l_${nombreMascotaSinBarras}${valorFiltro(filtro)},$ar_ar${valorEfecto(publicId.format)}/e_sharpen:100/h_${calcularAlturaImagen(publicId.format)},${calcularAnchoImagen(publicId.format)}c_fit,ar_$ar/fl_layer_apply,g_south,y_0`
+  const transformacionMascota = `l_${nombreMascotaSinBarras}${valorFiltro(filtro)},$ar_ar${valorEfecto(publicId.format)}/e_sharpen:100/h_${calcularAlturaImagen(publicId.format)},${calcularAnchoImagen(publicId.format)}${valorCrop(publicId.format)},ar_$ar/fl_layer_apply,g_south,y_0`
   
   //transformacion del texto
-  const transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)}/fl_layer_apply,g_south,y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente)}`
+  if(texto.textoMascota) {
+    var transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)}/fl_layer_apply,g_south,y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente)}`
+  } else {
+    var transformacionTexto = ""
+  }
 
   const transformaciones = transformacionFrame+"/"+transformacionMascota+"/"+transformacionTexto
-
   const urlCompleta = urlInicio+transformaciones+"/petsgallery/backs/"+urlBackground.archivoConExtension
+  
   return urlCompleta
 }
 
@@ -242,6 +250,12 @@ export const valorEfecto = (formato) => {
   let efecto
   if(formato === "png") return efecto="/e_trim:25"
   if(formato === "jpg") return efecto=""
+}
+
+export const valorCrop = (formato) => {
+  let crop
+  if(formato === "png") return crop="c_fit"
+  if(formato === "jpg") return crop="c_fill"
 }
 
 export const calcularAlturaImagen = (formato) => {

@@ -60,20 +60,24 @@ const ContenedorImagen = (props) => {
             )}
 
             {imagen.publicid && imagen.format === "png" &&
+                <>
+                {/* {console.log(imagen.format)} */}
                 <Image
                     className={`z-10 pt-2 ${mostrarCargandoImagen ? "animate-pulse" : ""}`}
                     cloudName="petportrait" 
                     secure="true"
                     publicId={imagen.publicid}
                 >
+                    {filtro === "none" && <Transformation effect="sharpen" />}
                     {filtro === "vectorize" && <Transformation effect="vectorize" />}
                     {filtro === "grayscale" && <Transformation effect="grayscale" />}
                     <Transformation effect="trim:20" />
                     <Transformation effect="sharpen" />
                     <Transformation width="310" height="310" crop="fit" />
                 </Image>
+                </>
             }
-            {imagen.publicid && imagen.format !== "png" &&
+            {imagen.publicid && imagen.format === "jpg" &&
                 <Image 
                     className={`z-10 ${mostrarCargandoImagen ? "animate-pulse" : ""}`}
                     cloudName="petportrait" 

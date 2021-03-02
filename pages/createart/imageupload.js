@@ -219,9 +219,15 @@ const SubirImagen = () => {
     const subirPetRemoverFondo = (e) => {
       setMostrarCargadoImagen(true)
       subirACloudinaryRemoverFondo(e)
-        .then(data => {
-            esperarImagen(data)
+        .then((imagen) => {          
+          setPublicId({
+            publicid: imagen.public_id,
+            format: "png"
+          })
         })
+        // .then(data => {
+        //     esperarImagen(data)
+        // })
         .catch(error => console.log(error))
     }
     // //funcion para subir la imagen a Cloudinary

@@ -3,7 +3,9 @@ import firebase from '../../firebase/firebase'
 const webHook = async (req, res) => {
 
     if (req.method === 'POST') {
-        if(req.body.info_kind === 'cloudinary_ai') {         
+        if(req.body) {         
+
+            //.info_kind === 'cloudinary_ai'
              
             // const buscarAsset = (assetId) => {
             //     // console.log("assetid", assetId)
@@ -55,6 +57,8 @@ const webHook = async (req, res) => {
         }
         console.log("desde webhook", req.body)
         return res.status(200).json({msg: "ok"});
+    } else if (req.method === 'POST') {
+        return res.status(200).json({msg: "ok"});   
     }
 }
  
