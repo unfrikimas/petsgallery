@@ -5,7 +5,7 @@ import imageContext from '../../context/image/imageContext'
 import ContenedorImagen from "../../components/layout/ContenedorImagen"
 import ContenedorFondos from '../../components/layout/ContenedorFondos'
 import Paginacion from "../../components/layout/Paginacion"
-import AlertaNoPng from '../../components/layout/AlertaNoPng'
+import AlertaUpload from '../../components/layout/AlertaUpload'
 
 const ElegirBackground = () => {
 
@@ -78,7 +78,9 @@ const ElegirBackground = () => {
         />
 
         {publicId.format !== "png" && 
-          <AlertaNoPng />
+          <AlertaUpload 
+            mensaje={"To use a layout, you must upload an image without background on png format"}
+          />
         }
 
         <ContenedorImagen 

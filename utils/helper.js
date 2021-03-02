@@ -282,7 +282,7 @@ export const calculoFuenteCloud = (texto, fuente) => {
     if(texto.length === 8  && isUpperCase(texto)) return size="170" 
     if(texto.length === 9  && isUpperCase(texto)) return size="150" 
     if(texto.length === 10  && isUpperCase(texto)) return size="140" 
-    if(texto.length >= 10  && isUpperCase(texto)) return size="120" 
+    if(texto.length >= 11  && isUpperCase(texto)) return size="120" 
 
     if(texto.length <= 4  && !isUpperCase(texto)) return size="300" 
     if(texto.length === 5  && !isUpperCase(texto)) return size="280" 
@@ -291,7 +291,7 @@ export const calculoFuenteCloud = (texto, fuente) => {
     if(texto.length === 8  && !isUpperCase(texto)) return size="180" 
     if(texto.length === 9  && !isUpperCase(texto)) return size="160" 
     if(texto.length === 10  && !isUpperCase(texto)) return size="140" 
-    if(texto.length >= 10  && !isUpperCase(texto)) return size="120" 
+    if(texto.length >= 11  && !isUpperCase(texto)) return size="120" 
   }
 
   if(fuente === "Suez%20One") {
@@ -304,7 +304,7 @@ export const calculoFuenteCloud = (texto, fuente) => {
     if(texto.length === 8  && isUpperCase(texto)) return size="150" 
     if(texto.length === 9  && isUpperCase(texto)) return size="130" 
     if(texto.length === 10  && isUpperCase(texto)) return size="120" 
-    if(texto.length >= 10  && isUpperCase(texto)) return size="100" 
+    if(texto.length >= 11  && isUpperCase(texto)) return size="100" 
 
     if(texto.length <= 4  && !isUpperCase(texto)) return size="280" 
     if(texto.length === 5  && !isUpperCase(texto)) return size="260" 
@@ -313,7 +313,31 @@ export const calculoFuenteCloud = (texto, fuente) => {
     if(texto.length === 8  && !isUpperCase(texto)) return size="170" 
     if(texto.length === 9  && !isUpperCase(texto)) return size="150" 
     if(texto.length === 10  && !isUpperCase(texto)) return size="130" 
-    if(texto.length >= 10  && !isUpperCase(texto)) return size="110" 
+    if(texto.length >= 11  && !isUpperCase(texto)) return size="110" 
+
+  }
+
+  if(fuente === "Gochi%20Hand") {
+  
+    if(texto.length <= 3  && isUpperCase(texto)) return size="300" 
+    if(texto.length === 4  && isUpperCase(texto)) return size="280" 
+    if(texto.length === 5  && isUpperCase(texto)) return size="260" 
+    if(texto.length === 6  && isUpperCase(texto)) return size="240" 
+    if(texto.length === 7  && isUpperCase(texto)) return size="210" 
+    if(texto.length === 8  && isUpperCase(texto)) return size="180" 
+    if(texto.length === 9  && isUpperCase(texto)) return size="150" 
+    if(texto.length === 10  && isUpperCase(texto)) return size="135" 
+    if(texto.length >= 11  && isUpperCase(texto)) return size="120" 
+
+    if(texto.length <= 3  && !isUpperCase(texto)) return size="300" 
+    if(texto.length === 4  && !isUpperCase(texto)) return size="300" 
+    if(texto.length === 5  && !isUpperCase(texto)) return size="270" 
+    if(texto.length === 6  && !isUpperCase(texto)) return size="250" 
+    if(texto.length === 7  && !isUpperCase(texto)) return size="210" 
+    if(texto.length === 8  && !isUpperCase(texto)) return size="190" 
+    if(texto.length === 9  && !isUpperCase(texto)) return size="160" 
+    if(texto.length === 10  && !isUpperCase(texto)) return size="145" 
+    if(texto.length >= 11  && !isUpperCase(texto)) return size="130" 
 
   }
 
@@ -329,7 +353,7 @@ export const calculoDistanciaTextoCloud = (texto, fuente) => {
     if(texto.length === 8  && isUpperCase(texto)) return distancia="90" 
     if(texto.length === 9  && isUpperCase(texto)) return distancia="90" 
     if(texto.length === 10  && isUpperCase(texto)) return distancia="100" 
-    if(texto.length >= 10  && isUpperCase(texto)) return distancia="110" 
+    if(texto.length >= 11  && isUpperCase(texto)) return distancia="110" 
 
     if(!isUpperCase(texto)) {
       if(texto.length <= 4) {
@@ -384,7 +408,7 @@ export const calculoDistanciaTextoCloud = (texto, fuente) => {
     if(texto.length === 8  && isUpperCase(texto)) return distancia="90" 
     if(texto.length === 9  && isUpperCase(texto)) return distancia="100" 
     if(texto.length === 10  && isUpperCase(texto)) return distancia="100" 
-    if(texto.length >= 10  && isUpperCase(texto)) return distancia="110" 
+    if(texto.length >= 11  && isUpperCase(texto)) return distancia="110" 
 
     if(!isUpperCase(texto)) {
       if(texto.length <= 4) {
@@ -430,6 +454,69 @@ export const calculoDistanciaTextoCloud = (texto, fuente) => {
       }
     }
   }
+
+  if(fuente === "Gochi%20Hand") {
+
+    if(texto.length <= 3  && isUpperCase(texto)) return distancia="70" 
+    if(texto.length === 4  && isUpperCase(texto)) return distancia="80" 
+    if(texto.length === 5  && isUpperCase(texto)) return distancia="80" 
+    if(texto.length === 6  && isUpperCase(texto)) return distancia="80" 
+    if(texto.length === 7  && isUpperCase(texto)) return distancia="90" 
+    if(texto.length === 8  && isUpperCase(texto)) return distancia="90" 
+    if(texto.length === 9  && isUpperCase(texto)) return distancia="90" 
+    if(texto.length === 10  && isUpperCase(texto)) return distancia="90" 
+    if(texto.length >= 11  && isUpperCase(texto)) return distancia="95" 
+
+    if(!isUpperCase(texto)) {
+      if(texto.length <= 3) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="30"
+        } else return distancia="80"
+      }
+      if(texto.length === 4) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="30"
+        } else return distancia="80"
+      }
+      if(texto.length === 5) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="35"
+        } else return distancia="85"
+      }
+      if(texto.length === 6) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="35"
+        } else return distancia="85"
+      }
+      if(texto.length === 7) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="35"
+        } else return distancia="85"
+      }
+      if(texto.length === 8) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="35"
+        } else return distancia="90"
+      }
+      if(texto.length === 9) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="50"
+        } else return distancia="90"
+      }
+      if(texto.length === 10) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          return distancia="55"
+        } else return distancia="90"
+      }
+      if(texto.length >= 11) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+          console.log(">=11", texto)
+          return distancia="65"
+        } else return distancia="95"
+      }
+    }
+  }
+
 }
 
 export const reemplazarEspacios = (texto) => {
@@ -486,6 +573,28 @@ export const calculoBordeFuente = (texto, fuente) => {
     if(texto.length >= 11 && !isUpperCase(texto)) return borde="15"
   }
 
+  if(fuente === "Gochi%20Hand") {
+    if(texto.length <= 3 && isUpperCase(texto)) return borde="30"
+    if(texto.length === 4 && isUpperCase(texto)) return borde="30"
+    if(texto.length === 5 && isUpperCase(texto)) return borde="25"
+    if(texto.length === 6 && isUpperCase(texto)) return borde="25"
+    if(texto.length === 7 && isUpperCase(texto)) return borde="20"
+    if(texto.length === 8 && isUpperCase(texto)) return borde="20"
+    if(texto.length === 9 && isUpperCase(texto)) return borde="17"
+    if(texto.length === 10 && isUpperCase(texto)) return borde="15"
+    if(texto.length >= 11 && isUpperCase(texto)) return borde="12"
+
+    if(texto.length <= 3 && !isUpperCase(texto)) return borde="30"
+    if(texto.length === 4 && !isUpperCase(texto)) return borde="30"
+    if(texto.length === 5 && !isUpperCase(texto)) return borde="27"
+    if(texto.length === 6 && !isUpperCase(texto)) return borde="25"
+    if(texto.length === 7 && !isUpperCase(texto)) return borde="22"
+    if(texto.length === 8 && !isUpperCase(texto)) return borde="20"
+    if(texto.length === 9 && !isUpperCase(texto)) return borde="17"
+    if(texto.length === 10 && !isUpperCase(texto)) return borde="15"
+    if(texto.length >= 11 && !isUpperCase(texto)) return borde="12"
+  }
+
 }
 
 export const calculoPesoFuente = (fuente) => {
@@ -494,6 +603,9 @@ export const calculoPesoFuente = (fuente) => {
     peso = "bold"
   }
   if(fuente === "Suez%20One") {
+    peso = "thin"
+  }
+  if(fuente === "Gochi%20Hand") {
     peso = "thin"
   }
   return peso
@@ -650,6 +762,91 @@ export const calculoFuenteCotenedorImagen = (texto, fuente, color) => {
     }
   }
 
+  if (fuente === "Gochi%20Hand") {
+
+    if(texto.length <= 4 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-8 borde-maximo-negro abajo-1" 
+      } else return size="fuente-8 borde-maximo-blanco abajo-1" 
+    }
+    if(texto.length === 5 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-8 borde-maximo-negro abajo-1" 
+      } else return size="fuente-8 borde-maximo-blanco abajo-1" 
+    }
+    if(texto.length === 6 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-7 borde-maximo-negro abajo-1"
+      } else return size="fuente-7 borde-maximo-blanco abajo-1"
+    }
+    if(texto.length === 7 && isUpperCase(texto)) {
+      if(color==="white") {  
+       return size="fuente-6 borde-maximo-negro abajo-2"
+      } else return size="fuente-6 borde-maximo-blanco abajo-2"
+    }
+    if(texto.length === 8 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-6 borde-minimo-negro abajo-2"
+      } else return size="fuente-6 borde-minimo-blanco abajo-2"
+    }
+    if(texto.length === 9 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-5 borde-minimo-negro abajo-3"
+      } else return size="fuente-5 borde-minimo-blanco abajo-3"
+    }
+    if(texto.length === 10 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-4-5 borde-minimo-negro abajo-3"
+      } else return size="fuente-4-5 borde-minimo-blanco abajo-3"
+    }
+    if(texto.length >= 11 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-4 borde-minimo-negro abajo-4"
+      } else return size="fuente-4 borde-minimo-blanco abajo-4"
+    }
+
+    if(texto.length <= 4 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-9 borde-maximo-negro abajo-0" 
+      } else return size="fuente-9 borde-maximo-blanco abajo-0" 
+    }
+    if(texto.length === 5 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-9 borde-maximo-negro abajo-0"
+      } else return size="fuente-9 borde-maximo-blanco abajo-0" 
+    }
+    if(texto.length === 6 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-8 borde-maximo-negro abajo-1" 
+      } else return size="fuente-8 borde-maximo-blanco abajo-1" 
+    }
+    if(texto.length === 7 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-7 borde-maximo-negro abajo-2" 
+      } else return size="fuente-7 borde-maximo-blanco abajo-2" 
+    }
+    if(texto.length === 8 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-6 borde-minimo-negro abajo-2"
+      } else return size="fuente-6 borde-minimo-blanco abajo-2"
+    }
+    if(texto.length === 9 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-5-5 borde-minimo-negro abajo-3" 
+      } else return size="fuente-5-5 borde-minimo-blanco abajo-3" 
+    }
+    if(texto.length === 10 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-4-7 borde-minimo-negro abajo-3" 
+      } else return size="fuente-4-7 borde-minimo-blanco abajo-3"
+    } 
+    if(texto.length >= 11 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-4-5 borde-minimo-negro abajo-4" 
+      } else return size="fuente-4-5 borde-minimo-blanco abajo-4" 
+    }
+  }
+
 }
 
 export const calculoFuenteCotenedorProductos = (texto, fuente) => {
@@ -671,6 +868,23 @@ export const calculoFuenteCotenedorProductos = (texto, fuente) => {
   } 
   
   if (fuente === "Suez%20One") {
+    if(texto.length <= 5 && isUpperCase(texto)) return size="text-xl borde-maximo" 
+    if(texto.length === 6 && isUpperCase(texto)) return size="text-base borde-maximo"
+    if(texto.length === 7 && isUpperCase(texto)) return size="text-sm borde-maximo"
+    if(texto.length === 8 && isUpperCase(texto)) return size="text-xs borde-maximo bottom-1"
+    if(texto.length === 9 && isUpperCase(texto)) return size="text-xs borde-minimo bottom-1"
+    if(texto.length === 10 && isUpperCase(texto)) return size="text-xs borde-minimo bottom-1"
+    if(texto.length >= 11 && isUpperCase(texto)) return size="text-xs borde-minimo bottom-1"
+
+    if(texto.length <= 6 && !isUpperCase(texto)) return size="text-xl borde-maximo" 
+    if(texto.length === 7 && !isUpperCase(texto)) return size="text-base borde-maximo" 
+    if(texto.length === 8 && !isUpperCase(texto)) return size="text-base borde-maximo"
+    if(texto.length === 9 && !isUpperCase(texto)) return size="text-xs borde-minimo bottom-1" 
+    if(texto.length === 10 && !isUpperCase(texto)) return size="text-xs borde-minimo bottom-1" 
+    if(texto.length >= 11 && !isUpperCase(texto)) return size="text-xs borde-minimo bottom-1" 
+  }
+
+  if (fuente === "Gochi%20Hand") {
     if(texto.length <= 5 && isUpperCase(texto)) return size="text-xl borde-maximo" 
     if(texto.length === 6 && isUpperCase(texto)) return size="text-base borde-maximo"
     if(texto.length === 7 && isUpperCase(texto)) return size="text-sm borde-maximo"

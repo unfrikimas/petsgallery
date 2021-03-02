@@ -41,10 +41,6 @@ const Dashboard = () => {
     }
   }, [usuario, consultarDB])
 
-  // const handleClick = e => {
-  //   setId(e)
-  // }
-
   return (
     <div className="relative max-w-lg mx-auto">
       <HeaderUser
@@ -53,7 +49,7 @@ const Dashboard = () => {
         firebase={firebase}
       />
 
-      {usuario ?
+      {usuario && artes.length > 0 ?
         <div className="w-80 mx-auto py-4">
           <ul>
             {artes.map(arte => (
@@ -66,14 +62,24 @@ const Dashboard = () => {
             ))}
           </ul>
         </div> 
-      : 
+      : usuario && artes.length === 0 ?
         <p className="w-80 mx-auto text-center py-16">
-          There is no user.
-          <Link href={{pathname: '/login', query: {path: `${ruta}`} }} passHref>
-            <a className="text-amarillo font-bold"> Sign up</a>
-          </Link>
+        There are no Arts.
+        <Link href={'/createart/imageupload'} passHref>
+          <a className="text-amarillo font-bold"> Upload image</a>
+        </Link>
         </p>
-      }
+        : !usuario ?
+          <p className="w-80 mx-auto text-center py-16">
+            There is no user.
+            <Link href={{pathname: '/login', query: {path: `${ruta}`} }} passHref>
+              <a className="text-amarillo font-bold"> Sign up</a>
+            </Link>
+          </p>
+          :
+            <div className="z-10 w-80 h-80 bg-gray-200 animate-pulse mt-4 flex items-center justify-center mx-auto rounded-2xl">
+            </div>
+          }
 
     </div>
   );

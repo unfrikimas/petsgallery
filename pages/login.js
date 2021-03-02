@@ -23,7 +23,7 @@ const Login = () => {
   //context de usuario
   const { firebase } = useContext(FirebaseContext)
 
-  const [error, guardarError] = useState(false)
+  const [error, guardarError] = useState("")
 
   const { valores, errores, handleSubmit, handleChange } = useValidacion(
     STATE_INICIAL,
@@ -44,9 +44,10 @@ const Login = () => {
   //   }
   // }, [usuario])
 
-  async function iniciarSesion() {
-    await firebase.login(email, password)
+  function iniciarSesion() {
+    firebase.login(email, password)
       .then(usuario => {
+        console.log(query.path)
         // console.log(usuario.user)
         if(usuario.user.emailVerified){
           router.replace(`${query.path}`)
@@ -56,10 +57,11 @@ const Login = () => {
         }
       })
       .catch(error => {
-        console.error("Hubo un error al iniciar sesion", error);
-        if(error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {
-          guardarError("El usuario no existe ó la contraseña es incorrecta, revisa tus datos");
-        }
+        console.error(error)
+        guardarError(error.message)
+        // if(error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {
+        //   guardarError("El usuario no existe ó la contraseña es incorrecta, revisa tus datos");
+        // }
     })
   }
 

@@ -111,6 +111,13 @@ const ContenedorImagen = (props) => {
                 </p>
             }
 
+            { nombreMascota.textoMascota && nombreMascota.fuente === "Gochi%20Hand" &&
+                <p 
+                  className={`z-20 absolute bottom-0 tracking-normal text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-500"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_Gochi leading-none ${calculoFuenteCotenedorImagen(nombreMascota.textoMascota, nombreMascota.fuente, nombreMascota.colorTexto)}`}>
+                    {nombreMascota.textoMascota}
+                </p>
+            }
+
         </div>
 
         <style jsx>{`
@@ -126,14 +133,32 @@ const ContenedorImagen = (props) => {
             .fuente-4 {
                 font-size: 2.25rem;
             }
+            .fuente-4-5 {
+                font-size: 2.50rem;
+            }
+            .fuente-4-7 {
+                font-size: 2.75rem;
+            }
             .fuente-5 {
                 font-size: 3rem;
+            }
+            .fuente-5-5 {
+                font-size: 3.25rem;
             }
             .fuente-6 {
                 font-size: 3.75rem;
             }
             .fuente-7 {
                 font-size: 4.5rem;
+            }
+            .fuente-8 {
+                font-size: 5rem;
+            }
+            .fuente-9 {
+                font-size: 5.5rem;
+            }
+            .abajo-0 {
+                bottom: 0rem;
             }
             .abajo-1 {
                 bottom: 0.25rem;
@@ -149,6 +174,10 @@ const ContenedorImagen = (props) => {
             }
             .fuente_Suez {
                 font-family: 'Suez One', serif;
+            }
+            .fuente_Gochi {
+                font-family: 'Gochi Hand', serif;
+                font-weigh
             }
             .borde-minimo-negro {
                 -webkit-text-stroke: 3px black;

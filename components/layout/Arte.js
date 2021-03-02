@@ -42,21 +42,27 @@ const Arte = ({url, id}) => {
 
       <div className="flex items-center justify-center space-x-8 bg-white p-5">
         <Link href={`/download/${id}`} passHref>
-          <a className="w-48 h-48 sombra rounded-2xl border-2 border-gray-800 overflow-hidden">
+          <a className="relative w-48 h-48 sombra rounded-2xl border-2 border-gray-800 overflow-hidden">
+            <div className="absolute top-2 right-2">
+              <div
+                className="flex items-center justify-center text-xs text-gray-800 bg-white rounded-lg font-normal p-1 border border-gray-800 sombrauno">
+                <IconEditar width={20} height={20} stroke={"#1f2937"} />
+              </div>
+            </div>
             <img src={url} />
           </a>
         </Link>
         <div className="flex justify-center flex-col items-center space-y-4">
-          <Link href={`/download/${id}`} passHref>
+          {/* <Link href={`/download/${id}`} passHref>
             <a 
               className="flex items-center justify-center text-xs text-gray-800 bg-green-100 rounded-2xl font-normal p-2 border border-gray-800 sombrauno">
               <IconEditar width={30} height={30} stroke={"#1f2937"} />
             </a>
-          </Link>
+          </Link> */}
           <button
             // onClick={() => handleClick(id)} 
             onClick={() => setAlerta(true)}
-            className="flex items-center justify-center text-xs text-gray-800 bg-red-100 rounded-2xl font-normal p-2 border border-gray-800 sombrauno">
+            className="flex items-center justify-center text-xs text-gray-800 bg-red-100 rounded-xl font-normal p-2 border border-gray-800 sombrauno">
             <IconDelete width={30} height={30} stroke={"#1f2937"} />
           </button>
         </div>

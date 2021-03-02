@@ -30,6 +30,7 @@ const ContenedorTexto = (props) => {
                 >
                     <option value="Kanit">Kanit</option>
                     <option value="Suez%20One">Suez One</option>
+                    <option value="Gochi%20Hand">Gochi Hand</option>
                 </select>
 
                 <select

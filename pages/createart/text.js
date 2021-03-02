@@ -130,9 +130,9 @@ const AgregarTexto = () => {
             handleTexto={handleTexto}
             handleFuente={handleFuente}
             handleColorFuente={handleColorFuente}
-            nombreMascota={texto.textoMascota ? texto.textoMascota : ""}
-            fuente={texto.fuente ? texto.fuente : "Kanit"}
-            colorFuente={texto.colorTexto ? texto.colorTexto : "black"}
+            nombreMascota={texto.textoMascota || ""}
+            fuente={texto.fuente || "Kanit"}
+            colorFuente={texto.colorTexto || "black"}
         />
 
         <Paginacion

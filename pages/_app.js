@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="shortcut icon" href="/favicon.ico" />
         {/* <link rel="mask-icon" href="logo-brevi.svg" color="#5bbad5"/> */}
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
-        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&family=Suez+One&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&family=Suez+One&display=swap&family=Gochi+Hand&display=swap" rel="stylesheet"/>
       </Head>
 
       <FirebaseContext.Provider

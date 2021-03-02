@@ -9,6 +9,7 @@ import Paginacion from "../../components/layout/Paginacion"
 import IconLoader from '../../components/icons/Loader'
 import IconUpload from '../../components/icons/Upload'
 import Toggle from '../../components/layout/Toggle'
+import AlertaUpload from '../../components/layout/AlertaUpload'
 import { subirACloudinaryRemoverFondo, subirACloudinaryConFondo, subirACloudinaryPng } from '../../utils/helper'
 
 export const CREDITOS = 1
@@ -50,9 +51,9 @@ const SubirImagen = () => {
       if(idInicial){
         setPublicId(idInicial)
       } 
-      const freeRbInicial = JSON.parse(window.localStorage.getItem('pet-rb'))
-      if(freeRbInicial !== ""){
-        setFreeCredit(freeRbInicial)
+      const creditoInicial = JSON.parse(window.localStorage.getItem('pet-rb'))
+      if(creditoInicial !== "" && creditoInicial !== null){
+        setFreeCredit(creditoInicial)
       } 
     }, [])
 
@@ -94,38 +95,38 @@ const SubirImagen = () => {
     }
     
     //funcion para definir a que preset subir la imagen
-    const definirPreset = (e) => {
-      const siseFile = e.target.files[0]
-      const file = e.target.value
-      const file_splitted = file.split('.')
-      const extension = file_splitted.pop()
+    // const definirPreset = (e) => {
+    //   const siseFile = e.target.files[0]
+    //   const file = e.target.value
+    //   const file_splitted = file.split('.')
+    //   const extension = file_splitted.pop()
 
-      if(siseFile.size >= 5349047) {
-        setAlerta(true)
-        setMensaje("Upload a smaller image. Max 5Mb")
-        return
-      }
-      if(extension === "png") {
-        subirPetPng(e)
-      } else if (extension === "jpg") {
-        subirPetConFondo(e)      
-      } else {
-        setAlerta(true)
-        setMensaje("Upload a jpg or png image")
-      }
-    }
+    //   if(siseFile.size >= 5349047) {
+    //     setAlerta(true)
+    //     setMensaje("Upload a smaller image. Max 5Mb")
+    //     return
+    //   }
+    //   if(extension === "png") {
+    //     subirPetPng(e)
+    //   } else if (extension === "jpg") {
+    //     subirPetConFondo(e)      
+    //   } else {
+    //     setAlerta(true)
+    //     setMensaje("Upload a jpg or png image")
+    //   }
+    // }
 
     //validar imagen sin remover background
     const validateImg = (e) => { 
       const fileUpload = e.target
-      var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png)$");
+      var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png|.jpeg)$");
       if (regex.test(fileUpload.value.toLowerCase())) {
           if (typeof (fileUpload.files) != "undefined") {
             const size = fileUpload.files[0].size
             const filesize = Math.round(size/1024)
-            if(filesize >= 5000) {
+            if(filesize >= 10000) {
               setAlerta(true)
-              setMensaje("Upload a smaller image. Max 5Mb")
+              setMensaje("Upload a smaller image. Max 10Mb")
               console.log(filesize)
               return
             }
@@ -141,7 +142,7 @@ const SubirImagen = () => {
                       var width = this.width
                       if (height < 1080 || width < 1080) {
                           setAlerta(true)
-                          setMensaje("At least you can upload a 1080*1080 photo size.")
+                          setMensaje("Image too small. The minimum size required is 1080*1080 pixels.")
                           return
                       } else {
                         if(extension === "png") {
@@ -149,7 +150,7 @@ const SubirImagen = () => {
                         } else {
                           subirPetConFondo(fileUpload.files[0])
                         }
-                        console.log("paso la validacion")
+                        // console.log("paso la validacion")
                       }
                   };
               }
@@ -160,7 +161,7 @@ const SubirImagen = () => {
           }
       } else {
           setAlerta(true)
-          setMensaje("Upload a jpg or png image.")
+          setMensaje("Upload a valid jpg or png image.")
           return
       }
       
@@ -169,14 +170,14 @@ const SubirImagen = () => {
     //validar imagen y remover background
     const validarImgRemoverBackground = (e) => { 
       const fileUpload = e.target
-      var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png)$");
+      var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png|.jpeg)$");
       if (regex.test(fileUpload.value.toLowerCase())) {
           if (typeof (fileUpload.files) != "undefined") {
             const size = fileUpload.files[0].size
             const filesize = Math.round(size/1024)
-            if(filesize >= 5000) {
+            if(filesize >= 10000) {
               setAlerta(true)
-              setMensaje("Upload a smaller image. Max 5Mb")
+              setMensaje("Upload a smaller image. Max 10Mb")
               console.log(filesize)
               return
             }
@@ -192,11 +193,11 @@ const SubirImagen = () => {
                       var width = this.width
                       if (height < 1080 || width < 1080) {
                           setAlerta(true)
-                          setMensaje("At least you can upload a 1080*1080 photo size.")
+                          setMensaje("Image too small. The minimum size required is 1080*1080 pixels.")
                           return
                       } else {
                         subirPetRemoverFondo(fileUpload.files[0])
-                        console.log("paso la validacion")
+                        // console.log("paso la validacion")
                       }
                   };
               }
@@ -207,7 +208,7 @@ const SubirImagen = () => {
           }
       } else {
           setAlerta(true)
-          setMensaje("Upload a jpg or png image.")
+          setMensaje("Upload a valid jpg or png image.")
           return
       }
       
@@ -338,7 +339,15 @@ const SubirImagen = () => {
           usuario={usuario}
           firebase={firebase}
         />
+
         {console.log(publicId.publicid)}
+
+        {alerta && !mostrarCargandoImagen &&
+          <AlertaUpload 
+            mensaje={mensaje}
+          />
+        }
+
         {publicId.publicid || mostrarCargandoImagen ?
           <ContenedorImagen 
               background={""}
@@ -359,11 +368,11 @@ const SubirImagen = () => {
           {/* <div className="z-10 w-80 h-80 bg-gray-200 animate-pulse mt-4 flex items-center justify-center mx-auto rounded-2xl">
           </div> */}
 
-        {alerta && !mostrarCargandoImagen &&
+        {/* {alerta && !mostrarCargandoImagen &&
           <Alerta 
             mensaje={mensaje}
           />
-        }
+        } */}
 
         <div className="w-80 h-16 mx-auto mt-8">
           <label
@@ -397,7 +406,7 @@ const SubirImagen = () => {
           // onChange={e => subirPetRemoverFondo(e)}
         />
 
-        {publicId.publicid && freeCredit > 0 &&
+        {publicId.publicid && publicId.format !== "png" && freeCredit > 0 ?
           <div  className="w-80 mx-auto mt-4">
             <p 
               className="text-xl font-bold text-gray-600 text-center ">You have {creditos} credits to remove the background.
@@ -416,6 +425,8 @@ const SubirImagen = () => {
               } 
             </p>
           </div>
+        :
+        ""
         }
 
         {publicId.publicid && 

@@ -67,7 +67,7 @@ const VerificacionCuenta = () => {
                             >Resend</button>
                         </div>
                         <div className="w-full flex items-center justify-center mt-8">
-                            <Link href="/iniciarsesion">
+                            <Link href="/login">
                             <a 
                                 className="w-full text-center mb-4 pt-3 pb-3.5 text-lg focus:outline-none text-principal border border-principal">
                                 I already verified my account
