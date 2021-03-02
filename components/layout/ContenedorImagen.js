@@ -63,7 +63,7 @@ const ContenedorImagen = (props) => {
                 <>
                 {/* {console.log(imagen.format)} */}
                 <Image
-                    className={`z-10 pt-2 ${mostrarCargandoImagen ? "animate-pulse" : ""}`}
+                    className={`absolute z-10 pt-2 bottom-0 ${mostrarCargandoImagen ? "animate-pulse" : ""}`}
                     cloudName="petportrait" 
                     secure="true"
                     publicId={imagen.publicid}
@@ -71,9 +71,9 @@ const ContenedorImagen = (props) => {
                     {filtro === "none" && <Transformation effect="sharpen" />}
                     {filtro === "vectorize" && <Transformation effect="vectorize" />}
                     {filtro === "grayscale" && <Transformation effect="grayscale" />}
-                    <Transformation effect="trim:20" />
+                    <Transformation effect="trim:10" />
                     <Transformation effect="sharpen" />
-                    <Transformation width="310" height="310" crop="fit" />
+                    <Transformation width="320" height="310" crop="fit" />
                 </Image>
                 </>
             }

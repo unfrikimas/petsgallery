@@ -127,7 +127,7 @@ export const descargarArte = async (publicId, filtro, urlBackground, frame, text
   
   //transformacion del frame
   if(frame.colorFrame !== "none") {
-    var transformacionFrame = `l_${urlBackground.idPublicoModificado},w_${frame.anchoFrame},bo_${frame.gruesoBordeFrame}px_solid_rgb:${valorColorFrame(frame.colorFrame)}/fl_layer_apply,g_south,y_110`
+    var transformacionFrame = `l_${urlBackground.idPublicoModificado},w_${frame.anchoFrame},bo_${frame.gruesoBordeFrame}px_solid_rgb:${valorColorFrame(frame.colorFrame)}/fl_layer_apply,g_south,y_110/`
     // var transformacionFrame = `l_${urlBackground.idPublicoModificado},w_${frame.anchoFrame},bo_${frame.gruesoBordeFrame}px_solid_rgb:${valorColor(frame.colorFrame)},g_south,y_110`
   } else {
     var transformacionFrame = ""
@@ -135,7 +135,7 @@ export const descargarArte = async (publicId, filtro, urlBackground, frame, text
 
   //transformacion de la imagen de la mascota
   const nombreMascotaSinBarras = reemplazarBarras(publicId.publicid)
-  const transformacionMascota = `l_${nombreMascotaSinBarras}${valorFiltro(filtro)},$ar_ar${valorEfecto(publicId.format)}/h_${calcularAlturaImagen(publicId.format)},${calcularAnchoImagen(publicId.format)}${valorCrop(publicId.format)},ar_$ar/fl_layer_apply,g_south,y_0`
+  const transformacionMascota = `l_${nombreMascotaSinBarras}${valorFiltro(filtro)},$ar_ar${valorEfecto(publicId.format)}/h_${calcularAlturaImagen(publicId.format)},w_1080,${valorCrop(publicId.format)},ar_$ar/fl_layer_apply,g_south,y_0`
   
   // const transformacionMascota = `l_${nombreMascotaSinBarras},h_${calcularAlturaImagen(publicId.format)},${calcularAnchoImagen(publicId.format)}g_south,y_0${valorFiltro(filtro)}`
 
@@ -148,7 +148,7 @@ export const descargarArte = async (publicId, filtro, urlBackground, frame, text
   }
   // const transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)},g_south,y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente)}`
 
-  const transformaciones = transformacionFrame+"/"+transformacionMascota+"/"+transformacionTexto
+  const transformaciones = transformacionFrame+transformacionMascota+"/"+transformacionTexto
 
   const urlCompleta = urlInicio+transformaciones+"/petsgallery/backs/"+urlBackground.archivoConExtension
   console.log(urlCompleta)
@@ -188,14 +188,15 @@ export const crearUrlArte = async (publicId, filtro, urlBackground, frame, texto
   //transformaciones
   //transformacion del frame
   if(frame.colorFrame !== "none") {
-    var transformacionFrame = `l_${urlBackground.idPublicoModificado},w_${frame.anchoFrame},bo_${frame.gruesoBordeFrame}px_solid_rgb:${valorColorFrame(frame.colorFrame)}/fl_layer_apply,g_south,y_110`
+    var transformacionFrame = `l_${urlBackground.idPublicoModificado},w_${frame.anchoFrame},bo_${frame.gruesoBordeFrame}px_solid_rgb:${valorColorFrame(frame.colorFrame)}/fl_layer_apply,g_south,y_110/`
   } else {
     var transformacionFrame = ""
   }
 
   //transformacion de la imagen de la mascota
   const nombreMascotaSinBarras = reemplazarBarras(publicId.publicid)
-  const transformacionMascota = `l_${nombreMascotaSinBarras}${valorFiltro(filtro)},$ar_ar${valorEfecto(publicId.format)}/e_sharpen:100/h_${calcularAlturaImagen(publicId.format)},${calcularAnchoImagen(publicId.format)}${valorCrop(publicId.format)},ar_$ar/fl_layer_apply,g_south,y_0`
+  const transformacionMascota = `l_${nombreMascotaSinBarras}${valorFiltro(filtro)},$ar_ar${valorEfecto(publicId.format)}/e_sharpen:100/h_${calcularAlturaImagen(publicId.format)},w_1080,${valorCrop(publicId.format)},ar_$ar/fl_layer_apply,g_south,y_0`
+  //${calcularAnchoImagen(publicId.format)}
   
   //transformacion del texto
   if(texto.textoMascota) {
@@ -204,7 +205,7 @@ export const crearUrlArte = async (publicId, filtro, urlBackground, frame, texto
     var transformacionTexto = ""
   }
 
-  const transformaciones = transformacionFrame+"/"+transformacionMascota+"/"+transformacionTexto
+  const transformaciones = transformacionFrame+transformacionMascota+"/"+transformacionTexto
   const urlCompleta = urlInicio+transformaciones+"/petsgallery/backs/"+urlBackground.archivoConExtension
   
   return urlCompleta

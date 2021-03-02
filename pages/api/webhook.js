@@ -57,7 +57,7 @@ const webHook = async (req, res) => {
         }
         console.log("desde webhook", req.body)
         return res.status(200).json({msg: "ok"});
-    } else if (req.method === 'POST') {
+    } else if (req.method === 'GET') {
         return res.status(200).json({msg: "ok"});   
     }
 }
