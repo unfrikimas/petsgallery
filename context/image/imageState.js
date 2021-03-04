@@ -9,6 +9,7 @@ import {
     ACTUALIZAR_FRAME,
     ACTUALIZAR_NOMBRE_MASCOTA,
     ACTUALIZAR_FUENTE,
+    ACTUALIZAR_POSICION_TEXTO,
     ACTUALIZAR_COLOR_FUENTE,
     ACTUALIZAR_COLOR_BORDE_FUENTE,
     ACTUALIZAR_FREE_CREDITS
@@ -47,7 +48,8 @@ const imageState = ({children}) => {
             grosorBorde: "30",
             colorBorde: "white",
             colorTexto: "black",
-            separacionTexto: "80"
+            separacionTexto: "80",
+            posicionTexto: "bottom"
         }
     }
 
@@ -131,6 +133,16 @@ const imageState = ({children}) => {
         }
     }    
 
+    //asignar posicion del texto al context
+    const asignarPosicionTexto = (posicion) => {
+        if(posicion) {
+            dispatch({
+                type: ACTUALIZAR_POSICION_TEXTO,
+                payload: posicion
+            })
+        }
+    }    
+
     //asignar tipo de fuente al context
     const asignarColorFuente = (colorFuente) => {
         if(colorFuente) {
@@ -169,6 +181,7 @@ const imageState = ({children}) => {
                 asignarFrame,
                 asignarNombreMascota,
                 asignarFuente,
+                asignarPosicionTexto,
                 asignarColorFuente,
                 asignarColorBordeFuente,
                 asignarCredito

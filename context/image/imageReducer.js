@@ -7,6 +7,7 @@ import {
     ACTUALIZAR_FRAME,
     ACTUALIZAR_NOMBRE_MASCOTA,
     ACTUALIZAR_FUENTE,
+    ACTUALIZAR_POSICION_TEXTO,
     ACTUALIZAR_COLOR_FUENTE,
     ACTUALIZAR_COLOR_BORDE_FUENTE,
     ACTUALIZAR_FREE_CREDITS
@@ -61,6 +62,14 @@ const imageReducer = (state, action) => {
                 nombreMascota: {
                     ...state.nombreMascota,
                     fuente: action.payload
+                }
+            }
+        case ACTUALIZAR_POSICION_TEXTO:
+            return {
+                ...state,
+                nombreMascota: {
+                    ...state.nombreMascota,
+                    posicionTexto: action.payload
                 }
             }
         case ACTUALIZAR_COLOR_FUENTE:

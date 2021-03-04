@@ -103,21 +103,21 @@ const ContenedorImagen = (props) => {
 
             { nombreMascota.textoMascota && nombreMascota.fuente === "Kanit" &&
                 <p 
-                  className={`z-20 absolute bottom-0 text-center font-extrabold ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-400"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_kanit ${calculoFuenteCotenedorImagen(nombreMascota.textoMascota, nombreMascota.fuente, nombreMascota.colorTexto)}`}>
+                  className={`z-20 absolute ${nombreMascota.posicionTexto === "top" ? "arriba" : "abajo"} text-center font-extrabold ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-400"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_kanit ${calculoFuenteCotenedorImagen(nombreMascota.textoMascota, nombreMascota.fuente, nombreMascota.colorTexto, nombreMascota.posicionTexto)}`}>
                     {nombreMascota.textoMascota}
                 </p>
             }
 
             { nombreMascota.textoMascota && nombreMascota.fuente === "Suez%20One" &&
                 <p 
-                  className={`z-20 absolute bottom-0 tracking-normal text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-400"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_Suez ${calculoFuenteCotenedorImagen(nombreMascota.textoMascota, nombreMascota.fuente, nombreMascota.colorTexto)}`}>
+                  className={`z-20 absolute ${nombreMascota.posicionTexto === "top" ? "arriba" : "abajo"} tracking-normal text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-400"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_Suez ${calculoFuenteCotenedorImagen(nombreMascota.textoMascota, nombreMascota.fuente, nombreMascota.colorTexto, nombreMascota.posicionTexto)}`}>
                     {nombreMascota.textoMascota}
                 </p>
             }
 
             { nombreMascota.textoMascota && nombreMascota.fuente === "Gochi%20Hand" &&
                 <p 
-                  className={`z-20 absolute bottom-0 tracking-normal text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-400"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_Gochi leading-none ${calculoFuenteCotenedorImagen(nombreMascota.textoMascota, nombreMascota.fuente, nombreMascota.colorTexto)}`}>
+                  className={`z-20 absolute ${nombreMascota.posicionTexto === "top" ? "arriba" : "abajo"} tracking-normal text-center ${nombreMascota.colorTexto === "white" && "text-white borde-negro"} ${nombreMascota.colorTexto === "black" && "text-black"} ${nombreMascota.colorTexto === "red" && "text-red-600"} ${nombreMascota.colorTexto === "pink" && "text-pink-600"} ${nombreMascota.colorTexto === "yellow" && "text-yellow-400"} ${nombreMascota.colorTexto === "blue" && "text-blue-600"} ${nombreMascota.colorTexto === "indigo" && "text-indigo-600"} ${nombreMascota.colorTexto === "purple" && "text-purple-600"} ${nombreMascota.colorTexto === "green" && "text-green-600"} fuente_Gochi leading-none ${calculoFuenteCotenedorImagen(nombreMascota.textoMascota, nombreMascota.fuente, nombreMascota.colorTexto, nombreMascota.posicionTexto)}`}>
                     {nombreMascota.textoMascota}
                 </p>
             }
@@ -125,14 +125,26 @@ const ContenedorImagen = (props) => {
         </div>
 
         <style jsx>{`
+            .abajo {
+                bottom: 0;
+            }
+            .arriba {
+                top: 0;
+            }
             .sombra {
                 box-shadow: 0px 4px 0px #18191F;
             }
             .fuente_kanit {
                 font-family: 'Kanit', serif;
             }
+            .fuente-2 {
+                font-size: 1.75rem;
+            }
             .fuente-3 {
                 font-size: 1.875rem;
+            }
+            .fuente-3-5 {
+                font-size: 2rem;
             }
             .fuente-4 {
                 font-size: 2.25rem;
@@ -149,8 +161,14 @@ const ContenedorImagen = (props) => {
             .fuente-5-5 {
                 font-size: 3.25rem;
             }
+            .fuente-5-7 {
+                font-size: 3.5rem;
+            }
             .fuente-6 {
                 font-size: 3.75rem;
+            }
+            .fuente-6-5 {
+                font-size: 4rem;
             }
             .fuente-7 {
                 font-size: 4.5rem;
@@ -160,6 +178,45 @@ const ContenedorImagen = (props) => {
             }
             .fuente-9 {
                 font-size: 5.5rem;
+            }
+            .arriba-menos-1 {
+                top: -0.25rem;
+            }
+            .arriba-menos-2 {
+                top: -0.5rem;
+            }
+            .arriba-0 {
+                top: 0rem;
+            }
+            .arriba-1 {
+                top: 0.25rem;
+            }
+            .arriba-2 {
+                top: 0.5rem;
+            }
+            .arriba-3 {
+                top: 0.75rem;
+            }
+            .arriba-4 {
+                top: 1rem;
+            }
+            .arriba-5 {
+                top: 1.25rem;
+            }
+            .arriba-6 {
+                top: 1.5rem;
+            }
+            .arriba-7 {
+                top: 1.75rem;
+            }
+            .arriba-8 {
+                top: 2rem;
+            }
+            .arriba-9 {
+                top: 2.25rem;
+            }
+            .arriba-10 {
+                top: 2.5rem;
             }
             .abajo-0 {
                 bottom: 0rem;

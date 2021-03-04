@@ -13,7 +13,7 @@ const AgregarTexto = () => {
 
     //context de la imagen
     const ImageContext = useContext(imageContext)
-    const { public_Id, filtro, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarFiltro, asignarBackground, asignarFrame, asignarNombreMascota, asignarFuente, asignarColorFuente, asignarColorBordeFuente } = ImageContext
+    const { public_Id, filtro, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarFiltro, asignarBackground, asignarFrame, asignarNombreMascota, asignarFuente, asignarPosicionTexto, asignarColorFuente, asignarColorBordeFuente } = ImageContext
 
     //states
     const [publicId, setPublicId] = useState(public_Id)
@@ -84,6 +84,14 @@ const AgregarTexto = () => {
         })
     }
 
+    const handlePosicionTexto = e => {
+      asignarPosicionTexto(e.target.value)
+        setTexto({
+            ...texto,
+            posicionTexto: e.target.value
+        })
+    }
+
     const handleColorFuente = e => {
       if(e.target.value === "white") {
         asignarColorFuente(e.target.value)
@@ -129,9 +137,11 @@ const AgregarTexto = () => {
         <ContenedorTexto 
             handleTexto={handleTexto}
             handleFuente={handleFuente}
+            handlePosicionTexto={handlePosicionTexto}
             handleColorFuente={handleColorFuente}
             nombreMascota={texto.textoMascota || ""}
             fuente={texto.fuente || "Kanit"}
+            posicion={texto.posicionTexto || "bottom"}
             colorFuente={texto.colorTexto || "black"}
         />
 

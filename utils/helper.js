@@ -142,7 +142,7 @@ export const descargarArte = async (publicId, filtro, urlBackground, frame, text
 
   //transformacion del texto
   if(texto.textoMascota) {
-    var transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)}/fl_layer_apply,g_south,y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente)}`
+    var transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)}/fl_layer_apply,g_${calcularPosicionTexto(texto.posicionTexto)},y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente, texto.posicionTexto)}`
   } else {
     var transformacionTexto = ""
   }
@@ -200,7 +200,7 @@ export const crearUrlArte = async (publicId, filtro, urlBackground, frame, texto
   
   //transformacion del texto
   if(texto.textoMascota) {
-    var transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)}/fl_layer_apply,g_south,y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente)}`
+    var transformacionTexto = `l_text:${texto.fuente}_${calculoFuenteCloud(texto.textoMascota, texto.fuente)}_${calculoPesoFuente(texto.fuente)}_${texto.tieneBorde}:${reemplazarEspacios(texto.textoMascota)},bo_${calculoBordeFuente(texto.textoMascota, texto.fuente)}px_solid_${texto.colorBorde},co_rgb:${valorColor(texto.colorTexto)}/fl_layer_apply,g_${calcularPosicionTexto(texto.posicionTexto)},y_${calculoDistanciaTextoCloud(texto.textoMascota, texto.fuente)}`
   } else {
     var transformacionTexto = ""
   }
@@ -266,6 +266,13 @@ export const calcularAlturaImagen = (formato) => {
   } else return altura="1080"
 }
 
+export const calcularPosicionTexto = (posicion) => {
+  let posicionTexto
+  if(posicion === "top") {
+    return posicionTexto="north"
+  } else return posicionTexto="south"
+}
+
 export const calcularAnchoImagen = (formato) => {
   let ancho
   if(formato === "png") {
@@ -303,22 +310,22 @@ export const valorColorFrame = (colorInput) => {
 export const calculoFuenteCloud = (texto, fuente) => {
   let size
   if(fuente === "Kanit") {
-    if(texto.length <= 4  && isUpperCase(texto)) return size="300" 
-    if(texto.length === 5  && isUpperCase(texto)) return size="250" 
-    if(texto.length === 6  && isUpperCase(texto)) return size="210" 
-    if(texto.length === 7  && isUpperCase(texto)) return size="190" 
-    if(texto.length === 8  && isUpperCase(texto)) return size="170" 
-    if(texto.length === 9  && isUpperCase(texto)) return size="150" 
-    if(texto.length === 10  && isUpperCase(texto)) return size="140" 
-    if(texto.length >= 11  && isUpperCase(texto)) return size="120" 
+    if(texto.length <= 4  && isUpperCase(texto)) return size="260" 
+    if(texto.length === 5  && isUpperCase(texto)) return size="220" 
+    if(texto.length === 6  && isUpperCase(texto)) return size="190" 
+    if(texto.length === 7  && isUpperCase(texto)) return size="160" 
+    if(texto.length === 8  && isUpperCase(texto)) return size="140" 
+    if(texto.length === 9  && isUpperCase(texto)) return size="125" 
+    if(texto.length === 10  && isUpperCase(texto)) return size="110" 
+    if(texto.length >= 11  && isUpperCase(texto)) return size="100" 
 
-    if(texto.length <= 4  && !isUpperCase(texto)) return size="300" 
-    if(texto.length === 5  && !isUpperCase(texto)) return size="280" 
-    if(texto.length === 6  && !isUpperCase(texto)) return size="240" 
-    if(texto.length === 7  && !isUpperCase(texto)) return size="210" 
-    if(texto.length === 8  && !isUpperCase(texto)) return size="180" 
-    if(texto.length === 9  && !isUpperCase(texto)) return size="160" 
-    if(texto.length === 10  && !isUpperCase(texto)) return size="140" 
+    if(texto.length <= 4  && !isUpperCase(texto)) return size="275" 
+    if(texto.length === 5  && !isUpperCase(texto)) return size="250" 
+    if(texto.length === 6  && !isUpperCase(texto)) return size="210" 
+    if(texto.length === 7  && !isUpperCase(texto)) return size="180" 
+    if(texto.length === 8  && !isUpperCase(texto)) return size="160" 
+    if(texto.length === 9  && !isUpperCase(texto)) return size="140" 
+    if(texto.length === 10  && !isUpperCase(texto)) return size="130" 
     if(texto.length >= 11  && !isUpperCase(texto)) return size="120" 
   }
 
@@ -328,20 +335,20 @@ export const calculoFuenteCloud = (texto, fuente) => {
     if(texto.length === 4  && isUpperCase(texto)) return size="250" 
     if(texto.length === 5  && isUpperCase(texto)) return size="220" 
     if(texto.length === 6  && isUpperCase(texto)) return size="180" 
-    if(texto.length === 7  && isUpperCase(texto)) return size="170" 
-    if(texto.length === 8  && isUpperCase(texto)) return size="150" 
-    if(texto.length === 9  && isUpperCase(texto)) return size="130" 
-    if(texto.length === 10  && isUpperCase(texto)) return size="120" 
-    if(texto.length >= 11  && isUpperCase(texto)) return size="100" 
+    if(texto.length === 7  && isUpperCase(texto)) return size="160" 
+    if(texto.length === 8  && isUpperCase(texto)) return size="140" 
+    if(texto.length === 9  && isUpperCase(texto)) return size="120" 
+    if(texto.length === 10  && isUpperCase(texto)) return size="110" 
+    if(texto.length >= 11  && isUpperCase(texto)) return size="95" 
 
-    if(texto.length <= 4  && !isUpperCase(texto)) return size="280" 
-    if(texto.length === 5  && !isUpperCase(texto)) return size="260" 
-    if(texto.length === 6  && !isUpperCase(texto)) return size="220" 
-    if(texto.length === 7  && !isUpperCase(texto)) return size="190" 
-    if(texto.length === 8  && !isUpperCase(texto)) return size="170" 
-    if(texto.length === 9  && !isUpperCase(texto)) return size="150" 
+    if(texto.length <= 4  && !isUpperCase(texto)) return size="270" 
+    if(texto.length === 5  && !isUpperCase(texto)) return size="250" 
+    if(texto.length === 6  && !isUpperCase(texto)) return size="210" 
+    if(texto.length === 7  && !isUpperCase(texto)) return size="180" 
+    if(texto.length === 8  && !isUpperCase(texto)) return size="160" 
+    if(texto.length === 9  && !isUpperCase(texto)) return size="140" 
     if(texto.length === 10  && !isUpperCase(texto)) return size="130" 
-    if(texto.length >= 11  && !isUpperCase(texto)) return size="110" 
+    if(texto.length >= 11  && !isUpperCase(texto)) return size="115" 
 
   }
 
@@ -351,7 +358,7 @@ export const calculoFuenteCloud = (texto, fuente) => {
     if(texto.length === 4  && isUpperCase(texto)) return size="280" 
     if(texto.length === 5  && isUpperCase(texto)) return size="260" 
     if(texto.length === 6  && isUpperCase(texto)) return size="240" 
-    if(texto.length === 7  && isUpperCase(texto)) return size="210" 
+    if(texto.length === 7  && isUpperCase(texto)) return size="200" 
     if(texto.length === 8  && isUpperCase(texto)) return size="180" 
     if(texto.length === 9  && isUpperCase(texto)) return size="150" 
     if(texto.length === 10  && isUpperCase(texto)) return size="135" 
@@ -365,135 +372,322 @@ export const calculoFuenteCloud = (texto, fuente) => {
     if(texto.length === 8  && !isUpperCase(texto)) return size="190" 
     if(texto.length === 9  && !isUpperCase(texto)) return size="160" 
     if(texto.length === 10  && !isUpperCase(texto)) return size="145" 
-    if(texto.length >= 11  && !isUpperCase(texto)) return size="130" 
+    if(texto.length >= 11  && !isUpperCase(texto)) return size="135" 
 
   }
 
 }
 
-export const calculoDistanciaTextoCloud = (texto, fuente) => {
+export const calculoDistanciaTextoCloud = (texto, fuente, posicion) => {
   let distancia
   if(fuente === "Kanit") {
-    if(texto.length <= 4  && isUpperCase(texto)) return distancia="70" 
-    if(texto.length === 5  && isUpperCase(texto)) return distancia="70" 
-    if(texto.length === 6  && isUpperCase(texto)) return distancia="80" 
-    if(texto.length === 7  && isUpperCase(texto)) return distancia="85" 
-    if(texto.length === 8  && isUpperCase(texto)) return distancia="90" 
-    if(texto.length === 9  && isUpperCase(texto)) return distancia="90" 
-    if(texto.length === 10  && isUpperCase(texto)) return distancia="100" 
-    if(texto.length >= 11  && isUpperCase(texto)) return distancia="110" 
+    if(texto.length <= 4  && isUpperCase(texto)) {
+      if(posicion === "top") {
+        return distancia="75" 
+      } else return distancia="70"
+    }
+    if(texto.length === 5  && isUpperCase(texto)) {
+      if(posicion === "top") {
+        return distancia="90"
+      } else return distancia="70"
+    } 
+    if(texto.length === 6  && isUpperCase(texto)) {
+      if(posicion === "top") {
+        return distancia="100"
+      }  else return distancia="80" 
+    }
+    if(texto.length === 7  && isUpperCase(texto)) {
+      if(posicion === "top") {
+        return distancia="105"
+      } else return distancia="85" 
+    }
+    if(texto.length === 8  && isUpperCase(texto)) {
+      if(posicion === "top") {
+        return distancia="115"
+      } else return distancia="90" 
+    }
+    if(texto.length === 9  && isUpperCase(texto)) {
+      if(posicion === "top") {
+        return distancia="120"
+      } else return distancia="90" 
+    }
+    if(texto.length === 10  && isUpperCase(texto)) {
+      if(posicion === "top") {
+        return distancia="130"
+      } else return distancia="100" 
+    }
+    if(texto.length >= 11  && isUpperCase(texto)) {
+      if(posicion === "top") {
+        return distancia="135"
+      } else return distancia="110" 
+    }
 
     if(!isUpperCase(texto)) {
       if(texto.length <= 4) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="50"
-        } else return distancia="70"
+          if(posicion === "top") {
+            return distancia="60"
+          } else return distancia="50"
+        } else {
+          if(posicion === "top") {
+            return distancia="60"
+          } else return distancia="90"
+        }
       }
       if(texto.length === 5) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="50"
-        } else return distancia="80"
+          if(posicion === "top") {
+            return distancia="70"
+          } else return distancia="50"
+        } else {
+          if(posicion === "top") {
+            return distancia="70"  
+          } else return distancia="80"
+        } 
       }
       if(texto.length === 6) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="50"
-        } else return distancia="90"
+          if(posicion === "top") {
+            return distancia="80"
+          } else return distancia="50"
+        } else {
+          if(posicion === "top") {
+            return distancia="80"
+          } else return distancia="90" 
+        }
       }
       if(texto.length === 7) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="60"
-        } else return distancia="90"
+          if(posicion==="top") {
+            return distancia="90"
+          } return distancia="60"
+        } else {
+          if(posicion==="top") {
+            return distancia="90"
+          } else return distancia="90"
+        }
       }
       if(texto.length === 8) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="60"
-        } else return distancia="90"
+          if(posicion==="top"){
+            return distancia="100"
+          } return distancia="60"
+        } else {
+          if(posicion==="top"){
+            return distancia="100"
+          } else return distancia="90"
+        }
       }
       if(texto.length === 9) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="70"
-        } else return distancia="90"
+          if(posicion==="top"){
+            return distancia="110"
+          } return distancia="70"
+        } else {
+          if(posicion==="top"){
+            return distancia="110"
+          } else return distancia="90"
+        }
       }
       if(texto.length === 10) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="70"
-        } else return distancia="100"
+          if(posicion==="top"){
+            return distancia="120"
+          } return distancia="70"
+        } else {
+          if(posicion==="top"){
+            return distancia="120"
+          } else return distancia="100"
+        }
       }
       if(texto.length >= 11) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="70"
-        } else return distancia="100"
+          if(posicion==="top"){
+            return distancia="120"
+          } return distancia="70"
+        } else {
+          if(posicion==="top"){
+            return distancia="120"
+          } else return distancia="100"
+        }
       }
     }
   }
 
   if(fuente === "Suez%20One") {
 
-    if(texto.length <= 4  && isUpperCase(texto)) return distancia="90" 
-    if(texto.length === 5  && isUpperCase(texto)) return distancia="90" 
-    if(texto.length === 6  && isUpperCase(texto)) return distancia="90" 
-    if(texto.length === 7  && isUpperCase(texto)) return distancia="90" 
-    if(texto.length === 8  && isUpperCase(texto)) return distancia="90" 
-    if(texto.length === 9  && isUpperCase(texto)) return distancia="100" 
-    if(texto.length === 10  && isUpperCase(texto)) return distancia="100" 
-    if(texto.length >= 11  && isUpperCase(texto)) return distancia="110" 
+    if(texto.length <= 4  && isUpperCase(texto)) {
+      if(posicion==="top"){
+        return distancia="80"
+      } else return distancia="90" 
+    }
+    if(texto.length === 5  && isUpperCase(texto)) {
+      if(posicion==="top"){
+        return distancia="90"
+      } else return distancia="90"
+    } 
+    if(texto.length === 6  && isUpperCase(texto)) {
+      if(posicion==="top"){
+        return distancia="110"
+      } else return distancia="90"
+    } 
+    if(texto.length === 7  && isUpperCase(texto)) {
+      if(posicion==="top"){
+        return distancia="110"
+      } else return distancia="90" 
+    }
+    if(texto.length === 8  && isUpperCase(texto)) {
+      if(posicion==="top"){
+        return distancia="120"
+      } else return distancia="90"
+    } 
+    if(texto.length === 9  && isUpperCase(texto)) {
+      if(posicion==="top"){
+        return distancia="130"
+      } else return distancia="100"
+    } 
+    if(texto.length === 10  && isUpperCase(texto)) {
+      if(posicion==="top"){
+        return distancia="130"
+      } else return distancia="100"
+    } 
+    if(texto.length >= 11  && isUpperCase(texto)) {
+      if(posicion==="top"){
+        return distancia="140"
+      } else return distancia="110"
+    } 
 
     if(!isUpperCase(texto)) {
       if(texto.length <= 4) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="50"
-        } else return distancia="90"
+          if(posicion==="top"){
+            return distancia="45"
+          } else return distancia="50"
+        } else {
+          if(posicion==="top"){
+            return distancia="45"
+          } else return distancia="90"
+        } 
       }
       if(texto.length === 5) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="50"
-        } else return distancia="90"
+          if(posicion==="top"){
+            return distancia="50"
+          } else return distancia="50"
+        } else{
+          if(posicion==="top"){
+            return distancia="50"
+          } else return distancia="90"
+        }
       }
       if(texto.length === 6) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="60"
-        } else return distancia="90"
+          if(posicion==="top"){
+            return distancia="70"
+          } else return distancia="60"
+        } else {
+          if(posicion==="top"){
+            return distancia="70"
+          } else return distancia="90"
+        }
       }
       if(texto.length === 7) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="60"
-        } else return distancia="90"
+          if(posicion==="top"){
+            return distancia="80"
+          } else return distancia="60"
+        } else{
+          if(posicion==="top"){
+            return distancia="80"
+          } else return distancia="90"
+        }
       }
       if(texto.length === 8) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="60"
-        } else return distancia="90"
+          if(posicion==="top"){
+            return distancia="90"
+          } else return distancia="60"
+        } else {
+          if(posicion==="top"){
+            return distancia="90"
+          } else return distancia="90"
+        }
       }
       if(texto.length === 9) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="70"
-        } else return distancia="90"
+          if(posicion==="top"){
+            return distancia="105"
+          } else return distancia="70"
+        } else {
+          if(posicion==="top"){
+            return distancia="105"
+          } else return distancia="90"
+        }
       }
       if(texto.length === 10) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="70"
-        } else return distancia="90"
+          if(posicion==="top"){
+            return distancia="110"
+          } else return distancia="70"
+        } else {
+          if(posicion==="top"){
+            return distancia="110"
+          } else return distancia="90"
+        }
       }
       if(texto.length >= 11) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          console.log(">=11", texto)
-          return distancia="70"
-        } else return distancia="100"
+          if(posicion==="top"){
+            return distancia="115"
+          } else return distancia="70"
+        } else {
+          if(posicion==='top'){
+            return distancia="115"
+          } else return distancia="100"
+        }
       }
     }
   }
 
   if(fuente === "Gochi%20Hand") {
 
-    if(texto.length <= 3  && isUpperCase(texto)) return distancia="70" 
-    if(texto.length === 4  && isUpperCase(texto)) return distancia="80" 
-    if(texto.length === 5  && isUpperCase(texto)) return distancia="80" 
-    if(texto.length === 6  && isUpperCase(texto)) return distancia="80" 
-    if(texto.length === 7  && isUpperCase(texto)) return distancia="90" 
-    if(texto.length === 8  && isUpperCase(texto)) return distancia="90" 
-    if(texto.length === 9  && isUpperCase(texto)) return distancia="90" 
-    if(texto.length === 10  && isUpperCase(texto)) return distancia="90" 
-    if(texto.length >= 11  && isUpperCase(texto)) return distancia="95" 
+    if(texto.length <= 3 && isUpperCase(texto)) return distancia="70" 
+    if(texto.length === 4 && isUpperCase(texto)) return distancia="80" 
+    if(texto.length === 5 && isUpperCase(texto)) {
+      if(posicion==="top"){
+        return distancia="90"
+      } else return distancia="80"
+    } 
+    if(texto.length === 6 && isUpperCase(texto)) {
+      if(posicion==="top"){
+        return distancia="90"
+      } else return distancia="80"
+    } 
+    if(texto.length === 7 && isUpperCase(texto)) {
+      if(posicion==="top"){
+        return distancia="100"
+      } else return distancia="90"
+    }
+    if(texto.length === 8 && isUpperCase(texto)) {
+      if(posicion==="top"){
+        return distancia="110"
+      } else return distancia="90" 
+    }
+    if(texto.length === 9 && isUpperCase(texto)) {
+      if(posicion==="top"){
+        return distancia="120"
+      } else return distancia="90" 
+    }
+    if(texto.length === 10 && isUpperCase(texto)) {
+      if(posicion==="top"){
+        return distancia="125"
+      } else return distancia="90"
+    } 
+    if(texto.length >= 11 && isUpperCase(texto)) {
+      if(posicion==="top"){
+        return distancia="130"
+      } else return distancia="95" 
+    }
 
     if(!isUpperCase(texto)) {
       if(texto.length <= 3) {
@@ -503,44 +697,91 @@ export const calculoDistanciaTextoCloud = (texto, fuente) => {
       }
       if(texto.length === 4) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="30"
-        } else return distancia="80"
+          if(posicion==="top"){
+            return distancia="35"
+          } else return distancia="30"
+        } else {
+          if(posicion==="top"){
+            distancia="40"
+          } else return distancia="80"
+        }
       }
       if(texto.length === 5) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="35"
-        } else return distancia="85"
+          if(posicion==="top"){
+            return distancia="45"
+          } else return distancia="35"
+        } else {
+          if(posicion==="top"){
+            return ditancia="50"
+          } else return distancia="85"
+        }
       }
       if(texto.length === 6) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="35"
-        } else return distancia="85"
+          if(posicion==="top"){
+            return distancia="55"
+          } else return distancia="35"
+        } else {
+          if(posicion==="top"){
+            return distancia="60"
+          } else return distancia="85"
+        }
       }
       if(texto.length === 7) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="35"
-        } else return distancia="85"
+          if(posicion==="top"){
+            return distancia="75"
+          } else return distancia="35"
+        } else {
+          if(posicion==="top"){
+            return distancia="80"
+          } else return distancia="85"
+        }
       }
       if(texto.length === 8) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="35"
-        } else return distancia="90"
+          if(posicion==="top"){
+            return distancia="90"
+          } else return distancia="35"
+        } else {
+          if(posicion==="top"){
+            return distancia="90"
+          } else return distancia="90"
+        }
       }
       if(texto.length === 9) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="50"
-        } else return distancia="90"
+          if(posicion==="top"){
+            return distancia="100"
+          } else return distancia="50"
+        } else {
+          if(posicion==="top"){
+            return distancia="105"
+          } else return distancia="90"
+        }
       }
       if(texto.length === 10) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          return distancia="55"
-        } else return distancia="90"
+          if(posicion==="top"){
+            return distancia="110"
+          } else return distancia="55"
+        } else {
+          if(posicion==="top"){
+            return distancia=110
+          } else return distancia="90"
+        }
       }
       if(texto.length >= 11) {
         if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
-          console.log(">=11", texto)
-          return distancia="65"
-        } else return distancia="95"
+          if(posicion==="top"){
+            return distancia="120"
+          } else return distancia="65"
+        } else {
+          if(posicion==="top"){
+            return distancia="120"
+          } else return distancia="95"
+        }
       }
     }
   }
@@ -644,69 +885,79 @@ export const isUpperCase = (str) => {
 }
 
 
-export const calculoFuenteCotenedorImagen = (texto, fuente, color) => {
+export const calculoFuenteCotenedorImagen = (texto, fuente, color, posicion) => {
   let size
   if(fuente === "Kanit") {
     if(texto.length <=5  && isUpperCase(texto)) {
       if(color==="white") {
-        return size="fuente-7 borde-maximo-negro" 
-      } else return size="fuente-7 borde-maximo-blanco" 
+        return size=`fuente-6-5 borde-maximo-negro ${posicion === "top" ? "arriba-1" : "abajo-0"}` 
+      } else return size=`fuente-6-5 borde-maximo-blanco ${posicion === "top" ? "arriba-1" : "abajo-0"}`
     }
     if(texto.length === 6 && isUpperCase(texto)) {
       if(color==="white") {
-        return size="fuente-6 borde-maximo-negro abajo-1"
-      } else return size="fuente-6 borde-maximo-blanco abajo-1"
+        return size=`fuente-5-7 borde-maximo-negro ${posicion === "top" ? "arriba-2" : "abajo-1"}`
+      } else return size=`fuente-5-7 borde-maximo-blanco ${posicion === "top" ? "arriba-2" : "abajo-1"}`
     }
     if(texto.length === 7 && isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-5 borde-maximo-negro abajo-2"
-      } else return size="fuente-5 borde-maximo-blanco abajo-2"
+        return size=`fuente-5 borde-maximo-negro ${posicion === "top" ? "arriba-4" : "abajo-2"}`
+      } else return size=`fuente-5 borde-maximo-blanco ${posicion === "top" ? "arriba-4" : "abajo-2"}`
     }
     if(texto.length === 8 && isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-5 borde-maximo-negro abajo-2"
-      } else return size="fuente-5 borde-maximo-blanco abajo-2"
+        return size=`fuente-5 borde-maximo-negro ${posicion === "top" ? "arriba-5" : "abajo-2"}`
+      } else return size=`fuente-5 borde-maximo-blanco ${posicion === "top" ? "arriba-5" : "abajo-2"}`
     }
     if(texto.length === 9 && isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-4 borde-minimo-negro abajo-3"
-      } else return size="fuente-4 borde-maximo-blanco abajo-3"
+        return size=`fuente-4-5 borde-minimo-negro ${posicion === "top" ? "arriba-5" : "abajo-3"}`
+      } else return size=`fuente-4-5 borde-maximo-blanco ${posicion === "top" ? "arriba-5" : "abajo-3"}`
     }
-    if(texto.length >= 10 && isUpperCase(texto)) {
+    if(texto.length === 10 && isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-4 borde-minimo-negro abajo-3"
-      } else return size="fuente-4 borde-minimo-blanco abajo-3"
+        return size=`fuente-4 borde-minimo-negro ${posicion === "top" ? "arriba-6" : "abajo-3"}`
+      } else return size=`fuente-4 borde-minimo-blanco ${posicion === "top" ? "arriba-6" : "abajo-3"}`
+    }
+    if(texto.length >= 11 && isUpperCase(texto)) {
+      if(color==="white") {  
+        return size=`fuente-3 borde-minimo-negro ${posicion === "top" ? "arriba-8" : "abajo-3"}`
+      } else return size=`fuente-3 borde-minimo-blanco ${posicion === "top" ? "arriba-8" : "abajo-3"}`
     }
 
-    if(texto.length <= 6 && !isUpperCase(texto)) {
+    if(texto.length <= 5 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-7 borde-maximo-negro" 
-      } else return size="fuente-7 borde-maximo-blanco" 
+        return size=`fuente-7 borde-maximo-negro ${posicion === "top" ? "arriba-menos-1" : "abajo-0"}` 
+      } else return size=`fuente-7 borde-maximo-blanco ${posicion === "top" ? "arriba-menos-1" : "abajo-0"}` 
+    }
+    if(texto.length === 6 && !isUpperCase(texto)) {
+      if(color==="white") {  
+        return size="fuente-6-5 borde-maximo-negro" 
+      } else return size="fuente-6-5 borde-maximo-blanco" 
     }
     if(texto.length === 7 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-6 borde-maximo-negro abajo-1"
-      } else return size="fuente-6 borde-maximo-blanco abajo-1"
+        return size=`fuente-5-7 borde-maximo-negro ${posicion === "top" ? "arriba-1" : "abajo-1"}`
+      } else return size=`fuente-5-7 borde-maximo-blanco abajo-1 ${posicion === "top" ? "arriba-2" : "abajo-1"}`
     }
     if(texto.length === 8 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-5 borde-maximo-negro abajo-2" 
-      } else return size="fuente-5 borde-maximo-blanco abajo-2"
+        return size=`fuente-5 borde-maximo-negro ${posicion === "top" ? "arriba-4" : "abajo-2"}`
+      } else return size=`fuente-5 borde-maximo-blanco ${posicion === "top" ? "arriba-4" : "abajo-2"}`
     } 
     if(texto.length === 9 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-5 borde-minimo-negro abajo-2" 
-      } else return size="fuente-5 borde-maximo-blanco abajo-2" 
+        return size=`fuente-4-7 borde-minimo-negro ${posicion === "top" ? "arriba-5" : "abajo-2"}` 
+      } else return size=`fuente-4-7 borde-maximo-blanco ${posicion === "top" ? "arriba-5" : "abajo-2"}` 
     }
     if(texto.length === 10 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-4 borde-minimo-negro abajo-3" 
-      } else return size="fuente-4 borde-minimo-blanco abajo-3" 
+        return size=`fuente-4-5 borde-minimo-negro ${posicion === "top" ? "arriba-5" : "abajo-3"}` 
+      } else return size=`fuente-4-5 borde-minimo-blanco ${posicion === "top" ? "arriba-5" : "abajo-3"}` 
     }
     if(texto.length >= 11 && !isUpperCase(texto)) {
       if(color==="white") {  
         return size="fuente-4 borde-minimo-negro abajo-3" 
-      } else return size="fuente-4 borde-minimo-blanco abajo-3"
+      } else return size=`fuente-4 borde-minimo-blanco ${posicion === "top" ? "arriba-6" : "abajo-3"}`
     } 
   } 
   
@@ -720,37 +971,37 @@ export const calculoFuenteCotenedorImagen = (texto, fuente, color) => {
     if(texto.length === 5 && isUpperCase(texto)) {
       if(color==="white") {  
         return size="fuente-6 borde-maximo-negro abajo-1" 
-      } else return size="fuente-6 borde-maximo-blanco abajo-1" 
+      } else return size=`fuente-6-5 borde-maximo-blanco ${posicion === "top" ? "arriba-1" : "abajo-1"}` 
     }
     if(texto.length === 6 && isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-6 borde-maximo-negro abajo-1"
-      } else return size="fuente-6 borde-maximo-blanco abajo-1"
+        return size=`fuente-5-7 borde-maximo-negro ${posicion === "top" ? "arriba-3" : "abajo-1"}`
+      } else return size=`fuente-5-7 borde-maximo-blanco ${posicion === "top" ? "arriba-3" : "abajo-1"}`
     }
     if(texto.length === 7 && isUpperCase(texto)) {
       if(color==="white") {  
-       return size="fuente-5 borde-maximo-negro abajo-2"
-      } else return size="fuente-5 borde-maximo-blanco abajo-2"
+       return size=`fuente-5 borde-maximo-negro ${posicion === "top" ? "arriba-5" : "abajo-2"}`
+      } else return size=`fuente-5 borde-maximo-blanco ${posicion === "top" ? "arriba-5" : "abajo-2"}`
     }
     if(texto.length === 8 && isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-5 borde-minimo-negro abajo-2"
-      } else return size="fuente-5 borde-minimo-blanco abajo-2"
+        return size=`fuente-4-5 borde-minimo-negro ${posicion === "top" ? "arriba-6" : "abajo-2"}`
+      } else return size=`fuente-4-5 borde-minimo-blanco ${posicion === "top" ? "arriba-6" : "abajo-2"}`
     }
     if(texto.length === 9 && isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-4 borde-minimo-negro abajo-3"
-      } else return size="fuente-4 borde-minimo-blanco abajo-3"
+        return size=`fuente-4 borde-minimo-negro ${posicion === "top" ? "arriba-7" : "abajo-3"}`
+      } else return size=`fuente-4 borde-minimo-blanco ${posicion === "top" ? "arriba-7" : "abajo-3"}`
     }
     if(texto.length === 10 && isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-4 borde-minimo-negro abajo-3"
-      } else return size="fuente-4 borde-minimo-blanco abajo-3"
+        return size=`fuente-3-5 borde-minimo-negro ${posicion === "top" ? "arriba-8" : "abajo-3"}`
+      } else return size=`fuente-3-5 borde-minimo-blanco ${posicion === "top" ? "arriba-8" : "abajo-3"}`
     }
     if(texto.length >= 11 && isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-3 borde-minimo-negro abajo-4"
-      } else return size="fuente-3 borde-minimo-blanco abajo-4"
+        return size=`fuente-2 borde-minimo-negro ${posicion === "top" ? "arriba-8" : "abajo-4"}`
+      } else return size=`fuente-2 borde-minimo-blanco ${posicion === "top" ? "arriba-8" : "abajo-4"}`
     }
 
     if(texto.length <= 5 && !isUpperCase(texto)) {
@@ -760,33 +1011,33 @@ export const calculoFuenteCotenedorImagen = (texto, fuente, color) => {
     }
     if(texto.length === 6 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-6 borde-maximo-negro abajo-1" 
-      } else return size="fuente-6 borde-maximo-blanco abajo-1" 
+        return size=`fuente-6 borde-maximo-negro ${posicion === "top" ? "arriba-2" : "abajo-1"}` 
+      } else return size=`fuente-6 borde-maximo-blanco abajo-1 ${posicion === "top" ? "arriba-2" : "abajo-1"}`
     }
     if(texto.length === 7 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-6 borde-maximo-negro abajo-1" 
-      } else return size="fuente-6 borde-maximo-blanco abajo-1" 
+        return size=`fuente-5-7 borde-maximo-negro ${posicion === "top" ? "arriba-2" : "abajo-1"}` 
+      } else return size=`fuente-5-7 borde-maximo-blanco ${posicion === "top" ? "arriba-2" : "abajo-1"}` 
     }
     if(texto.length === 8 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-5 borde-minimo-negro abajo-2"
-      } else return size="fuente-5 borde-minimo-blanco abajo-2"
+        return size=`fuente-5 borde-minimo-negro ${posicion === "top" ? "arriba-4" : "abajo-2"}`
+      } else return size=`fuente-5 borde-minimo-blanco ${posicion === "top" ? "arriba-4" : "abajo-2"}`
     }
     if(texto.length === 9 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-5 borde-minimo-negro abajo-2" 
-      } else return size="fuente-5 borde-minimo-blanco abajo-2" 
+        return size=`fuente-4-7 borde-minimo-negro ${posicion === "top" ? "arriba-5" : "abajo-2"}`
+      } else return size=`fuente-4-7 borde-minimo-blanco ${posicion === "top" ? "arriba-5" : "abajo-2"}`
     }
     if(texto.length === 10 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-4 borde-minimo-negro abajo-3" 
-      } else return size="fuente-4 borde-minimo-blanco abajo-3"
+        return size=`fuente-4-5 borde-minimo-negro abajo-3 ${posicion === "top" ? "arriba-6" : "abajo-3"}` 
+      } else return size=`fuente-4-5 borde-minimo-blanco ${posicion === "top" ? "arriba-6" : "abajo-3"}`
     } 
     if(texto.length >= 11 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-4 borde-minimo-negro abajo-3" 
-      } else return size="fuente-4 borde-minimo-blanco abajo-3" 
+        return size=`fuente-4 borde-minimo-negro ${posicion === "top" ? "arriba-7" : "abajo-3"}` 
+      } else return size=`fuente-4 borde-minimo-blanco ${posicion === "top" ? "arriba-7" : "abajo-3"}` 
     }
   }
 
@@ -794,84 +1045,84 @@ export const calculoFuenteCotenedorImagen = (texto, fuente, color) => {
 
     if(texto.length <= 4 && isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-8 borde-maximo-negro abajo-1" 
-      } else return size="fuente-8 borde-maximo-blanco abajo-1" 
+        return size=`fuente-8 borde-maximo-negro ${posicion === "top" ? "arriba-4" : "abajo-1"}` 
+      } else return size=`fuente-8 borde-maximo-blanco ${posicion === "top" ? "arriba-4" : "abajo-1"}`
     }
     if(texto.length === 5 && isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-8 borde-maximo-negro abajo-1" 
-      } else return size="fuente-8 borde-maximo-blanco abajo-1" 
+        return size=`fuente-8 borde-maximo-negro ${posicion === "top" ? "arriba-4" : "abajo-1"}`
+      } else return size=`fuente-8 borde-maximo-blanco ${posicion === "top" ? "arriba-4" : "abajo-1"}`
     }
     if(texto.length === 6 && isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-7 borde-maximo-negro abajo-1"
-      } else return size="fuente-7 borde-maximo-blanco abajo-1"
+        return size=`fuente-7 borde-maximo-negro ${posicion === "top" ? "arriba-5" : "abajo-1"}`
+      } else return size=`fuente-7 borde-maximo-blanco ${posicion === "top" ? "arriba-5" : "abajo-1"}`
     }
     if(texto.length === 7 && isUpperCase(texto)) {
       if(color==="white") {  
-       return size="fuente-6 borde-maximo-negro abajo-2"
-      } else return size="fuente-6 borde-maximo-blanco abajo-2"
+       return size=`fuente-6 borde-maximo-negro ${posicion === "top" ? "arriba-6" : "abajo-2"}`
+      } else return size=`fuente-6 borde-maximo-blanco ${posicion === "top" ? "arriba-6" : "abajo-2"}`
     }
     if(texto.length === 8 && isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-6 borde-minimo-negro abajo-2"
-      } else return size="fuente-6 borde-minimo-blanco abajo-2"
+        return size=`fuente-5-7 borde-minimo-negro ${posicion === "top" ? "arriba-7" : "abajo-2"}`
+      } else return size=`fuente-5-7 borde-minimo-blanco ${posicion === "top" ? "arriba-7" : "abajo-2"}`
     }
     if(texto.length === 9 && isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-5 borde-minimo-negro abajo-3"
-      } else return size="fuente-5 borde-minimo-blanco abajo-3"
+        return size=`fuente-5 borde-minimo-negro ${posicion === "top" ? "arriba-8" : "abajo-3"}`
+      } else return size=`fuente-5 borde-minimo-blanco ${posicion === "top" ? "arriba-8" : "abajo-3"}`
     }
     if(texto.length === 10 && isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-4-5 borde-minimo-negro abajo-3"
-      } else return size="fuente-4-5 borde-minimo-blanco abajo-3"
+        return size=`fuente-4-5 borde-minimo-negro ${posicion === "top" ? "arriba-9" : "abajo-3"}`
+      } else return size=`fuente-4-5 borde-minimo-blanco ${posicion === "top" ? "arriba-9" : "abajo-3"}`
     }
     if(texto.length >= 11 && isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-4 borde-minimo-negro abajo-4"
-      } else return size="fuente-4 borde-minimo-blanco abajo-4"
+        return size=`fuente-4 borde-minimo-negro ${posicion === "top" ? "arriba-9" : "abajo-4"}`
+      } else return size=`fuente-4 borde-minimo-blanco ${posicion === "top" ? "arriba-9" : "abajo-4"}`
     }
 
     if(texto.length <= 4 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-9 borde-maximo-negro abajo-0" 
-      } else return size="fuente-9 borde-maximo-blanco abajo-0" 
+        return size=`fuente-9 borde-maximo-negro ${posicion === "top" ? "arriba-3" : "abajo-0"}` 
+      } else return size=`fuente-9 borde-maximo-blanco ${posicion === "top" ? "arriba-3" : "abajo-0"}`
     }
     if(texto.length === 5 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-9 borde-maximo-negro abajo-0"
-      } else return size="fuente-9 borde-maximo-blanco abajo-0" 
+        return size=`fuente-9 borde-maximo-negro ${posicion === "top" ? "arriba-3" : "abajo-0"}`
+      } else return size=`fuente-9 borde-maximo-blanco ${posicion === "top" ? "arriba-3" : "abajo-0"}`
     }
     if(texto.length === 6 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-8 borde-maximo-negro abajo-1" 
-      } else return size="fuente-8 borde-maximo-blanco abajo-1" 
+        return size=`fuente-8 borde-maximo-negro ${posicion === "top" ? "arriba-4" : "abajo-1"}`
+      } else return size=`fuente-8 borde-maximo-blanco ${posicion === "top" ? "arriba-4" : "abajo-1"}` 
     }
     if(texto.length === 7 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-7 borde-maximo-negro abajo-2" 
-      } else return size="fuente-7 borde-maximo-blanco abajo-2" 
+        return size=`fuente-6-5 borde-maximo-negro ${posicion === "top" ? "arriba-6" : "abajo-2"}`
+      } else return size=`fuente-6-5 borde-maximo-blanco ${posicion === "top" ? "arriba-6" : "abajo-2"}`
     }
     if(texto.length === 8 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-6 borde-minimo-negro abajo-2"
-      } else return size="fuente-6 borde-minimo-blanco abajo-2"
+        return size=`fuente-6 borde-minimo-negro ${posicion === "top" ? "arriba-6" : "abajo-2"}`
+      } else return size=`fuente-6 borde-minimo-blanco ${posicion === "top" ? "arriba-6" : "abajo-2"}`
     }
     if(texto.length === 9 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-5-5 borde-minimo-negro abajo-3" 
-      } else return size="fuente-5-5 borde-minimo-blanco abajo-3" 
+        return size=`fuente-5-5 borde-minimo-negro ${posicion === "top" ? "arriba-7" : "abajo-3"}`
+      } else return size=`fuente-5-5 borde-minimo-blanco ${posicion === "top" ? "arriba-7" : "abajo-3"}` 
     }
     if(texto.length === 10 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-4-7 borde-minimo-negro abajo-3" 
-      } else return size="fuente-4-7 borde-minimo-blanco abajo-3"
+        return size=`fuente-4-7 borde-minimo-negro ${posicion === "top" ? "arriba-8" : "abajo-3"}` 
+      } else return size=`fuente-4-7 borde-minimo-blanco ${posicion === "top" ? "arriba-8" : "abajo-3"}`
     } 
     if(texto.length >= 11 && !isUpperCase(texto)) {
       if(color==="white") {  
-        return size="fuente-4-5 borde-minimo-negro abajo-4" 
-      } else return size="fuente-4-5 borde-minimo-blanco abajo-4" 
+        return size=`fuente-4-5 borde-minimo-negro ${posicion === "top" ? "arriba-9" : "abajo-4"}`
+      } else return size=`fuente-4-5 borde-minimo-blanco ${posicion === "top" ? "arriba-9" : "abajo-4"}` 
     }
   }
 
