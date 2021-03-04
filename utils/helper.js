@@ -135,7 +135,7 @@ export const descargarArte = async (publicId, filtro, urlBackground, frame, text
 
   //transformacion de la imagen de la mascota
   const nombreMascotaSinBarras = reemplazarBarras(publicId.publicid)
-  const transformacionMascota = `l_${nombreMascotaSinBarras}${valorFiltro(filtro)},$ar_ar${valorEfecto(publicId.format)}/h_${calcularAlturaImagen(publicId.format)},w_1080,${valorCrop(publicId.format)},ar_$ar/fl_layer_apply,g_south,y_0`
+  const transformacionMascota = `l_${nombreMascotaSinBarras}${valorFiltro(filtro)},$ar_ar/e_sharpen${valorEfecto(publicId.format)}/h_${calcularAlturaImagen(publicId.format)},w_1080,${valorCrop(publicId.format)},ar_$ar/fl_layer_apply,g_south,y_0`
   
   // const transformacionMascota = `l_${nombreMascotaSinBarras},h_${calcularAlturaImagen(publicId.format)},${calcularAnchoImagen(publicId.format)}g_south,y_0${valorFiltro(filtro)}`
 
@@ -195,7 +195,7 @@ export const crearUrlArte = async (publicId, filtro, urlBackground, frame, texto
 
   //transformacion de la imagen de la mascota
   const nombreMascotaSinBarras = reemplazarBarras(publicId.publicid)
-  const transformacionMascota = `l_${nombreMascotaSinBarras}${valorFiltro(filtro)},$ar_ar${valorEfecto(publicId.format)}/e_sharpen:100/h_${calcularAlturaImagen(publicId.format)},w_1080,${valorCrop(publicId.format)},ar_$ar/fl_layer_apply,g_south,y_0`
+  const transformacionMascota = `l_${nombreMascotaSinBarras}${valorFiltro(filtro)},$ar_ar/e_sharpen${valorEfecto(publicId.format)}/h_${calcularAlturaImagen(publicId.format)},w_1080,${valorCrop(publicId.format)},ar_$ar/fl_layer_apply,g_south,y_0`
   //${calcularAnchoImagen(publicId.format)}
   
   //transformacion del texto
@@ -249,7 +249,7 @@ export const valorFiltro = (filtro) => {
 
 export const valorEfecto = (formato) => {
   let efecto
-  if(formato === "png") return efecto="/e_trim:25"
+  if(formato === "png") return efecto="/e_trim:20"
   if(formato === "jpg") return efecto=""
 }
 
