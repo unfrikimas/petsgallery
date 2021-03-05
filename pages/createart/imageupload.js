@@ -116,6 +116,32 @@ const SubirImagen = () => {
     //   }
     // }
 
+    const handleUpload = (e) => {
+      const file_splitted = e.target.value.split('.')
+      const extension = file_splitted.pop()
+      if(extension === "png") {
+        subirPetPng(e.target.files[0])
+      } else if(extension === "jpg") {
+        subirPetConFondo(e.target.files[0])
+      } else {
+        setAlerta(true)
+        setMensaje("Upload a valid jpg or png image.")
+        return
+      }
+    }
+
+    const handleUploadRemove = (e) => {
+      const file_splitted = e.target.value.split('.')
+      const extension = file_splitted.pop()
+      if(extension === "png" || extension === "jpg") {
+        subirPetRemoverFondo(e.target.files[0])
+      } else {
+        setAlerta(true)
+        setMensaje("Upload a valid jpg or png image.")
+        return
+      }
+    }
+
     //validar imagen sin remover background
     const validateImg = (e) => { 
       const fileUpload = e.target
@@ -260,7 +286,6 @@ const SubirImagen = () => {
       setMostrarCargadoImagen(true)
       subirACloudinaryPng(e)
         .then((imagen) => {
-          console.log({imagen})
           setPublicId({
             publicid: imagen.public_id,
             format: imagen.format
@@ -390,7 +415,7 @@ const SubirImagen = () => {
                 type="file" 
                 accept="image/*"
                 name="inputImagen"
-                onChange={e => validateImg(e)}
+                onChange={e => handleUpload(e)}
             />
               { mostrarCargandoImagen ? 
                 <IconLoader className="animate-spin" width={30} heigth={30} stroke={"#1f2937"} />
@@ -409,7 +434,7 @@ const SubirImagen = () => {
           ref={inputRef}
           accept="image/*"
           name="inputRemoverFondo"
-          onChange={e => validarImgRemoverBackground(e)}
+          onChange={e => handleUploadRemove(e)}
           // onChange={e => subirPetRemoverFondo(e)}
         />
 
