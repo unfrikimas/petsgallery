@@ -219,16 +219,16 @@ const SubirImagen = () => {
     const subirPetRemoverFondo = (e) => {
       setMostrarCargadoImagen(true)
       subirACloudinaryRemoverFondo(e)
-        .then((imagen) => {          
-          setPublicId({
-            publicid: imagen.public_id,
-            format: "png"
-          })
+        .then(data => {
+            esperarImagen(data)
         })
-        // .then(data => {
-        //     esperarImagen(data)
-        // })
         .catch(error => console.log(error))
+        // .then((imagen) => {          
+        //   setPublicId({
+        //     publicid: imagen.public_id,
+        //     format: "png"
+        //   })
+        // })
     }
     // //funcion para subir la imagen a Cloudinary
     // const subirPetRemoverFondo = () => {
@@ -260,6 +260,7 @@ const SubirImagen = () => {
       setMostrarCargadoImagen(true)
       subirACloudinaryPng(e)
         .then((imagen) => {
+          console.log({imagen})
           setPublicId({
             publicid: imagen.public_id,
             format: imagen.format
@@ -315,15 +316,15 @@ const SubirImagen = () => {
     // console.log("assetid", assetId)
     const ref = firebase.db.collection("mascotas")
     await ref
-      .where('imagen_sin_background.asset_id', '==', data.asset_id)
+      .where('asset_id', '==', data.asset_id)
       .onSnapshot((querySnapshot) => {
         const pets = []
         querySnapshot.forEach((doc) => {
             pets.push(doc.data())
         });
         setPublicId({
-          publicid: pets[0]?.imagen_sin_background.public_id,
-          format: "png"
+          publicid: pets[0]?.public_id,
+          format: pets[0]?.format
         })
         //setFreeCredit(freeCredit - 1) descontar de la base de datos.
       });

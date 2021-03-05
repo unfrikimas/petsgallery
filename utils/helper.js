@@ -691,7 +691,7 @@ export const calculoDistanciaTextoCloud = (texto, fuente, posicion) => {
 
     if(!isUpperCase(texto)) {
       if(texto.length <= 3) {
-        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y') || texto.includes('f')) {
           return distancia="30"
         } else return distancia="80"
       }
@@ -729,10 +729,10 @@ export const calculoDistanciaTextoCloud = (texto, fuente, posicion) => {
         }
       }
       if(texto.length === 7) {
-        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y')) {
+        if(texto.includes('p') || texto.includes('q') || texto.includes('g') || texto.includes('y') || texto.includes('f')) {
           if(posicion==="top"){
             return distancia="75"
-          } else return distancia="35"
+          } else return distancia="45"
         } else {
           if(posicion==="top"){
             return distancia="80"
