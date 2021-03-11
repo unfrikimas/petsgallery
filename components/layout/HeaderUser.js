@@ -18,8 +18,8 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
 
   return (
     <>
-      <header className="h-16 px-4 border-b-2 border-gray-800">
-        <div className="h-full flex justify-between items-center">
+      <header className="h-16 contenedor-imagen-w mx-auto px-4">
+        <div className="h-full w-full flex justify-between items-center">
           <Link href="/createart/imageupload">
             <h2 className="text-gray-800 font-bold text-xl cursor-pointer">P</h2>
           </Link>
@@ -41,7 +41,7 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
                   >
                     {usuario.photoURL ?                    
                       <img
-                        className="rounded-full border-2 border-gray-800"
+                        className="rounded-full"
                         src={usuario.photoURL}
                         width={30}
                         height={30}
@@ -100,7 +100,7 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
                         ) : (
                           <Link href="/dashboard">
                             <a
-                              className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                              className="block px-4 py-3 text-md text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                               role="menuitem"
                             >
                               Art dashboard
@@ -110,14 +110,14 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
                         <a
                           href="https://api.whatsapp.com/send?phone=+34682811728&text=Hola, me interesa una tarjeta web personalizada"
                           target="_blank"
-                          className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                          className="block px-4 py-2 text-md text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                           role="menuitem"
                         >
                           Contact us
                         </a>
                         <button
                           type="button"
-                          className="block w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                          className="block w-full text-left px-4 py-3 text-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                           role="menuitem"
                           onClick={() => cerrarSesion()}
                         >
@@ -137,6 +137,13 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
           </div>
         </div>
       </header>
+      <style jsx>
+        {`
+          .contenedor-imagen-w {
+            width: 360px;
+          }
+        `}
+      </style>
     </>
   );
 };

@@ -100,12 +100,13 @@ export const BACKS = {
 };
 
 const ContenedorFondos = (props) => {
+  
   const { nombre, handleBack } = props;
 
   return (
     <>
-    <div className={`mt-6 section-overflow-x`}>
-      <div className={`relative pl-6 py-3 horizontal-frame-list`}>
+    <div className={`mt-4 section-overflow-x`}>
+      <div className={`relative py-3 horizontal-frame-list`}>
         <figure className={`rounded-2xl ${nombre === 'rayos' ? "sombra" : ""}`}>
           <picture>
             <img
@@ -169,6 +170,7 @@ const ContenedorFondos = (props) => {
         .section-overflow-x {
           overflow-x: auto;
           overscroll-behavior-x: contain;
+          padding-left: 1rem;
         }
         .horizontal-frame-list {
           display: grid;
@@ -190,10 +192,7 @@ const ContenedorFondos = (props) => {
           cursor: pointer;
           margin: 0;
           user-select: none;
-          transition: transform .2s ease-in-out;
-        }
-        figure:hover {
-          transform: scale(1.1);
+          transition: all .2s ease-in-out;
         }
         picture {
           display: inline-block;
@@ -209,8 +208,7 @@ const ContenedorFondos = (props) => {
 
         }
         .sombra {
-          box-shadow: 0px 4px 0px #18191F;
-          transform: scale(1.1);
+          box-shadow: 0px 2px 0px #ffbd12;
         }
       `}
     </style>

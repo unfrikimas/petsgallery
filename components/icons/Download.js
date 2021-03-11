@@ -6,7 +6,6 @@ export default function IconDownload(props) {
       xmlns="http://www.w3.org/2000/svg"
       className="prefix__icon prefix__icon-tabler prefix__icon-tabler-download"
       viewBox="0 0 24 24"
-      strokeWidth={2}
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"

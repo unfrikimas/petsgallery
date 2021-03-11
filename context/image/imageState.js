@@ -26,25 +26,25 @@ const imageState = ({children}) => {
         },
         secureUrl: "",
         rutaBackground: {
-            nombre: "amarillo",
-            urlLocal: "/images/backs/back1.jpg",
-            archivoConExtension: "back1_hlttte.jpg",
-            archivoSinExtension: "back1_hlttte",
-            idPublico: "petsgallery/backs/back1_hlttte",
-            idPublicoModificado: "petsgallery:backs:back1_hlttte",
+            nombre: "rayos",
+            urlLocal: "https://res.cloudinary.com/petportrait/image/upload/v1614663001/petsgallery/backs/fondos_pets-06_hjgnzg.jpg",
+            archivoConExtension: "fondos_pets-06_hjgnzg.jpg",
+            archivoSinExtension: "fondos_pets-06_hjgnzg",
+            idPublico: "petsgallery/backs/fondos_pets-06_hjgnzg",
+            idPublicoModificado: "petsgallery:backs:fondos_pets-06_hjgnzg"
         },
         filtro: "none",
         tieneFrame: {
             anchoFrame: "730",
             gruesoBordeFrame: "40",
-            colorFrame: "none"
+            colorFrame: "pink"
         },
         nombreMascota: {
             fuente: "Kanit",
             sizeFuente: "300",
             estiloFuente: "bold",
             tieneBorde: "stroke",
-            textoMascota: "",
+            textoMascota: "Your Pet",
             grosorBorde: "30",
             colorBorde: "white",
             colorTexto: "black",
