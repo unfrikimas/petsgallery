@@ -57,10 +57,6 @@ const SubirImagen = () => {
     const ruta = router.pathname
 
     useEffect(() => {
-      // const sesionInicial = JSON.parse(window.localStorage.getItem('pets-isLogged'))
-      // if(sesionInicial){
-      //   setUsuarioLogueado(true)
-      // }
       const idInicial = JSON.parse(window.localStorage.getItem('publicId'))
       if(idInicial){
         setPublicId(idInicial)
@@ -128,6 +124,12 @@ const SubirImagen = () => {
         window.localStorage.setItem('urlBackground', JSON.stringify(urlBackground))
       }
     },[urlBackground])
+
+    useEffect(() => {
+      if(frame.colorFrame) {
+          window.localStorage.setItem('frame', JSON.stringify(frame))
+      }
+    },[frame])
 
     useEffect(() => {
       if(filtroImagen){
