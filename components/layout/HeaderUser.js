@@ -18,9 +18,9 @@ const HeaderUser = ({ titulo, usuario, firebase }) => {
 
   return (
     <>
-      <header className="h-16 contenedor-imagen-w mx-auto px-4">
+      <header className="h-16 contenedor-imagen-w mx-auto px-4 border-b border-gray-300">
         <div className="h-full w-full flex justify-between items-center">
-          <Link href="/createart/imageupload">
+          <Link href="/createart/new">
             <h2 className="text-gray-800 font-bold text-xl cursor-pointer">P</h2>
           </Link>
 

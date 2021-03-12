@@ -41,11 +41,11 @@ const Arte = ({url, id}) => {
       }
 
       <div className="flex items-center justify-center space-x-8 bg-white p-5">
-        <Link href={`/download/${id}`} passHref>
-          <a className="relative w-48 h-48 sombra rounded-2xl border-2 border-gray-800 overflow-hidden">
+        <Link href={`/arts/${id}`} passHref>
+          <a className="relative w-48 h-48 overflow-hidden">
             <div className="absolute top-2 right-2">
               <div
-                className="flex items-center justify-center text-xs text-gray-800 bg-white rounded-lg font-normal p-1 border border-gray-800 sombrauno">
+                className="flex items-center justify-center text-xs text-gray-800 bg-white bg-opacity-50 rounded-lg font-normal p-1 border border-gray-800 sombrauno">
                 <IconEditar width={20} height={20} stroke={"#1f2937"} />
               </div>
             </div>
@@ -53,17 +53,10 @@ const Arte = ({url, id}) => {
           </a>
         </Link>
         <div className="flex justify-center flex-col items-center space-y-4">
-          {/* <Link href={`/download/${id}`} passHref>
-            <a 
-              className="flex items-center justify-center text-xs text-gray-800 bg-green-100 rounded-2xl font-normal p-2 border border-gray-800 sombrauno">
-              <IconEditar width={30} height={30} stroke={"#1f2937"} />
-            </a>
-          </Link> */}
           <button
-            // onClick={() => handleClick(id)} 
             onClick={() => setAlerta(true)}
-            className="flex items-center justify-center text-xs text-gray-800 bg-red-100 rounded-xl font-normal p-2 border border-gray-800 sombrauno">
-            <IconDelete width={30} height={30} stroke={"#1f2937"} />
+            className="flex items-center justify-center text-xs text-gray-800 bg-red-100 rounded-xl font-normal p-2 border border-red-800 sombrauno">
+            <IconDelete className="text-red-800" width={25} height={25} stroke={"currentColor"} />
           </button>
         </div>
       </div>

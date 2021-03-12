@@ -1,33 +1,33 @@
 import React, { useState, useContext, useEffect, useRef } from "react"
 import Link from 'next/link'
 import {useRouter} from 'next/router'
-import HeaderUser from "../../components/layout/HeaderUser"
+import HeaderUser from "./HeaderUser"
 import { FirebaseContext } from '../../firebase'
 import imageContext from '../../context/image/imageContext'
-import ContenedorImagen from "../../components/layout/ContenedorImagen"
-import Paginacion from "../../components/layout/Paginacion"
-import IconLoader from '../../components/icons/Loader'
-import IconUpload from '../../components/icons/Upload'
-import Toggle from '../../components/layout/Toggle'
-import AlertaUpload from '../../components/layout/AlertaUpload'
+import ContenedorImagen from "./ContenedorImagen"
+import Paginacion from "./Paginacion"
+import IconLoader from '../icons/Loader'
+import IconUpload from '../icons/Upload'
+import Toggle from './Toggle'
+import AlertaUpload from './AlertaUpload'
 import { subirACloudinaryRemoverFondo, subirACloudinaryConFondo, subirACloudinaryPng } from '../../utils/helper'
 
-import ContenedorImagenFull from '../../components/layout/ContenedorImagenFull'
-import IconText from '../../components/icons/edicion/Text'
-import IconBack from '../../components/icons/edicion/Background'
-import IconFilter from '../../components/icons/edicion/Filter'
-import IconDownload from '../../components/icons/Download'
-import ContenedorOpciones from "../../components/layout/ContenedorOpciones"
-import ContenedorOpcionesFondos from '../../components/layout/ContenedorOpcionesFondos'
-import ContenedorOpcionesFrame from '../../components/layout/ContenedorOpcionesFrame'
-import ContenedorOptionesFiltro from '../../components/layout/ContenedorOpcionesFiltro'
-import ContenedorOptionesTexto from '../../components/layout/ContenedorOpcionesTexto'
+import ContenedorImagenFull from './ContenedorImagenFull'
+import IconText from '../icons/edicion/Text'
+import IconBack from '../icons/edicion/Background'
+import IconFilter from '../icons/edicion/Filter'
+import IconDownload from '../icons/Download'
+import ContenedorOpciones from "./ContenedorOpciones"
+import ContenedorOpcionesFondos from './ContenedorOpcionesFondos'
+import ContenedorOpcionesFrame from './ContenedorOpcionesFrame'
+import ContenedorOptionesFiltro from './ContenedorOpcionesFiltro'
+import ContenedorOptionesTexto from './ContenedorOpcionesTexto'
 import { descargarArte, guardarArteDB } from '../../utils/helper'
 
 
 export const CREDITOS = 1
 
-const NuevoArte = () => {
+const NuevoArte = ({arte}) => {
   
     //context de firebase
     const { usuario, firebase } = useContext(FirebaseContext)
@@ -36,11 +36,11 @@ const NuevoArte = () => {
     const ImageContext = useContext(imageContext)
     const { public_Id, filtro, creditos, rutaBackground, tieneFrame, nombreMascota, guardarIdPublico, asignarCredito, asignarFiltro, asignarBackground, asignarFrame, asignarNombreMascota, asignarFuente, asignarPosicionTexto, asignarColorFuente, asignarColorBordeFuente } = ImageContext
 
-    const [publicId, setPublicId] = useState(public_Id)
-    const [filtroImagen, setFiltroImagen] = useState(filtro)
-    const [urlBackground, setUrlBackground] = useState(rutaBackground)
-    const [frame, setFrame] = useState(tieneFrame)
-    const [texto, setTexto] = useState(nombreMascota)
+    const [publicId, setPublicId] = useState(arte.props.publicId)
+    const [filtroImagen, setFiltroImagen] = useState(arte.props.filtro)
+    const [urlBackground, setUrlBackground] = useState(arte.props.urlBackground)
+    const [frame, setFrame] = useState(arte.props.frame)
+    const [texto, setTexto] = useState(arte.props.texto)
 
     const [mostrarCargandoImagen, setMostrarCargadoImagen] = useState(false)
     const [freeCredit, setFreeCredit] = useState(creditos)
@@ -56,36 +56,36 @@ const NuevoArte = () => {
     const router = useRouter()
     const ruta = router.pathname
 
-    useEffect(() => {
-      const idInicial = JSON.parse(window.localStorage.getItem('publicId'))
-      if(idInicial){
-        setPublicId(idInicial)
-      }
-      const backgroundInicial = JSON.parse(window.localStorage.getItem('urlBackground'))
-      if(backgroundInicial){
-        setUrlBackground(backgroundInicial)
-        asignarBackground(backgroundInicial)
-      }
-      const filtroInicial = JSON.parse(window.localStorage.getItem('pets-filter'))
-      if(filtroInicial){
-        setFiltroImagen(filtroInicial)
-        asignarFiltro(filtroInicial)
-      }
-      const frameInicial = JSON.parse(window.localStorage.getItem('frame'))
-      if(frameInicial){
-        setFrame(frameInicial)
-        asignarFrame(frameInicial.colorFrame)
-      }
-      const textoInicial = JSON.parse(window.localStorage.getItem('petsgallery-texto'))
-      if (textoInicial) {
-        setTexto(textoInicial)
-        asignarNombreMascota(textoInicial.textoMascota)
-      }
-      const creditoInicial = JSON.parse(window.localStorage.getItem('pet-rb'))
-      if(creditoInicial !== "" && creditoInicial !== null){
-        setFreeCredit(creditoInicial)
-      } 
-    }, [])
+    // useEffect(() => {
+    //   const idInicial = JSON.parse(window.localStorage.getItem('publicId'))
+    //   if(idInicial){
+    //     setPublicId(idInicial)
+    //   }
+    //   const backgroundInicial = JSON.parse(window.localStorage.getItem('urlBackground'))
+    //   if(backgroundInicial){
+    //     setUrlBackground(backgroundInicial)
+    //     asignarBackground(backgroundInicial)
+    //   }
+    //   const filtroInicial = JSON.parse(window.localStorage.getItem('pets-filter'))
+    //   if(filtroInicial){
+    //     setFiltroImagen(filtroInicial)
+    //     asignarFiltro(filtroInicial)
+    //   }
+    //   const frameInicial = JSON.parse(window.localStorage.getItem('frame'))
+    //   if(frameInicial){
+    //     setFrame(frameInicial)
+    //     asignarFrame(frameInicial.colorFrame)
+    //   }
+    //   const textoInicial = JSON.parse(window.localStorage.getItem('petsgallery-texto'))
+    //   if (textoInicial) {
+    //     setTexto(textoInicial)
+    //     asignarNombreMascota(textoInicial.textoMascota)
+    //   }
+    //   const creditoInicial = JSON.parse(window.localStorage.getItem('pet-rb'))
+    //   if(creditoInicial !== "" && creditoInicial !== null){
+    //     setFreeCredit(creditoInicial)
+    //   } 
+    // }, [])
 
     useEffect(() => {
       if(usuario && freeCredit){
@@ -227,27 +227,6 @@ const NuevoArte = () => {
       })
     }
     
-    //funcion para definir a que preset subir la imagen
-    // const definirPreset = (e) => {
-    //   const siseFile = e.target.files[0]
-    //   const file = e.target.value
-    //   const file_splitted = file.split('.')
-    //   const extension = file_splitted.pop()
-
-    //   if(siseFile.size >= 5349047) {
-    //     setAlerta(true)
-    //     setMensaje("Upload a smaller image. Max 5Mb")
-    //     return
-    //   }
-    //   if(extension === "png") {
-    //     subirPetPng(e)
-    //   } else if (extension === "jpg") {
-    //     subirPetConFondo(e)      
-    //   } else {
-    //     setAlerta(true)
-    //     setMensaje("Upload a jpg or png image")
-    //   }
-    // }
 
     const handleClickDownload = () => {
       setAnimacion(true)
@@ -388,18 +367,6 @@ const NuevoArte = () => {
       
     }
 
-
-
-    // //funcion para subir la imagen a Cloudinary
-    // const subirPetRemoverFondo = () => {
-    //   setMostrarCargadoImagen(true)
-    //   subirACloudinaryRemoverFondo(publicId.publicid)
-    //     .then(idImagen => {
-    //         esperarImagen(idImagen)
-    //     })
-    //     .catch(error => console.log(error))
-    // }
-
     //funcion para subir la imagen a Cloudinary
     const subirPetConFondo = (e) => {
       setPublicId("")
@@ -505,38 +472,14 @@ const NuevoArte = () => {
         //setFreeCredit(freeCredit - 1) descontar de la base de datos.
       });
   }
-  // //REALTIME GET FUNCTION
-  // const esperarImagen = async (data) => {
-  //   // console.log("assetid", assetId)
-  //   const ref = firebase.db.collection("mascotas")
-  //   await ref
-  //     .where('asset_id', '==', data.asset_id)
-  //     .onSnapshot((querySnapshot) => {
-  //       let pets = []
-  //       querySnapshot.forEach(doc => {
-  //           pets.push(doc.data())
-  //       });
-  //       setPublicId({
-  //         publicid: pets[0]?.public_id,
-  //         format: pets[0]?.format
-  //       })
-  //       //setFreeCredit(freeCredit - 1) descontar de la base de datos.
-  //     });
-  // }
 
-    // const noExiste = publicId.publicid === ""
-    // const mensaje = noExiste ? 
-    // `<div className="w-80 h-80 bg-gray-200 animate-pulse mt-4 flex items-center justify-center mx-auto rounded-2xl">
-    // </div>`
-    // :
-    // ""
 
     return (
     <>
       <div className="relative contenedor max-w-lg mx-auto">
 
         <HeaderUser 
-          titulo={"New Art"}
+          titulo={"Edit Art"}
           usuario={usuario}
           firebase={firebase}
         />
@@ -644,7 +587,6 @@ const NuevoArte = () => {
               :
               <IconDownload width={30} heigth={30} stroke={"currentColor"} strokeWidth={1.5}/>
             }              
-              {/* <IconDownload width={40} heigth={40} stroke={"#1f2937"} /> */}
             </button>
           </div>
         )}
@@ -680,38 +622,7 @@ const NuevoArte = () => {
           accept="image/*"
           name="inputRemoverFondo"
           onChange={e => handleUploadRemove(e)}
-          // onChange={e => subirPetRemoverFondo(e)}
         />
-
-        {/* {publicId.publicid && publicId.format !== "png" && freeCredit > 0 ?
-          <div  className="w-80 mx-auto mt-4">
-            <p 
-              className="text-xl font-bold text-gray-600 text-center ">You have {creditos} credits to remove the background.
-              {usuario ?
-                <button 
-                  className="text-amarillo font-bold pl-1"
-                  onClick={handleClickInputRef}
-                >
-                  Use it
-                </button>              
-              :
-                <Link href={{pathname: '/login', query: {path: `${ruta}`} }} passHref>
-                  <a className="text-amarillo"> Sign up</a>
-                </Link>
-              } 
-            </p>
-          </div>
-        :
-        ""
-        } */}
-
-        {/* <section className={`z-20 opciones ${mostrarOpciones ? "opciones-activo" : ""} rounded-t-2xl`}>
-          <button 
-            className="w-12 h-1 bg-gray-800 block mx-auto rounded-full"
-            onClick={() => setMostrarOpciones(!mostrarOpciones)}
-          >
-          </button>
-        </section> */}
 
         <ContenedorOpciones
           mostrarOpciones={mostrarOpciones}
